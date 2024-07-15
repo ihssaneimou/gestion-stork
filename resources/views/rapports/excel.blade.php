@@ -4,7 +4,6 @@
               
                 <th>Nom</th>
                 <th>Categorie</th>
-                <th>barre code</th>
                 <th>Quantite</th>
                 <th>Entre</th>
                 <th>Sortie</th>
@@ -17,7 +16,6 @@
                     <td>
                         {{ $marchandise->categories->nom ?? $marchandise->categories }}
                     </td>
-                    <td>{{ $marchandise->barre_code }}</td>
                     <td>{{ $marchandise->solde  }}</td>
                     <td>{{ $marchandise->entres }}</td>
                     <td>{{  $marchandise->sorties  }}</td>
