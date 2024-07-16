@@ -37,6 +37,13 @@ Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.up
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
+
+Route::post('/api/create-sortie', [sortieController::class, 'storescan']);
+Route::post('/api/create-entree', [entreController::class, 'storescan']);
+Route::post('/api/get-marchandise-info', [marchandiseController::class, 'getMarchandiseInfo']);
+
+
+
 Route::get('/documents', [categorieController::class, 'index'])->name('categories.index');
 Route::get('/categories', [categorieController::class, 'index_cat'])->name('categories.index_cat');
 Route::get('/categories/create', [categorieController::class, 'create'])->name('categories.create');

@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\entreController;
 use App\Http\Controllers\magazin;
+use App\Http\Controllers\marchandiseController;
+use App\Http\Controllers\sortieController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
 
 
 
