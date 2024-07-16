@@ -10,6 +10,15 @@
 }
 
     </style>
+    <style>
+        .qr-code {
+            transition: transform 0.3s ease-in-out;
+        }
+        .enlarged {
+            transform: scale(2);
+            z-index: 1000;
+        }
+    </style>
     <div id="cont" class="">
         <div class="container  w-full">
             <!-- Error Message -->
@@ -56,7 +65,7 @@
         <div class="">
             <div class="w-full">
                 <div class=" flex justify-center  sm:justify-end sm:mr-5 mb-10"> 
-                <p class="text-2xl w-full m-3 pl-4  sm:pl-6 underline underline-offset-4">Rapport</p>
+                <p class="text-2xl w-full m-3   sm:pl-6 underline underline-offset-4">Rapport</p>
                 <div class="mr-5 mb-10">
                 <a href="{{ route('rapports.courbe') }}" title="courbe"
                     aria-label="Modifier"
@@ -288,7 +297,7 @@
                     </table>
                 </div>
             @else
-                <h2 class="text-gray-300 text-8xl select-none text-center mt-32">aucune marchendise</h2>
+                <h2 class="text-gray-300 text-xl sm:text-8xl select-none text-center mt-32">aucune marchendise</h2>
             @endif
             <script>
                 function warnning(id) {
@@ -358,6 +367,15 @@
                 document.getElementById('end').addEventListener('input', function() {
                     var endDate = this.value;
                     document.getElementById('start').setAttribute('max', endDate);
+                });
+            </script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const qrCodeContainer = document.getElementById('qrCodeContainer');
+        
+                    qrCodeContainer.addEventListener('click', function() {
+                        this.classList.toggle('enlarged');
+                    });
                 });
             </script>
             {{ $marchandises->links() }}
