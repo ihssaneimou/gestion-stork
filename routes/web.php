@@ -10,6 +10,7 @@ use App\Http\Controllers\rapportController;
 use App\Http\Controllers\sortieController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use Spatie\FlareClient\View;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +96,12 @@ Route::get('/admin/update/{user}', [UserController::class, 'modif']);
 Route::put('/admin/update/{user}', [UserController::class, 'modif_info'])->name('user.update');
 Route::put('/admin/password/{user}', [UserController::class, 'modif_password'])->name('user.password');
 Route::delete('/admin/delete', [UserController::class, 'delete']);
+Route::get('/scanner', function () {
+    return View('scanner.scanner');
+});
+Route::get('/qrscan', function () {
+    return View('scanner.html5-qrcode.min.js');
+});
 });
 
 require __DIR__.'/auth.php';
