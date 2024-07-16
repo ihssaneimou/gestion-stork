@@ -47,16 +47,13 @@ class marchandiseController extends Controller
         return view('marchandises.index', ['marchandises'=>$marchandise,'categories'=>$categories]);
     }
 
-    public function getMarchandiseInfo(Request $request) {
+    public function getMarchandiseInfo(string $mar) {
       
-        $validatedData = $request->validate([
-            'id_mar' => 'required|exists:marchandises,id'
-        ]);
     
      
-        $marchandises = Marchandises::find($validatedData['id_mar']);
+        $mars = Marchandises::find($mar);
         
-        return view('scanner.mar',['marchandises'=>$marchandises]);
+        return view('scanner.mar',['marchandise'=>$mars]);
         
 
     }

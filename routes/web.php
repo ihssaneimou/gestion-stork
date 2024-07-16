@@ -40,7 +40,9 @@ Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.
 
 Route::post('/api/create-sortie', [sortieController::class, 'storescan']);
 Route::post('/api/create-entree', [entreController::class, 'storescan']);
-Route::post('/api/get-marchandise-info', [marchandiseController::class, 'getMarchandiseInfo']);
+
+Route::get('/marchandise-info/{marchandises}', [marchandiseController::class, 'getMarchandiseInfo']);
+
 
 
 
