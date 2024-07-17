@@ -86,7 +86,10 @@
                     </td>
                         <td class="py-4 px-6  ">{{ $marchandise->nom }}</td>
                      
-                                   <td ><abbr title="{{$marchandise->barre_code}}"> {!! QrCode::size(40)->generate(" le nom: ".$marchandise->nom."\n categorie: ".$marchandise->categories->nom."\n quantite: ".$marchandise->quantite) !!}</abbr></td>
+                        <td class=" justify-center py-5 px-1 hidden sm:flex "> <abbr title="{{$marchandise->barre_code}}" id="qrCodeContainer" class="block cursor-pointer qr-code">
+                            {!! QrCode::size(40)->generate($marchandise->id) !!}
+                        </abbr></td>
+                
                         
                         <td class="py-4 px-6 ">{{ $marchandise->categories->nom }}</td>
                         <td class="py-4 px-6 ">{{ $marchandise->qte }}</td>
