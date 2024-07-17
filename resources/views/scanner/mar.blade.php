@@ -96,7 +96,7 @@
                     <form action="{{ route('sorties.store') }}" method="POST" class="space-y-6">
                         @csrf
                         <!-- Hidden fields for ID and ID_CAT -->
-                        <input type="hidden" id="id_sor" name="id_mar" {{ $marchandise->id }}>
+                        <input type="hidden" id="id_sor" name="id_mar" value="{{ $marchandise->id }}">
 
                         <div>
                             <label for="quantite" class="block text-sm font-medium text-gray-700">Quantité :</label>
@@ -178,16 +178,18 @@
 
         <main>
             <div class="mx-4">
+                
+                <div class="bg-gray-50 border border-gray-200 shadow-md p-10 rounded max-w-lg mx-auto mt-4">
+                    <p>{{ $marchandise->id }}</p>
                 @if (isset($marchandise->image) && $marchandise->image !== null)
-                    <img class="image w-10 h-10 rounded-full bg-cover"
+                    <img class="justify-center"
                         src="{{ asset('/storage/' . $marchandise->image) }}" alt="" />
                 @else
                     <img class="image w-10 h-10 rounded-full bg-cover" src="{{ asset('/logo.jpg') }}"
                         alt="" />
                 @endif
-                <p>ID: {{ $marchandise->id }}</p>
-                <p>Nom: {{ $marchandise->nom }}</p>
-                <p>Description: {{ $marchandise->description }}</p>
+                <p class="text-xl">{{ $marchandise->nom }}</p>
+                <p> {{ $marchandise->description }}</p>
                 <p>Quantité: {{ $marchandise->quantite }}</p>
 
                 <button onclick="warnning2({{ $marchandise->id }})" title="Ajout" aria-label="Ajout"
@@ -205,6 +207,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
                     </svg>
                 </button>
+                </div>
             </div>
         </main>
     </div>
