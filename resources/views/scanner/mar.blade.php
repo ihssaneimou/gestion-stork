@@ -203,16 +203,16 @@
 =======
         <main class="flex justify-center">
             <div class="mx-4 w-fit ">
-                <div class="bg-gray-50 border border-gray-200 shadow-md p-10 rounded max-w-lg mx-auto mt-4 min-w-96 justify-center ">
+                <div
+                    class="bg-gray-50 border border-gray-200 shadow-md p-10 rounded max-w-lg mx-auto mt-4 min-w-96 justify-center ">
                     <div class="grid   aspect-square mr-6 md:block">
                         @if (isset($marchandise->image) && $marchandise->image !== null)
-                    <img class="justify-center"
-                        src="{{ asset('/storage/' . $marchandise->image) }}" alt="" />
-                @else
-                    <img  src="{{ asset('/logo.jpg') }}"
-                        alt="" /> 
-                @endif
-                    </div> 
+                            <img class="justify-center" src="{{ asset('/storage/' . $marchandise->image) }}"
+                                alt="" />
+                        @else
+                            <img src="{{ asset('/logo.jpg') }}" alt="" />
+                        @endif
+                    </div>
                     <p class="w-fit">{{ $marchandise->id }}</p>
                
                 <p class="text-x w-fit">{{ $marchandise->nom }}</p>
@@ -223,22 +223,10 @@
                     <button onclick="warnning2({{ $marchandise->id }})" title="Ajout" aria-label="Ajout"
                         class="flex items-center text-green-500 bg-green-200 hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
->>>>>>> f5f58701c18e158b60bb8cfdd515d2e3d1a013eb
                         class="w-5 h-5">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
                 </button>
-<<<<<<< HEAD
-
-                <button onclick="warnning3({{ $marchandise->id }})" title="Sortie" aria-label="Sortie"
-                    class="flex items-center text-yellow-500 bg-yellow-200 hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                        class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
-                    </svg>
-                </button>
-                </div>
-=======
                 
                 <button onclick="warnning3({{ $marchandise->id }})" title="Sortie" aria-label="Sortie"
                     class="flex items-center text-yellow-500 bg-yellow-200 hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
@@ -249,12 +237,9 @@
             </button>
         </div>
         </div>
->>>>>>> f5f58701c18e158b60bb8cfdd515d2e3d1a013eb
             </div>
         </main>
     </div>
-
-
     <script>
         function warnning2(id, id_mar) {
             document.getElementById('ajoutEtnte').classList.remove('hidden');
@@ -283,5 +268,4 @@
             document.getElementById('cont').classList.remove('pointer-events-none');
         }
     </script>
-
 </x-nav-bar>

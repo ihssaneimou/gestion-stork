@@ -5,21 +5,22 @@
     </div>
     <script>
         const html5Qrcode = new Html5Qrcode('reader');
-
         const qrCodeSuccessCallback = (decodedText, decodedResult) => {
-            console.log("QR Code scanned successfully:", decodedText);
             if (decodedText) {
-                const url = `/marchandise-info/${decodedText}`;
-                alert(url);
-                window.location.replace(url);
+                document.getElementById('show').style.display = 'block';
+                document.getElementById('result').textContent = decodedText;
                 html5Qrcode.stop();
             }
         }
-
-        const config = { fps: 20, qrbox: { width: 500, height: 500 } }
-        html5Qrcode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback)
-            .catch(err => {
-                console.error("Error starting QR code scanner:", err);
-            });
+        const config = {
+            fps: 20,
+            qrbox: {
+                width: 500,
+                height: 500
+            }
+        }
+        html5Qrcode.start({
+            facingMode: "environment"
+        }, config, qrCodeSuccessCallback);
     </script>
 </x-nav-bar>
