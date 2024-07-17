@@ -10,14 +10,22 @@
     </div>
     <script>
         const html5Qrcode = new Html5Qrcode('reader');
-        const qrCodeSuccessCallback = (decodedText, decodedResult)=>{
-            if(decodedText){
+        const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+            if (decodedText) {
                 document.getElementById('show').style.display = 'block';
                 document.getElementById('result').textContent = decodedText;
                 html5Qrcode.stop();
             }
         }
-        const config = {fps:20, qrbox:{width:500, height:500}}
-        html5Qrcode.start({facingMode:"environment"}, config,qrCodeSuccessCallback );
+        const config = {
+            fps: 20,
+            qrbox: {
+                width: 500,
+                height: 500
+            }
+        }
+        html5Qrcode.start({
+            facingMode: "environment"
+        }, config, qrCodeSuccessCallback);
     </script>
 </x-nav-bar>
