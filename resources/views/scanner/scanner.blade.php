@@ -1,7 +1,4 @@
-
-
 <x-nav-bar>
-   
     <div style="text-align: center;">
         <h2>Scanner un QR Code</h2>
         <div id="reader" style="width: 800px; margin: auto;"></div>
