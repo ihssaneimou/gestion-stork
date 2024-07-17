@@ -72,7 +72,7 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{ 'block': open, 'hidden': !open }" class="hidden bg-white w-2/3 h-screen shadow-lg rounded sm:hidden">
+    <div :class="{ 'block': open, 'hidden': !open }" class="hidden bg-white w-2/3 h-screen shadow-lg rounded sm:hidden overflow-y-auto">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Accueil') }}
@@ -287,6 +287,7 @@
                         Ajouter sorties
                     </p>
                 </a> --}}
+                <div class="h-56  w-full my-4 bg-white">‎</div>
                 </div>
             </div>
         </div>
