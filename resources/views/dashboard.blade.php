@@ -8,9 +8,9 @@
 
     <div class="py-12">
         <div class=" mx-auto sm:px-6 lg:px-8">
-            <div class=" overflow-hidden gap-2 grid grid-cols-2 justify-items-center">
+            <div class=" overflow-hidden gap-2 grid grid-cols-1 sm:grid-cols-2 justify-items-center">
                 <a href="/marchandises"
-                    class="h-52 w-full bg-slate-400 m-3 flex items-center flex-col   text-center justify-center">
+                    class="h-52 w-10/12    sm:w-full rounded shadow-lg sm:shadow-md sm:bg-slate-300 bg-slate-200 m-3 flex items-center flex-col   text-center justify-center">
                     <svg width="100px" height="100px" viewBox="0 -0.5 25 25" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -20,7 +20,7 @@
                     marchandises
                 </a>
                 <a href="/entres/create"
-                    class="h-52 w-full bg-slate-400 m-3 flex items-center flex-col    text-center justify-center">
+                    class="h-52 w-10/12  sm:w-full rounded shadow-lg sm:shadow-md sm:bg-slate-300 bg-slate-200 m-3 flex items-center flex-col    text-center justify-center">
                     <svg width="100px" height="100px" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -43,7 +43,7 @@
                 </a>
                 
                 <a href="/documents"
-                    class="h-52 w-full bg-slate-400 m-3 flex items-center flex-col   text-center justify-center">
+                    class="h-52 w-10/12  sm:w-full rounded shadow-lg sm:shadow-md sm:bg-slate-300 bg-slate-200 m-3 flex items-center flex-col   text-center justify-center">
                     <svg height='100px' enable-background="new 0 0 512 512" version="1.1" viewBox="0 0 512 512"
                         xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -73,7 +73,7 @@
                 </a>
          
                 {{-- <a href="/categories"
-                    class="h-52 w-full bg-slate-400 m-3 flex items-center flex-col   text-center justify-center">
+                    class="h-52 w-10/12  sm:w-full rounded shadow-lg sm:shadow-md sm:bg-slate-300 bg-slate-200 m-3 flex items-center flex-col   text-center justify-center">
                     <svg width="100px" height="100px" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -82,7 +82,7 @@
                 </svg>
                     categories
                 </a>  --}}
-                <a class="h-52 w-full bg-slate-400 m-3 flex items-center flex-col   text-center justify-center" href="/rapports">
+                <a class="h-52 w-10/12  sm:w-full rounded shadow-lg sm:shadow-md sm:bg-slate-300 bg-slate-200 m-3 flex items-center flex-col   text-center justify-center" href="/rapports">
                     <svg width="100px" height="100px" viewBox="0 0 48 48" data-name="Layer 1" id="Layer_1"
                         xmlns="http://www.w3.org/2000/svg">
                         <defs>
@@ -129,7 +129,7 @@
 
                 @if (auth()->user()->role=='S')
             
-                <a href="/register" class="h-52 w-full bg-slate-400 m-3 flex items-center flex-col   text-center justify-center">
+                <a href="/register" class="h-52 w-10/12  sm:w-full rounded shadow-lg sm:shadow-md sm:bg-slate-300 bg-slate-200 m-3 flex items-center flex-col   text-center justify-center">
                     <svg fill="#000000" height="90px" width="90px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
                         viewBox="0 0 328 328" xml:space="preserve">
                     <g id="XMLID_455_">
@@ -147,7 +147,7 @@
                         Ajouter un admin
                     </p>
                 </a>
-                <a href="/admin/list" class="h-52 w-full bg-slate-400 m-3 flex items-center flex-col   text-center justify-center">
+                <a href="/admin/list" class="h-52 w-10/12  sm:w-full rounded shadow-lg sm:shadow-md sm:bg-slate-300 bg-slate-200 m-3 flex items-center flex-col   text-center justify-center">
                     <svg width="100px" height="100px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
