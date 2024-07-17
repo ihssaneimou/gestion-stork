@@ -47,6 +47,16 @@ class marchandiseController extends Controller
         return view('marchandises.index', ['marchandises'=>$marchandise,'categories'=>$categories]);
     }
 
+    public function getMarchandiseInfo(string $mar) {
+      
+    
+     
+        $mars = Marchandises::find($mar);
+        
+        return view('scanner.mar',['marchandise'=>$mars]);
+        
+
+    }
    
     public function create() {
         return view('marchandises.create',['categorie'=>categories::all()]);
