@@ -4,7 +4,7 @@
         <h2>Scanner un QR Code</h2>
         <div id="read" class="w-96 sm:w-[500px] m-auto "></div>
     </div>
-    <script>
+    <script>  
         const html5Qrcode = new Html5Qrcode('read');
 
         const qrCodeSuccessCallback = (decodedText, decodedResult) => {

@@ -111,6 +111,7 @@ Route::get('/scanner', function () {
 Route::get('/qrscan', function () {
     return View('scanner.html5-qrcode.min.js');
 });
+
 });
 
 require __DIR__.'/auth.php';
