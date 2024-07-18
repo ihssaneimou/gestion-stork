@@ -1,5 +1,34 @@
 <x-nav-bar>
     <style>
+        .bg-150 { 
+    background-size: 150px; 
+}
+.bg-1 { 
+    background-color: hsla(200, 95%, 58%, 0.65); 
+} 
+ 
+.bg-2 { 
+    background-color: rgba(246, 139, 9, 0.65); 
+} 
+ 
+.bg-3 { 
+    background-color: rgba(8, 218, 78, 0.65); 
+} 
+ 
+.bg-4 { 
+    background-color: rgba(233, 34, 44, 0.65); 
+} 
+ 
+.bg-5 { 
+    background-color: rgba(181, 14, 223, 0.65); 
+} 
+ 
+.bg-0 { 
+    background-color: rgba(245, 31, 156, 0.65); 
+}
+
+    </style>
+    <style>
         .dropdown-toggle {
     padding: 5px 10px;
     border: none;
@@ -140,8 +169,13 @@
           
 
             <div class=" overflow-hidden gap-3 grid grid-cols-2 sm:grid-cols-3 justify-items-center">
-            @foreach($categories as $categorie)
-               <div class="relative h-52 w-full bg-slate-400 m-3 flex items-center flex-col rounded hover:border-2 hover:border-gray-100   text-center justify-center ">
+            @foreach($categories as $index => $categorie)
+            @php
+                $source = 'group_icons/' . $index % 12 . '.png';
+                $color = 'bg-' . $index % 6;
+            @endphp
+            <div class="relative h-52 w-full backdrop-blur-lg  bg-150  bg-no-repeat m-3 flex flex-col    text-center justify-center " style="background-image: url({{$source}})">
+            <div class="{{$color}} h-full grid items-center rounded hover:rounded-md  hover:border-2 hover:border-gray-100" >
                 <div class="dropdown">
                     <button class="dropdown-toggle" type="button" id="dropdownMenu{{ $categorie->id }}" data-groupId="{{ $categorie->id }}" data-bs-toggle="dropdown" aria-expanded="false">
                        <?xml version="1.0" ?>
@@ -157,11 +191,18 @@
                        <li id="deletbutton" onclick="warnning({{ $categorie->id }})"><a class="dropdown-item" href="#" data-group-id="{{ $categorie->id }}" data-bs-toggle="modal" data-bs-target="#deleteGroupModal">Delete</a></li>
                     </ul>
        </div>
-                <p class="text-center font-bold text-black text-2xl underline">{{ $categorie->nom }}</p> <br>
-                entré:{{ $categorie->total_achetes }} <br>
-                sortié:{{ $categorie->total_vendus }} 
+       <p class="text-center font-semibold text-black text-3xl ">{{ $categorie->nom }}</p> <br>
+       <div class="w-full flex items-center justify-center font-medium">
+               entré:{{ $categorie->total_achetes }} <br>
+               sortié:{{ $categorie->total_vendus }} 
+           </div>
+                <div class="relative mr-2 text-right">
+                    <a class="inline-flex w-11 h-11 justify-center items-center bg-green-400 hover:bg-green-300 text-pink-50 hover:text-white rounded-full transition duration-150"
+                        href="/marchandises/categories/{{ $categorie->id }}"><span class="sr-only">Read more</span> <span
+                            class="font-bold -mt-px">-></span></a>
+                </div>
                </div>
-               
+            </div>
                @endforeach
             </div>
         </div>
