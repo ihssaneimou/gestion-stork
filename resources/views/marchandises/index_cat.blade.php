@@ -175,9 +175,9 @@
                 $color = 'bg-' . $index % 6;
             @endphp
             <div class="relative h-52 w-full backdrop-blur-lg  bg-150  bg-no-repeat m-3 flex flex-col    text-center justify-center " style="background-image: url({{$source}})">
-            <div class="{{$color}} h-full grid items-center rounded hover:rounded-md  hover:border-2 hover:border-gray-100" >
+            <div class="{{$color}} h-full grid items-center rounded-xl   hover:border-2 hover:border-gray-100" >
                 <div class="dropdown">
-                    <button class="dropdown-toggle" type="button" id="dropdownMenu{{ $categorie->id }}" data-groupId="{{ $categorie->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="dropdown-toggle " type="button" id="dropdownMenu{{ $categorie->id }}" data-groupId="{{ $categorie->id }}" data-bs-toggle="dropdown" aria-expanded="false">
                        <?xml version="1.0" ?>
                        <svg class="icon icon-tabler icon-tabler-dots-vertical" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                           <path d="M0 0h24v24H0z" fill="none" stroke="none"/>
@@ -197,9 +197,14 @@
                sortié:{{ $categorie->total_vendus }} 
            </div>
                 <div class="relative mr-2 text-right">
-                    <a class="inline-flex w-11 h-11 justify-center items-center bg-green-400 hover:bg-green-300 text-pink-50 hover:text-white rounded-full transition duration-150"
-                        href="/marchandises/categories/{{ $categorie->id }}"><span class="sr-only">Read more</span> <span
-                            class="font-bold -mt-px">-></span></a>
+                    <a class="inline-flex w-11 h-11 justify-center items-center  hover:bg-gray-300 text-pink-50 hover:text-white rounded-full transition duration-150"
+                        href="/marchandises/categories/{{ $categorie->id }}"><abbr title="Voir les marchandises de cette catégorie" ><svg fill="#000000" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                        viewBox="0 0 330 330" xml:space="preserve">
+                   <path id="XMLID_222_" d="M250.606,154.389l-150-149.996c-5.857-5.858-15.355-5.858-21.213,0.001
+                       c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213
+                       C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606
+                       C255,161.018,253.42,157.202,250.606,154.389z"/>
+                   </svg></abbr></a>
                 </div>
                </div>
             </div>
