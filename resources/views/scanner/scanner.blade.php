@@ -11,7 +11,6 @@
             console.log("QR Code scanned successfully:", decodedText);
             if (decodedText) {
                 const url = `/marchandise-info/${decodedText}`;
-                alert(url);
                 window.location.replace(url);
                 html5Qrcode.stop();
             }
