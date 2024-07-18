@@ -105,7 +105,7 @@ class CategorieController extends Controller
         $categorie->nom = $validatedData['nom'];
         $categorie->save();
 
-        return redirect()->route('categories.index')->with('success', 'Catégorie mise à jour avec succès.');
+        return redirect()->route('marchandises.index_cat')->with('success', 'Catégorie mise à jour avec succès.');
     }
 
     public function entre_sortie(categories $categories) {
@@ -189,9 +189,16 @@ class CategorieController extends Controller
     
 
     public function delete(Request $request) {
+
+        if (auth()->user()->role != 'S') {
+            return abort(403, 'you are not a super admin');
+        }
+        $request->validateWithBag('userDeletion', [
+            'current_password' => ['required', 'current_password'],
+        ]);
             $categorie=categories::find($request->id);
             $categorie->delete();
-            return redirect()->route('categories.index')->with('success', 'Catégorie supprimée avec succès.');
+            return redirect()->back()->with('success', 'Catégorie supprimée avec succès.');
         
     }
 }

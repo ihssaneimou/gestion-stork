@@ -51,7 +51,7 @@ Route::get('/categories', [categorieController::class, 'index_cat'])->name('cate
 Route::get('/categories/create', [categorieController::class, 'create'])->name('categories.create');
 Route::post('/categories', [categorieController::class, 'store'])->name('categories.store');
 Route::put('/categories/{categorie}', [categorieController::class, 'update'])->name('categories.update');
-Route::delete('/categories/{categorie}', [categorieController::class, 'delete'])->name('categories.delete');
+Route::delete('/categories/delete', [categorieController::class, 'delete'])->name('categories.delete');
 Route::get('/categories/{categories}/edit', [categorieController::class, 'edit'])->name('categories.edit'); 
 Route::get('/categories/{categories}/documents', [categorieController::class, 'entre_sortie'])->name('categories.entre_sortie'); 
 Route::get('/categories/{categories}/documents/entres', [categorieController::class, 'entre'])->name('categories.entre'); 
