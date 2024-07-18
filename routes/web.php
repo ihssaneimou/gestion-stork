@@ -91,6 +91,8 @@ Route::post('/rapports/export', [rapportController::class, 'downloadExcel'])->na
 
 Route::get('/rapports', [RapportController::class, 'index'])->name('rapports.index');
 Route::post('/rapports/download-pdf', [RapportController::class, 'downloadPdf'])->name('rapports.pdf');
+Route::post('/rapports/download-entre', [RapportController::class, 'downloadentre'])->name('rapports.entre');
+Route::post('/rapports/download-sortie', [RapportController::class, 'downloadsortie'])->name('rapports.sortie');
 Route::get('/rapports/search', [rapportController::class, 'search'])->name('rapport.search');
 Route::get('/rapports/courbe', [courbeController::class, 'courbe'])->name('rapports.courbe');
 

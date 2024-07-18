@@ -78,10 +78,10 @@
                 </a>
                 </div>
                 
-                <div x-data="{ open: false }" class="relative inline-block text-left">
+                <div x-data="{ open: false }" class="relative mr-5 mb-10 inline-block text-left">
                     <div>
                       <button @click="open = !open" type="button"  aria-label="pdf"
-                      class="flex items-center text-blue-500 bg-blue-200 hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
+                      class="flex items-center  text-blue-500 bg-blue-200 hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
                       <svg width="50px" height="30px" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -91,7 +91,7 @@
                       </button>
                     </div>
                   
-                    <div x-show="open" @click.away="open = false" class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                    <div x-show="open" @click.away="open = false" class="origin-top-right z-50 absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                       <div class="py-1" role="none">
                         <!-- Active: "bg-gray-100", Not Active: "" -->
                         <form action="{{ route('rapports.pdf') }}" method="POST" >
@@ -111,13 +111,13 @@
                                 <input id="start" name="start" type="date" class="hidden">
                                 <input id="end" name="end" type="date" class="hidden">
                             @endif
-                            <div class="mr-5 mb-10">
+                            <div class="mr-2 mb-2">
                                 <button  class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1" aria-label="pdf">
                                     tous
                                 </button>
                             </div>
                         </form>
-                        <form action="{{ route('rapports.pdf') }}" method="POST" >
+                        <form action="{{ route('rapports.entre') }}" method="POST" >
                             @csrf
                             @if (isset($search))
                                 <input type="search" name="search" id="default-search" value={{ $search }}
@@ -134,13 +134,13 @@
                                 <input id="start" name="start" type="date" class="hidden">
                                 <input id="end" name="end" type="date" class="hidden">
                             @endif
-                            <div class="mr-5 mb-10">
+                            <div class="mr-2 mb-2">
                                 <button  class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2" aria-label="pdf">
                                    les entrés
                                 </button>
                             </div>
                         </form>
-                        <form action="{{ route('rapports.pdf') }}" method="POST" >
+                        <form action="{{ route('rapports.sortie') }}" method="POST" >
                             @csrf
                             @if (isset($search))
                                 <input type="search" name="search" id="default-search" value={{ $search }}
@@ -157,7 +157,7 @@
                                 <input id="start" name="start" type="date" class="hidden">
                                 <input id="end" name="end" type="date" class="hidden">
                             @endif
-                            <div class="mr-5 mb-10">
+                            <div class="mr-2 mb-2">
                                 <button  class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-3" aria-label="pdf">
                                     les sorties
                                 </button>
@@ -180,7 +180,7 @@
                                 <input id="start" name="start" type="date" class="hidden">
                                 <input id="end" name="end" type="date" class="hidden">
                             @endif
-                            <div class="mr-5 mb-10">
+                            <div class="mr-2 mb-2">
                                 <button  class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-4" aria-label="pdf">
                                     les qr codes 
                                 </button>

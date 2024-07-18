@@ -139,6 +139,80 @@ class RapportController extends Controller
         return view('rapports.index', compact('marchandises'));
     }
 
+    public function downloadentre(Request $request)
+{
+    // Récupérer les paramètres de recherche et de dates
+    $search = $request->input('search');
+    $start = $request->input('start');
+    $end = $request->input('end');
+
+    // Initialiser la variable pour les marchandises
+    $marchandises = [];
+
+    if ($search !== null && (empty($start) && empty($end))) {
+        // Cas où il y a une recherche mais pas de filtre de date
+
+        // Requête pour récupérer les marchandises avec la recherche
+        $marchandises = Marchandises::join('categories', 'marchandises.id_cat', '=', 'categories.id')
+            ->where('marchandises.nom', 'LIKE', '%' . $search . '%')
+            ->orWhere('categories.nom', 'LIKE', '%' . $search . '%')
+            ->get();
+
+    } elseif (!empty($start) && !empty($end)) {
+        
+
+        
+        $query = Marchandises::join('categories', 'marchandises.id_cat', '=', 'categories.id')
+            ->select('marchandises.*');
+
+        if (isset($search)) {
+            $query->where(function($q) use ($search) {
+                $q->where('marchandises.nom', 'LIKE', '%' . $search . '%')
+                  ->orWhere('categories.nom', 'LIKE', '%' . $search . '%');
+            });
+        }
+
+       
+        $marchandises = $query->get();
+
+    } else {
+       
+        $marchandises = Marchandises::paginate(10);
+    }
+
+    // Récupérer les entrées pour chaque marchandise
+    foreach ($marchandises as $marchandise) {
+        
+        $entres = Entres::where('id_mar', $marchandise->id)->get();
+
+        
+        $marchandise->entres = 0; 
+        $marchandise->date = null;
+
+        
+        foreach ($entres as $entre) {
+            $marchandise->entres += $entre->quantite;
+            $marchandise->date = $entre->created_at; 
+        }
+
+        
+        $marchandise->solde = $marchandise->entres - $marchandise->sorties;
+    }
+
+    
+    $data = [
+        'title' => 'Rapport PDF',
+        'marchandises' => $marchandises,
+        'start' => $start,
+        'end' => $end,
+    ];
+
+   
+    $pdf = PDF::loadView('rapports.entre', $data);
+    return $pdf->download('rapport.entre.pdf');
+}
+
+
     public function search(Request $request) {
         $search=$request->input('search');
         $start = $request->input('start');
