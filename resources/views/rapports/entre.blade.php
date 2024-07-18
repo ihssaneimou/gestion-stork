@@ -6,12 +6,12 @@
     <style>
         h2 {
             text-align: center;
-            font-size: 18px;
+            font-size: 40px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: white;
             padding: 30px 0;
         }
+
 
         /* Table Styles */
 
@@ -56,36 +56,29 @@
             <p>De {{ $start }} à {{ $end }}</p>
         </div>
     @endif
-    @if (count($marchandises) > 0)
+    @if (count($entres) > 0)
         <div class="table-wrapper">
             <table class="fl-table">
                 <thead>
                     <tr>
-                        <th class="text-center">Nom</th>
-                        <th class="text-center">Categorie</th>
+                        <th class="text-center">nom marchandise</th>
                         <th class="text-center">Quantite</th>
-                        <th class="text-center">Entre</th>
                         <th class="text-center">date</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($marchandises as $marchandise)
-                        <tr>
-                            <td>{{ $marchandise->nom }}</td>
-
-
-                            <td>
-                                {{ $marchandise->categories->nom ?? $marchandise->categories }}
-                            </td>
-                            <td>{{ $marchandise->date }}</td>
-                            <td>{{ $marchandise->entres }}</td>
+                    @foreach ($entres as $entre)
+                    <tr>
+                            <td>{{ $entre->nom }}</td>
+                            <td>{{ $entre->quantite }}</td>
+                            <td>{{ $entre->created_at }}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
     @else
-        <h2 class="empty-message">Aucune marchandise</h2>
+        <h2 class="empty-message">Aucune entre</h2>
     @endif
 </body>
 

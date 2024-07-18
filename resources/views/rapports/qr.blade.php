@@ -15,7 +15,7 @@
         /* Table Styles */
 
         .fl-table {
-            font-size: 12px;
+            font-size: 20px;
             font-weight: normal;
             border: none;
             width: 100%;
@@ -31,7 +31,7 @@
 
         .fl-table td {
             border-right: 1px solid #f8f8f8;
-            font-size: 12px;
+            font-size: 20px;
         }
 
         .fl-table thead th {
@@ -62,29 +62,16 @@
                     <tr>
 
                         <th class="text-center">Nom</th>
-                      
-                        <th class="text-center">Categorie</th>
                         <th class="text-center">QR</th>
-                        <th class="text-center">Quantite</th>
-                        <th class="text-center">Entre</th>
-                        <th class="text-center">Sortie</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($marchandises as $marchandise)
                         <tr>
                             <td>{{ $marchandise->nom }}</td>
-
-
                             <td>
-                                {{ $marchandise->categories->nom ?? $marchandise->categories }}
+                                <img src="data:image/png;base64, {!! base64_encode(QrCode::size(100)->generate($marchandise->id)) !!} ">
                             </td>
-                            <td>
-                                <img src="data:image/png;base64, {!! base64_encode(QrCode::size(30)->generate($marchandise->id)) !!} ">
-                            </td>
-                            <td>{{ $marchandise->solde }}</td>
-                            <td>{{ $marchandise->entres }}</td>
-                            <td>{{ $marchandise->sorties }}</td>
                         </tr>
                     @endforeach
                 </tbody>

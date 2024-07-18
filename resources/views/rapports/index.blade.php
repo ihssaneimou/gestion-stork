@@ -103,13 +103,13 @@
                                 <input type="search" name="search" id="default-search" class="hidden" />
                             @endif
                             @if (isset($start) && isset($end))
-                                <input id="start" name="start" type="date" class="hidden"
+                                <input  name="start" type="date" class="hidden"
                                     value={{ $start }}>
-                                <input id="end" name="end" type="date" class="hidden"
+                                <input  name="end" type="date" class="hidden"
                                     value={{ $end }}>
                             @else
-                                <input id="start" name="start" type="date" class="hidden">
-                                <input id="end" name="end" type="date" class="hidden">
+                                <input  name="start" type="date" class="hidden">
+                                <input  name="end" type="date" class="hidden">
                             @endif
                             <div class="mr-2 mb-2">
                                 <button  class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1" aria-label="pdf">
@@ -126,13 +126,13 @@
                                 <input type="search" name="search" id="default-search" class="hidden" />
                             @endif
                             @if (isset($start) && isset($end))
-                                <input id="start" name="start" type="date" class="hidden"
+                                <input  name="start" type="date" class="hidden"
                                     value={{ $start }}>
-                                <input id="end" name="end" type="date" class="hidden"
+                                <input  name="end" type="date" class="hidden"
                                     value={{ $end }}>
                             @else
-                                <input id="start" name="start" type="date" class="hidden">
-                                <input id="end" name="end" type="date" class="hidden">
+                                <input  name="start" type="date" class="hidden">
+                                <input  name="end" type="date" class="hidden">
                             @endif
                             <div class="mr-2 mb-2">
                                 <button  class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2" aria-label="pdf">
@@ -149,13 +149,13 @@
                                 <input type="search" name="search" id="default-search" class="hidden" />
                             @endif
                             @if (isset($start) && isset($end))
-                                <input id="start" name="start" type="date" class="hidden"
+                                <input  name="start" type="date" class="hidden"
                                     value={{ $start }}>
-                                <input id="end" name="end" type="date" class="hidden"
+                                <input  name="end" type="date" class="hidden"
                                     value={{ $end }}>
                             @else
-                                <input id="start" name="start" type="date" class="hidden">
-                                <input id="end" name="end" type="date" class="hidden">
+                                <input  name="start" type="date" class="hidden">
+                                <input  name="end" type="date" class="hidden">
                             @endif
                             <div class="mr-2 mb-2">
                                 <button  class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-3" aria-label="pdf">
@@ -163,7 +163,7 @@
                                 </button>
                             </div>
                         </form>
-                        <form action="{{ route('rapports.pdf') }}" method="POST" >
+                        <form action="{{ route('rapports.qr') }}" method="POST" >
                             @csrf
                             @if (isset($search))
                                 <input type="search" name="search" id="default-search" value={{ $search }}
@@ -172,13 +172,13 @@
                                 <input type="search" name="search" id="default-search" class="hidden" />
                             @endif
                             @if (isset($start) && isset($end))
-                                <input id="start" name="start" type="date" class="hidden"
+                                <input  name="start" type="date" class="hidden"
                                     value={{ $start }}>
-                                <input id="end" name="end" type="date" class="hidden"
+                                <input  name="end" type="date" class="hidden"
                                     value={{ $end }}>
                             @else
-                                <input id="start" name="start" type="date" class="hidden">
-                                <input id="end" name="end" type="date" class="hidden">
+                                <input  name="start" type="date" class="hidden">
+                                <input  name="end" type="date" class="hidden">
                             @endif
                             <div class="mr-2 mb-2">
                                 <button  class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-4" aria-label="pdf">
@@ -200,13 +200,13 @@
                             <input type="search" name="search" id="default-search" class="hidden" />
                         @endif
                         @if (isset($start) && isset($end))
-                            <input id="start" name="start" type="date" class="hidden"
+                            <input  name="start" type="date" class="hidden"
                                 value={{ $start }}>
-                            <input id="end" name="end" type="date" class="hidden"
+                            <input  name="end" type="date" class="hidden"
                                 value={{ $end }}>
                         @else
-                            <input id="start" name="start" type="date" class="hidden">
-                            <input id="end" name="end" type="date" class="hidden">
+                            <input  name="start" type="date" class="hidden">
+                            <input  name="end" type="date" class="hidden">
                         @endif
                         <div class="mr-5 mb-10">
                             <button type='submit'aria-label="pdf"
@@ -220,8 +220,8 @@
                     </form>
                 </div>
                 <form method="GET" action="/rapports/search" class="max-w-full  my-1">
-                    <div class="grid  sm:flex  justify-between">
-                        <div class="relative w-full sm:w-1/3">
+                    <div class="grid  lg:flex  justify-between">
+                        <div class="relative w-full lg:w-1/3">
                             @if (isset($search))
                                 <input type="search" name="search" id="default-search" value={{ $search }}
                                     class="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500  "
@@ -242,7 +242,7 @@
                             </abbr>
                         </div>
                         <div id="date-range-picker" date-rangepicker class="grid  sm:flex items-center mb-1">
-                            <div class=" sm:relative flex  w-full ">
+                            <div class=" lg:relative flex  w-full ">
                             @if (isset($start) && isset($end))
                                 <div class="relative">
 
@@ -326,7 +326,7 @@
                 </form>
             </div>
             @if (count($marchandises) > 0)
-                <div class="overflow-x-auto relative shadow-md w-full sm:rounded-lg mb-10">
+                <div class="overflow-x-auto relative shadow-md w-full lg:rounded-lg mb-10">
                     <table class="w-full text-sm text-left text-gray-500">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
                             <tr>
@@ -342,7 +342,7 @@
                         <tbody>
                             @foreach ($marchandises as $marchandise)
                                 <tr class="bg-white border-b hover:bg-gray-200 hover:text-black ">
-                                    <td class="py-4 px-6 text-center">
+                                    <td class="py-3 px-1 text-center flex justify-center">
                                         @if (isset($marchandise->image) && $marchandise->image !== null)
                                             <img class="image w-10 h-10 rounded-full bg-cover"
                                                 src="{{ asset('/storage/' . $marchandise->image) }}"
