@@ -208,7 +208,7 @@ class RapportController extends Controller
     ];
 
    
-    $pdf = PDF::loadView('rapports.entre', $data);
+    $pd f = PDF::loadView('rapports.entre', $data);
     return $pdf->download('rapport.entre.pdf');
 }
 
