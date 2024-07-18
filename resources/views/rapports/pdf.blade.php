@@ -65,6 +65,7 @@
                         <th class="text-center">Nom</th>
                       
                         <th class="text-center">Categorie</th>
+                        <th class="text-center">QR</th>
                         <th class="text-center">Quantite</th>
                         <th class="text-center">Entre</th>
                         <th class="text-center">Sortie</th>
@@ -78,6 +79,9 @@
 
                             <td>
                                 {{ $marchandise->categories->nom ?? $marchandise->categories }}
+                            </td>
+                            <td>
+                                <img src="data:image/png;base64, {!! base64_encode(QrCode::size(30)->generate($marchandise->id)) !!} ">
                             </td>
                             <td>{{ $marchandise->solde }}</td>
                             <td>{{ $marchandise->entres }}</td>

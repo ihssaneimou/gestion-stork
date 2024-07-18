@@ -215,7 +215,7 @@
                                 </td>
                                 <td class="py-4 px-1 text-center  ">{{ $marchandise->nom }}</td>
                                 
-                                   <td class=" justify-center py-5 px-1 hidden sm:flex "> <abbr title="{{$marchandise->barre_code}}" id="qrCodeContainer" class="block cursor-pointer qr-code">
+                                   <td class=" justify-center py-5 px-1 hidden sm:flex "> <abbr title="{{$marchandise->barre_code}}" id="qr-{{$marchandise->id}}" onclick="qr({{$marchandise->id}})" class="block cursor-pointer qr-code">
                                     {!! QrCode::size(40)->generate($marchandise->id) !!}
                                 </abbr></td>
                         
@@ -339,13 +339,9 @@
             }
         </script>
            <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const qrCodeContainer = document.getElementById('qrCodeContainer');
-    
-                qrCodeContainer.addEventListener('click', function() {
-                    this.classList.toggle('enlarged');
-                });
-            });
+            function qr(id) {
+                document.getElementById(`qr-${id}`).classList.toggle('enlarged');
+            }
         </script>
         <div class="col-span-full mt-6 p-4 pl-4">
             {{ $marchandises->links() }}
