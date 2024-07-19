@@ -178,23 +178,23 @@
 
         <main class="flex justify-center">
             <div class="mx-4 w-fit ">
-                <div class="bg-gray-50 border border-gray-200 shadow-md p-10 rounded max-w-lg mx-auto mt-4 min-w-96 justify-center ">
-                    <div class="grid   aspect-square mr-6 md:block">
+                <div class="bg-gray-50 border border-gray-200 shadow-lg p-6 rounded-xl max-w-lg mx-auto mt-4 w-96 justify-center ">
+                    <div class=" justify-center justify-items-center items-center  aspect-square mr-6 flex">
                         @if (isset($marchandise->image) && $marchandise->image !== null)
-                    <img class="justify-center"
+                    <img class="max-w-72 max-h-72"
                         src="{{ asset('/storage/' . $marchandise->image) }}" alt="" />
                 @else
-                    <img  src="{{ asset('/logo.jpg') }}"
+                    <img  class="max-w-64 max-h-64" src="{{ asset('/logo.jpg') }}"
                         alt="" /> 
                 @endif
-                    </div> 
-                    <p class="w-fit">{{ $marchandise->id }}</p>
-               
-                <p class="text-x w-fit">{{ $marchandise->nom }}</p>
-                <p class="w-fit"> {{ $marchandise->description }}</p>
-                <p class="w-fit">Quantité: {{ $marchandise->quantite }}</p>
+                {{-- <p class="w-fit ">{{ $marchandise->id }}</p> --}}
                 
-                <div class="flex  gap-3 w-fit">
+            </div>
+            <p class="text-x text-3xl font-semibold w-fit">{{ $marchandise->nom }}</p>
+            <p class="overflow-hidden max-h-14 w-full line-clamp-2"> {{ $marchandise->description }}</p>
+            <div class="flex justify-between mt-2 items-baseline">   
+                <p class="w-fit font-medium">Quantité: {{ $marchandise->quantite }}</p>
+                <div class="flex  gap-4 w-fit">
                     <button onclick="warnning2({{ $marchandise->id }})" title="Ajout" aria-label="Ajout"
                         class="flex items-center text-green-500 bg-green-200 hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
@@ -204,15 +204,17 @@
                 </button>
                 
                 <button onclick="warnning3({{ $marchandise->id }})" title="Sortie" aria-label="Sortie"
-                    class="flex items-center text-yellow-500 bg-yellow-200 hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                    class="w-5 h-5">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
-                </svg>
-            </button>
-        </div>
-        </div>
+                        class="flex items-center text-yellow-500 bg-yellow-200 hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+                    </svg>
+                </button>
             </div>
+        </div> 
+            
+        </div>
+    </div>
         </main>
     </div>
 

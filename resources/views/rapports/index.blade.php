@@ -111,8 +111,8 @@
                                 <input  name="start" type="date" class="hidden">
                                 <input  name="end" type="date" class="hidden">
                             @endif
-                            <div class="mr-2 mb-2">
-                                <button  class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1" aria-label="pdf">
+                            <div >
+                                <button  class="text-gray-700 hover:bg-gray-200 w-full block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1" aria-label="pdf">
                                     tous
                                 </button>
                             </div>
@@ -134,8 +134,8 @@
                                 <input  name="start" type="date" class="hidden">
                                 <input  name="end" type="date" class="hidden">
                             @endif
-                            <div class="mr-2 mb-2">
-                                <button  class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2" aria-label="pdf">
+                            <div >
+                                <button  class="text-gray-700 hover:bg-gray-200 w-full block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2" aria-label="pdf">
                                    les entrés
                                 </button>
                             </div>
@@ -157,8 +157,8 @@
                                 <input  name="start" type="date" class="hidden">
                                 <input  name="end" type="date" class="hidden">
                             @endif
-                            <div class="mr-2 mb-2">
-                                <button  class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-3" aria-label="pdf">
+                            <div >
+                                <button  class="text-gray-700 hover:bg-gray-200 w-full block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-3" aria-label="pdf">
                                     les sorties
                                 </button>
                             </div>
@@ -180,8 +180,8 @@
                                 <input  name="start" type="date" class="hidden">
                                 <input  name="end" type="date" class="hidden">
                             @endif
-                            <div class="mr-2 mb-2">
-                                <button  class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-4" aria-label="pdf">
+                            <div >
+                                <button  class="text-gray-700 hover:bg-gray-200 w-full block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-4" aria-label="pdf">
                                     les qr codes 
                                 </button>
                             </div>
@@ -245,7 +245,6 @@
                             <div class=" lg:relative flex  w-full ">
                             @if (isset($start) && isset($end))
                                 <div class="relative">
-
                                     <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                         <svg class="w-4 h-4 text-gray-500 " aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg" fill="currentColor"
