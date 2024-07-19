@@ -357,24 +357,13 @@ $('#periode2Select, #type2Select').on('change', function() {
     const selectedPeriod = $('#periode2Select').val();
     const selectedType = $('#type2Select').val();
     const url = `{{ route('rapports.courbe') }}?type2=${selectedType}&periode2=${selectedPeriod}`;
-    fetchDataAndUpdateChart(esChart, url, 'esChart', 'esChartMessage');
+    updateChartDataES(selectedPeriod);
 });
 
 var initialPeriode2 = $('#periodeSelect2').val();
 updateChartDataES(initialPeriode2);
 
-$('#periodeSelect2').change(function() {
-    var periode2 = $(this).val();
-    updateChartDataES(periode2);
-});
-       
-
-        $('#type2Select').change(function() {
-            var periode2 = $('#periode2Select').val();
-            var type2 = $(this).val();
-            updateChartDataes(periode2, type2);
-        });
-
+  
         
         var initialType2 = $('#type2Select').val();
         updateChartDataes(initialPeriode2, initialType2);
