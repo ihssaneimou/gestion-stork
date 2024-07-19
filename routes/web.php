@@ -96,7 +96,9 @@ Route::post('/rapports/download-sortie', [RapportController::class, 'downloadsor
 Route::post('/rapports/download-qr', [RapportController::class, 'downloadqr'])->name('rapports.qr');
 Route::get('/rapports/search', [rapportController::class, 'search'])->name('rapport.search');
 Route::get('/rapports/courbe', [courbeController::class, 'courbe'])->name('rapports.courbe');
-
+Route::get('/rapports/chart', [courbeController::class, 'updateChartDatam'])->name('updateChartDatam');
+Route::get('/rapports/chartp', [courbeController::class, 'updateprd'])->name('updateprd');
+Route::get('/rapports/char', [courbeController::class, 'updatees'])->name('updatees');
 
 Route::get('register', [UserController::class, 'register'])
 ->name('register');

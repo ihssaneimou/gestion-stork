@@ -116,6 +116,8 @@ class courbeController extends Controller
     });
     
 
+            
+
         return view('rapports.chart', [
             'chartData' => $chartData,
             'periode' => $periode,
@@ -129,4 +131,96 @@ class courbeController extends Controller
             'chartDatasortie' => $chartDatasortie,
         ]);
     }
+    public function updateChartDatam(Request $request)
+{
+    $categoryId = $request->get('id_cat', 1);
+
+    $datam = DB::table('marchandises')
+        ->select('nom', 'quantite')
+        ->where('id_cat', $categoryId)
+        ->get();
+
+    $chartDatam = $datam->map(function($item) {
+        return [
+            'nom' => $item->nom,
+            'quantite' => $item->quantite
+        ];
+    });
+
+    return response()->json($chartDatam);
+}
+
+public function updateprd(Request $request)
+{
+    $periode = $request->get('periode', 'day');
+    $dateFormat = match($periode) {
+        'month' => '%Y-%m',
+        'year' => '%Y',
+        default => '%Y-%m-%d'
+    };
+
+    $data = DB::table('rapports')
+        ->select(DB::raw("SUM(quantite) as total_quantite, DATE_FORMAT(date, '$dateFormat') as formatted_date"))
+        ->groupBy('formatted_date')
+        ->orderBy('formatted_date')
+        ->get();
+
+    $cumulativeTotal = 0;
+    $chartData = [];
+    foreach ($data as $entry) {
+        $cumulativeTotal += $entry->total_quantite;
+        $chartData[] = [
+            'date' => $entry->formatted_date,
+            'quantite' => $cumulativeTotal
+        ];
+    }
+
+    return response()->json($chartData);
+}
+
+public function updatees(Request $request)
+{
+    $periode2 = $request->get('periode2', 'day');
+    $dateFormat = match($periode2) {
+        'month' => '%Y-%m',
+        'year' => '%Y',
+        default => '%Y-%m-%d'
+    };
+
+    $data_entre = DB::table('entres')
+            ->select(DB::raw("SUM(quantite) as total_quantite, DATE_FORMAT(created_at, '$dateFormat') as formatted_date"))
+            ->groupBy('formatted_date')
+            ->orderBy('formatted_date')
+            ->get();
+
+    $chartDataentre = $data_entre->map(function($item) {
+        return [
+            'date' => $item->formatted_date,
+            'quantite' => $item->total_quantite
+        ];
+    });
+
+    $data_sortie = DB::table('sorties')
+            ->select(DB::raw("SUM(quantite) as total_quantite, DATE_FORMAT(created_at, '$dateFormat') as formatted_date"))
+            ->groupBy('formatted_date')
+            ->orderBy('formatted_date')
+            ->get();
+
+    $chartDatasortie = $data_sortie->map(function($item) {
+        return [
+            'date' => $item->formatted_date,
+            'quantite' => $item->total_quantite
+        ];
+    });
+
+    // Combine both datasets into an associative array
+    $response = [
+        'chartDataentre' => $chartDataentre,
+        'chartDatasortie' => $chartDatasortie
+    ];
+
+    return response()->json($response);
+}
+
+
 }
