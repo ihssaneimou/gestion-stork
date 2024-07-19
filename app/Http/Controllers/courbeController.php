@@ -79,40 +79,42 @@ class courbeController extends Controller
 
         
         $data_entre = DB::table('entres')
-            ->select(DB::raw("SUM(quantite) as total_quantite, DATE_FORMAT(created_at, '$dateFormat') as formatted_date"))
-            ->groupBy('formatted_date')
-            ->orderBy('formatted_date')
-            ->get();
-
-      
-      
-
-       $chartDataentre = $data_entre->map(function($item) {
+        ->select(DB::raw("SUM(quantite) as total_quantite, DATE_FORMAT(created_at, '$dateFormat') as formatted_date"))
+        ->groupBy('formatted_date')
+        ->orderBy('formatted_date')
+        ->get()
+        ->keyBy('formatted_date');
+    
+    // Retrieve data from 'sorties' table
+    $data_sortie = DB::table('sorties')
+        ->select(DB::raw("SUM(quantite) as total_quantite, DATE_FORMAT(created_at, '$dateFormat') as formatted_date"))
+        ->groupBy('formatted_date')
+        ->orderBy('formatted_date')
+        ->get()
+        ->keyBy('formatted_date');
+    
+    // Collect all unique dates from both datasets
+    $uniqueDates = collect(array_merge(
+        $data_entre->keys()->all(),
+        $data_sortie->keys()->all()
+    ))->unique()->sort();
+    
+    // Prepare chart data for 'entres'
+    $chartDataentre = $uniqueDates->map(function($date) use ($data_entre) {
         return [
-            
-           'date' => $item->formatted_date,
-            'quantite' =>$item->total_quantite
+            'date' => $date,
+            'quantite' => $data_entre->get($date)->total_quantite ?? 0
         ];
     });
-            
-          
-
-
-            $data_sortie = DB::table('sorties')
-            ->select(DB::raw("SUM(quantite) as total_quantite, DATE_FORMAT(created_at, '$dateFormat') as formatted_date"))
-            ->groupBy('formatted_date')
-            ->orderBy('formatted_date')
-            ->get();
-
-      
-            
-            $chartDatasortie = $data_sortie->map(function($item) {
-                return [
-                    
-                   'date' => $item->formatted_date,
-                    'quantite' =>$item->total_quantite
-                ];
-            });
+    
+    // Prepare chart data for 'sorties'
+    $chartDatasortie = $uniqueDates->map(function($date) use ($data_sortie) {
+        return [
+            'date' => $date,
+            'quantite' => $data_sortie->get($date)->total_quantite ?? 0
+        ];
+    });
+    
 
         return view('rapports.chart', [
             'chartData' => $chartData,
