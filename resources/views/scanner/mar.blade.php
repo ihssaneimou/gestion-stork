@@ -178,41 +178,47 @@
 
         <main class="flex justify-center">
             <div class="mx-4 w-fit ">
-                <div class="bg-gray-50 border border-gray-200 shadow-lg p-6 rounded-xl max-w-lg mx-auto mt-4 w-96 justify-center ">
-                    <div class=" justify-center justify-items-center items-center  aspect-square mr-6 flex">
+                <div class="bg-gray-50 border border-gray-200 shadow-lg p-6 rounded-xl sm:max-w-[1000px] mx-auto mt-4  justify-center sm:flex">
+                    
+
+                  
+                    <div class=" justify-center justify-items-center items-center sm:w-1/3  aspect-square mr-6 flex">
                         @if (isset($marchandise->image) && $marchandise->image !== null)
-                    <img class="max-w-72 max-h-72"
+                    <img class="max-w-80 max-h-80 sm:max-h-full sm:max-w-full"
                         src="{{ asset('/storage/' . $marchandise->image) }}" alt="" />
                 @else
-                    <img  class="max-w-64 max-h-64" src="{{ asset('/logo.jpg') }}"
+                    <img  class="max-w-80 max-h-80 sm:max-h-full sm:max-w-full" src="{{ asset('/logo.jpg') }}"
                         alt="" /> 
                 @endif
                 {{-- <p class="w-fit ">{{ $marchandise->id }}</p> --}}
                 
             </div>
-            <p class="text-x text-3xl font-semibold w-fit">{{ $marchandise->nom }}</p>
-            <p class="overflow-hidden max-h-14 w-full line-clamp-2"> {{ $marchandise->description }}</p>
-            <div class="flex justify-between mt-2 items-baseline">   
-                <p class="w-fit font-medium">Quantité: {{ $marchandise->quantite }}</p>
-                <div class="flex  gap-4 w-fit">
-                    <button onclick="warnning2({{ $marchandise->id }})" title="Ajout" aria-label="Ajout"
-                        class="flex items-center text-green-500 bg-green-200 hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                        class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                    </svg>
-                </button>
-                
-                <button onclick="warnning3({{ $marchandise->id }})" title="Sortie" aria-label="Sortie"
+            <div class="sm:w-2/3 sm:grid">
+            <div class="w-full sm:h-96">
+
+          
+            <p class="text-x text-3xl font-bold w-fit mb-2">{{ $marchandise->nom }}</p>
+            <p class="overflow-hidden  w-full line-clamp-6 sm:line-clamp-[15]"> {{ $marchandise->description }}</p>
+        </div>
+      
+                <div class="flex  mt-6 gap-4 w-full items-baseline justify-center">
+                    <button onclick="warnning3({{ $marchandise->id }})" title="Sortie" aria-label="Sortie"
                         class="flex items-center text-yellow-500 bg-yellow-200 hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                         class="w-5 h-5">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
                     </svg>
                 </button>
-            </div>
+                <p class="w-fit font-medium"> {{ $marchandise->quantite }}</p>
+                <button onclick="warnning2({{ $marchandise->id }})" title="Ajout" aria-label="Ajout"
+                    class="flex items-center text-green-500 bg-green-200 hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+            </button>
         </div> 
-            
+            </div>
         </div>
     </div>
         </main>

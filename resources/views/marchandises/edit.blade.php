@@ -66,10 +66,18 @@
                             <center>
                                 <label for="fileToUpload">
                                     {{-- @dd($site->logo) --}}
+                                    @if (isset($marchandise->image) && $marchandise->image !== null)
+
+                                    <div class="profile-pic" id="photo" style="background-image: url('{{ asset('/storage/' . $marchandise->image) }}')">
+                                        <!-- <span class="glyphicon glyphicon-camera"></span> -->
+                                        <span>Changer Image</span>
+                                    </div>
+                                    @else
                                         <div class="profile-pic" id="photo" style="background-image: url('/logo.jpg')">
                                             <!-- <span class="glyphicon glyphicon-camera"></span> -->
                                             <span>Changer Image</span>
                                         </div>
+                                    @endif
                                 </label>
                             </center>
                         </div>

@@ -229,7 +229,7 @@
                                 </td>
                                 <td class="py-4 px-1 text-center ">{{ $marchandise->quantite }}</td>
                                 <td class="py-4 px-1 text-center desc">
-                                    <p class="overflow-hidden max-h-10 max-w-48 line-clamp-2">{{ $marchandise->description }}</p>
+                                    <p class="overflow-hidden max-h-10 max-w-[500px] line-clamp-2">{{ $marchandise->description }}</p>
                                   </td>
                                   
                                 <td class="py-4 px-3 sm:px-6 justify-between flex text-center space-x-2">
