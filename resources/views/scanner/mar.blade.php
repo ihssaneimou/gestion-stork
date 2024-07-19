@@ -194,11 +194,11 @@
                 
             </div>
             <div class="sm:w-2/3 sm:grid">
-            <div class="w-full sm:h-96">
+            <div class="w-full sm:h-72">
 
           
             <p class="text-x text-3xl font-bold w-fit mb-2">{{ $marchandise->nom }}</p>
-            <p class="overflow-hidden  w-full line-clamp-6 sm:line-clamp-[15]"> {{ $marchandise->description }}</p>
+            <p class="overflow-hidden  w-full line-clamp-6 sm:line-clamp-[10]"> {{ $marchandise->description }}</p>
         </div>
       
                 <div class="flex  mt-6 gap-4 w-full items-baseline justify-center">

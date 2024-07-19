@@ -52,10 +52,11 @@ class marchandiseController extends Controller
     
      
         $mars = Marchandises::find($mar);
+       if ($mars) {
+         return view('scanner.mar',['marchandise'=>$mars]);
+       } 
         
-        return view('scanner.mar',['marchandise'=>$mars]);
-        
-
+       return abort(404);
     }
    
     public function create() {
