@@ -138,7 +138,7 @@ class marchandiseController extends Controller
         }
         $activite=new activites;
         $activite->id_adm=auth()->user()->id;
-        $activite->nom_activite="ajouter une marchandises de $entre->quantite $marchandise->nom dans ".$marchandise->categories->nom;
+        $activite->nom_activite="ajouter une marchandises : $marchandise->nom dans ".$marchandise->categories->nom;
         $activite->save();
 
         return redirect()->route('marchandises.index',$categorie)->with('success', 'Marchandise ajoutée avec succès.');
@@ -187,7 +187,7 @@ class marchandiseController extends Controller
 
         $activite=new activites;
         $activite->id_adm=auth()->user()->id;
-        $activite->nom_activite="modifier une marchandises $marchandise->nom dans $categorie->nom";
+        $activite->nom_activite="modifier une marchandises $marchandise->nom  dans ".$marchandise->categories->nom;
         $activite->save();
 
         return redirect()->route('marchandises.index',$categorie)->with('success', 'marchandise modifier  avec success');
@@ -232,7 +232,7 @@ class marchandiseController extends Controller
                 }
                 $activite=new activites;
                 $activite->id_adm=auth()->user()->id;
-                $activite->nom_activite="supprimer une marchandises $marchandise->nom ";
+                $activite->nom_activite="supprimer une marchandises $marchandise->nom  dans ".$marchandise->categories->nom;
                 $activite->save();
                $marchandise->delete();
         return redirect()->back()->with('success','marchandise supprimer  avec success');
