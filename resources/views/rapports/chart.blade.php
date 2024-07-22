@@ -30,17 +30,33 @@
             gap: 20px;
         }
         .styled-select {
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #fff;
-            color: #333;
-            outline: none;
-            width: 150px;
-            height: 40px;
-            transition: border-color 0.3s, box-shadow 0.3s;
-            margin-bottom: 10px;
+                padding: 5px;
+                font-size: 16px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background-color: #fff;
+                color: #333;
+                outline: none;
+                width: 100px;
+                height: 30px;
+                transition: border-color 0.3s, box-shadow 0.3s;
+                margin-bottom: 10px;
+            }
+        @media(min-width: 640px){
+            .styled-select {
+                padding: 10px;
+                font-size: 16px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background-color: #fff;
+                color: #333;
+                outline: none;
+                width: 150px;
+                height: 40px;
+                transition: border-color 0.3s, box-shadow 0.3s;
+                margin-bottom: 10px;
+            }
+            
         }
         .styled-select:hover {
             border-color: #888;
@@ -62,7 +78,7 @@
         }
         canvas {
             width: 100%;
-            max-width: 600px;
+            max-width: 100%;
             max-height: 400px;
         }
         .no-data-message {
@@ -137,7 +153,23 @@
         let itemChart;
         let stockChart;
         let esChart;
+        function getRandomColor() {
+            const r = Math.floor(Math.random() * 255);
+            const g = Math.floor(Math.random() * 255);
+            const b = Math.floor(Math.random() * 255);
+            return `rgba(${r}, ${g}, ${b}, 0.8)`;
+        }
 
+        function getColors(count) {
+            let backgroundColors = [];
+            let borderColors = [];
+            for (let i = 0; i < count; i++) {
+                const color = getRandomColor();
+                backgroundColors.push(color);
+                borderColors.push(color.replace('0.8', '1'));
+            }
+            return { backgroundColors, borderColors };
+        }
         document.addEventListener('DOMContentLoaded', function () {
             const chartData = @json($chartData);
             const chartDataentre = @json($chartDataentre);
@@ -150,42 +182,31 @@
             function initializeChart(ctx, type, labels, datasets) {
                 return new Chart(ctx, {
                     type: type,
+                    
+                    innerRadius: 90,
                     data: {
                         labels: labels,
-                        datasets: datasets
+                        datasets: datasets,
                     },
                     options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: 120,
+                    scales: {
+                        y: {
+                            beginAtZero: true
                         }
                     }
+                }
                 });
             }
-
+            const colors = getColors(chartDatac.length);
             const ctxCategory = document.getElementById('categoryChart').getContext('2d');
             initializeChart(ctxCategory, 'doughnut', chartDatac.map(item => item.nom), [{
                 label: 'Quantité',
                 data: chartDatac.map(item => item.quantite),
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.8)',
-                    'rgba(54, 162, 235, 0.8)',
-                    'rgba(255, 206, 86, 0.8)',
-                    'rgba(75, 192, 192, 0.8)',
-                    'rgba(153, 102, 255, 0.8)',
-                    'rgba(255, 159, 64, 0.8)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
+                backgroundColor: colors.backgroundColors,
+            borderColor: colors.borderColors,
                 borderWidth: 1
             }]);
 
@@ -193,22 +214,8 @@
             itemChart = initializeChart(ctxItem, 'doughnut', chartDatam.map(item => item.nom), [{
                 label: 'Quantité',
                 data: chartDatam.map(item => item.quantite),
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.8)',
-                    'rgba(54, 162, 235, 0.8)',
-                    'rgba(255, 206, 86, 0.8)',
-                    'rgba(75, 192, 192, 0.8)',
-                    'rgba(153, 102, 255, 0.8)',
-                    'rgba(255, 159, 64, 0.8)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
+                backgroundColor: colors.backgroundColors,
+            borderColor: colors.borderColors,
                 borderWidth: 1
             }]);
 
