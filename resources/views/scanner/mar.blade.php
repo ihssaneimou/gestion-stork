@@ -202,6 +202,7 @@
         </div>
       
                 <div class="flex  mt-6 gap-4 w-full items-baseline justify-center">
+                    <p>Sortie</p>
                     <button onclick="warnning3({{ $marchandise->id }})" title="Sortie" aria-label="Sortie"
                         class="flex items-center text-yellow-500 bg-yellow-200 hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
@@ -210,6 +211,7 @@
                     </svg>
                 </button>
                 <p class="w-fit font-medium"> {{ $marchandise->quantite }}</p>
+
                 <button onclick="warnning2({{ $marchandise->id }})" title="Ajout" aria-label="Ajout"
                     class="flex items-center text-green-500 bg-green-200 hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
@@ -217,6 +219,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
             </button>
+            <p>Entré</p>
         </div> 
             </div>
         </div>
