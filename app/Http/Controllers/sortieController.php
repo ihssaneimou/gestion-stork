@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\activites;
 use App\Models\categories;
 use App\Models\marchandises;
 use App\Models\rapport;
@@ -58,7 +59,10 @@ class sortieController extends Controller
             $rapport->quantite -= $sortie->quantite;
             $rapport->save();
         }
-    
+        $activite=new activites;
+        $activite->id_adm=auth()->user()->id;
+        $activite->nom_activite="ajouter une sortie de $sortie->quantite dans ".$marchandises->nom."de".$marchandises->categories->nom;
+        $activite->save();
         return redirect()->back()->with('success', 'sortie crée avec success.');
     }
 
