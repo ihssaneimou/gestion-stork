@@ -136,6 +136,7 @@
     <script>
         let itemChart;
         let stockChart;
+        let esChart;
 
         document.addEventListener('DOMContentLoaded', function () {
             const chartData = @json($chartData);
@@ -166,16 +167,16 @@
             }
 
             const ctxCategory = document.getElementById('categoryChart').getContext('2d');
-            initializeChart(ctxCategory, 'pie', chartDatac.map(item => item.nom), [{
+            initializeChart(ctxCategory, 'doughnut', chartDatac.map(item => item.nom), [{
                 label: 'Quantité',
                 data: chartDatac.map(item => item.quantite),
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64,1 )'
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
@@ -189,16 +190,16 @@
             }]);
 
             const ctxItem = document.getElementById('itemChart').getContext('2d');
-            itemChart = initializeChart(ctxItem, 'pie', chartDatam.map(item => item.nom), [{
+            itemChart = initializeChart(ctxItem, 'doughnut', chartDatam.map(item => item.nom), [{
                 label: 'Quantité',
                 data: chartDatam.map(item => item.quantite),
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
@@ -223,24 +224,24 @@
             stockChart = initializeChart(ctxStock, type, chartData.map(item => item.date), [{
                 label: 'Quantité du stock',
                 data: chartData.map(item => item.quantite),
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                backgroundColor: 'rgba(54, 162, 235, 1)',
                 borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1
             }]);
 
             const ctxES = document.getElementById('esChart').getContext('2d');
-            initializeChart(ctxES, type2, chartDataentre.map(item => item.date), [
+            esChart=initializeChart(ctxES, type2, chartDataentre.map(item => item.date), [
                 {
                     label: 'Entrée',
                     data: chartDataentre.map(item => item.quantite),
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    backgroundColor: 'rgba(54, 162, 235, 1)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
                 },
                 {
                     label: 'Sortie',
                     data: chartDatasortie.map(item => item.quantite),
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    backgroundColor: 'rgba(255, 99, 132, 1)',
                     borderColor: 'rgba(255, 99, 132, 1)',
                     borderWidth: 1
                 }
@@ -332,7 +333,6 @@
                 var labels = data.chartDataentre.map(function(item) { return item.date; });
                 var quantitiesEntre = data.chartDataentre.map(function(item) { return item.quantite; });
                 var quantitiesSortie = data.chartDatasortie.map(function(item) { return item.quantite; });
-
                 if (esChart) {
                     esChart.data.labels = labels;
                     esChart.data.datasets[0].data = quantitiesEntre;
