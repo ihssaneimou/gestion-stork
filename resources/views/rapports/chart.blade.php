@@ -196,26 +196,34 @@
                         y: {
                             beginAtZero: true
                         }
-                    }
+                    },
+            onClick: (event, elements) => {
+                if (elements.length > 0) {
+                    const index = elements[0].index;
+                    const categoryId = chartDatac[index].id;
+                    updateChartDatam(categoryId);
+                }
+            }
                 }
                 });
             }
+            
             const colors = getColors(chartDatac.length);
             const ctxCategory = document.getElementById('categoryChart').getContext('2d');
             initializeChart(ctxCategory, 'doughnut', chartDatac.map(item => item.nom), [{
                 label: 'Quantité',
                 data: chartDatac.map(item => item.quantite),
                 backgroundColor: colors.backgroundColors,
-            borderColor: colors.borderColors,
+                borderColor: colors.borderColors,
                 borderWidth: 1
             }]);
-
+            const colors2 = getColors(chartDatam.length);
             const ctxItem = document.getElementById('itemChart').getContext('2d');
             itemChart = initializeChart(ctxItem, 'doughnut', chartDatam.map(item => item.nom), [{
                 label: 'Quantité',
                 data: chartDatam.map(item => item.quantite),
-                backgroundColor: colors.backgroundColors,
-            borderColor: colors.borderColors,
+                backgroundColor: colors2.backgroundColors,
+            borderColor: colors2.borderColors,
                 borderWidth: 1
             }]);
 
@@ -265,31 +273,33 @@ stockChart = initializeChart(ctxStock, type, chartData.map(item => item.date), [
         });
 
         function updateChartDatam(categoryId) {
-            $.ajax({
-                url: "{{ route('updateChartDatam') }}",
-                method: 'GET',
-                data: { id_cat: categoryId },
-                success: function(data) {
-                    if (itemChart) {
-                        if (data.length > 0) {
-                            $('#itemChartMessage').hide();
-                            $('#itemChart').show();
-                            var labels = data.map(function(item) { return item.nom; });
-                            var quantities = data.map(function(item) { return item.quantite; });
-
-                            itemChart.data.labels = labels;
-                            itemChart.data.datasets[0].data = quantities;
-                            itemChart.update();
-                        } else {
-                            $('#itemChart').hide();
-                            $('#itemChartMessage').show();
-                        }
-                    } else {
-                        console.error('itemChart is not defined.');
-                    }
+    $.ajax({
+        url: "{{ route('updateChartDatam') }}",
+        method: 'GET',
+        data: { id_cat: categoryId },
+        success: function(data) {
+            if (itemChart) {
+                if (data.length > 0) {
+                    $('#itemChartMessage').hide();
+                    $('#itemChart').show();
+                    var labels = data.map(function(item) { return item.nom; });
+                    var quantities = data.map(function(item) { return item.quantite; });
+                    const colors = getColors(data.length);
+                    itemChart.data.labels = labels;
+                    itemChart.data.datasets[0].data = quantities;
+                    itemChart.data.datasets[0].backgroundColor = colors.backgroundColors;
+                    itemChart.data.datasets[0].borderColor = colors.borderColors;
+                    itemChart.update();
+                } else {
+                    $('#itemChart').hide();
+                    $('#itemChartMessage').show();
                 }
-            });
+            } else {
+                console.error('itemChart is not defined.');
+            }
         }
+    });
+}
 
         $('#categorySelect').change(function() {
             var categoryId = $(this).val();
@@ -440,7 +450,7 @@ $('#periode2Select, #type2Select').on('change', function() {
 var initialPeriode2 = $('#periodeSelect2').val();
         var initialType2 = $('#typeSelect2').val();
         var initialType2 = $('#type2Select').val();
-        updateChartDataes(initialPeriode2, initialType2);
+        updateChartDataES(initialPeriode2, initialType2);
     </script>
 </body>
 </x-nav-bar>
