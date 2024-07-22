@@ -1,31 +1,30 @@
 <x-nav-bar>
     <style>
         .line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;  
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-@media(max-width: 640px){
-    .desc{
-        display: none;
-    }
-}
-
-
+        @media(max-width: 640px) {
+            .desc {
+                display: none;
+            }
+        }
     </style>
-      <style>
+    <style>
         .qr-code {
             transition: transform 0.3s ease-in-out;
         }
+
         .enlarged {
             transform: scale(2);
             z-index: 1000;
         }
     </style>
-     <div class="fixed font-mon bg-white grid hidden rounded-md shadow-md z-50" id="deleteGroupModal"
+    <div class="fixed font-mon bg-white grid hidden rounded-md shadow-md z-50" id="deleteGroupModal"
         style="width: 800px; justify-items: center; align-content: space-evenly ;height: 250px; left: 50%; top:50%; transform: translate(-50%, -50%); tabindex="-1"
         aria-labelledby="deleteGroupModalLabel" aria-hidden="true">
         <div class="grid justify-items-center w-full">
@@ -43,7 +42,7 @@
 
                 <div class="mt-6">
                     <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
-                    <x-text-input  name="current_password" type="password" class="mt-1 block w-3/4"
+                    <x-text-input name="current_password" type="password" class="mt-1 block w-3/4"
                         placeholder="{{ __('Password') }}" />
                     <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" id="err" />
                 </div>
@@ -77,7 +76,7 @@
 
                 <div>
                     <label for="quantite" class="block text-sm font-medium text-gray-700">Quantité :</label>
-                    <input type="number" id="quantite" name="quantite"  required
+                    <input type="number" id="quantite" name="quantite" required
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     @error('quantite')
                         <script>
@@ -109,7 +108,7 @@
 
                 <div>
                     <label for="quantite" class="block text-sm font-medium text-gray-700">Quantité :</label>
-                    <input type="number" id="quantite" name="quantite"  required
+                    <input type="number" id="quantite" name="quantite" required
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     @error('quantite')
                         <script>
@@ -127,65 +126,64 @@
     <div id="cont" class="">
         <div class=" flex">
             <p class="text-2xl w-2/3 m-3 pl-6 underline underline-offset-4">marchandises</p>
-            <p class="text-xl w-1/3  m-3 pl-6"><a href="/marchandises/create/{{$categories->id}}"
+            <p class="text-xl w-1/3  m-3 pl-6"><a href="/marchandises/create/{{ $categories->id }}"
                     class="text-blue-600 hover:text-blue-900">Ajouter Marchendise</a></p>
+        </div>
+        <div class="container  w-full">
+            <!-- Error Message -->
+            @if (session('error'))
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Erreur!</strong>
+                    <span class="block sm:inline">{{ session('error') }}</span>
                 </div>
-                <div class="container  w-full">
-                    <!-- Error Message -->
-                    @if (session('error'))
-                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-                            role="alert">
-                            <strong class="font-bold">Erreur!</strong>
-                            <span class="block sm:inline">{{ session('error') }}</span>
-                        </div>
-                    @endif
-        
-                    <!-- Warning Message -->
-                    @if (session('warning'))
-                        <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative"
-                            role="alert">
-                            <strong class="font-bold">Attention!</strong>
-                            <span class="block sm:inline">{{ session('warning') }}</span>
-                        </div>
-                    @endif
-        
-                    <!-- Success Message -->
-                    @if (session('success'))
-                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
-                            role="alert">
-                            <strong class="font-bold">Succès!</strong>
-                            <span class="block sm:inline">{{ session('success') }}</span>
-                        </div>
-                    @endif
-        
-                    <!-- General Validation Errors -->
-                    @if ($errors->any())
-                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-                            role="alert">
-                            <strong class="font-bold">Oops!</strong>
-                            <span class="block sm:inline">Il y avait quelques problèmes avec vos données
-                                saisies.</span>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    @if ($errors->userDeletion->get('current_password'))
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mb-1 rounded relative" role="alert">
-                <strong class="font-bold">Oops!</strong>
-                <span class="block sm:inline">Il y avait quelques problèmes avec vos données
-                    saisies.</span>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-        
+            @endif
+
+            <!-- Warning Message -->
+            @if (session('warning'))
+                <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative"
+                    role="alert">
+                    <strong class="font-bold">Attention!</strong>
+                    <span class="block sm:inline">{{ session('warning') }}</span>
                 </div>
+            @endif
+
+            <!-- Success Message -->
+            @if (session('success'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
+                    role="alert">
+                    <strong class="font-bold">Succès!</strong>
+                    <span class="block sm:inline">{{ session('success') }}</span>
+                </div>
+            @endif
+
+            <!-- General Validation Errors -->
+            @if ($errors->any())
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Oops!</strong>
+                    <span class="block sm:inline">Il y avait quelques problèmes avec vos données
+                        saisies.</span>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if ($errors->userDeletion->get('current_password'))
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mb-1 rounded relative"
+                    role="alert">
+                    <strong class="font-bold">Oops!</strong>
+                    <span class="block sm:inline">Il y avait quelques problèmes avec vos données
+                        saisies.</span>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+        </div>
         @if (count($marchandises) > 0)
             <div class="overflow-x-auto relative shadow-md w-full sm:rounded-lg mb-10">
                 <table class="w-full text-sm text-left text-gray-500">
@@ -214,12 +212,14 @@
 
                                 </td>
                                 <td class="py-4 px-1 text-center  ">{{ $marchandise->nom }}</td>
-                                
-                                   <td class=" justify-center py-5 px-1 hidden sm:flex "> <abbr title="{{$marchandise->barre_code}}" id="qr-{{$marchandise->id}}" onclick="qr({{$marchandise->id}})" class="block cursor-pointer qr-code">
-                                    {!! QrCode::size(40)->generate($marchandise->id) !!}
-                                </abbr></td>
-                        
-                            
+
+                                <td class=" justify-center py-5 px-1 hidden sm:flex "> <abbr
+                                        title="{{ $marchandise->barre_code }}" id="qr-{{ $marchandise->id }}"
+                                        onclick="qr({{ $marchandise->id }})" class="block cursor-pointer qr-code">
+                                        {!! QrCode::size(40)->generate($marchandise->id) !!}
+                                    </abbr></td>
+
+
                                 <td class="py-4 px-1 text-center ">
                                     @if ($marchandise->categories)
                                         {{ $marchandise->categories->nom }}
@@ -229,9 +229,10 @@
                                 </td>
                                 <td class="py-4 px-1 text-center ">{{ $marchandise->quantite }}</td>
                                 <td class="py-4 px-1 text-center desc">
-                                    <p class="overflow-hidden max-h-10 max-w-[500px] line-clamp-2">{{ $marchandise->description }}</p>
-                                  </td>
-                                  
+                                    <p class="overflow-hidden max-h-10 max-w-[500px] line-clamp-2">
+                                        {{ $marchandise->description }}</p>
+                                </td>
+
                                 <td class="py-4 px-3 sm:px-6 justify-between flex text-center space-x-2">
                                     <button onclick="warnning2({{ $marchandise->id }})" title="Ajout"
                                         aria-label="Ajout"
@@ -252,16 +253,16 @@
                                                 d="M20 12H4" />
                                         </svg>
                                     </button>
-                                    @if (auth()->user()->role=='S')
-                                    <button onclick="warnning({{ $marchandise->id }})" title="Supprimer"
-                                        aria-label="Supprimer"
-                                        class="flex items-center desc text-red-500 bg-red-200 hover:bg-red-300 focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke="currentColor" class="w-5 h-5">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
-                                    </button>
+                                    @if (auth()->user()->role == 'S')
+                                        <button onclick="warnning({{ $marchandise->id }})" title="Supprimer"
+                                            aria-label="Supprimer"
+                                            class="flex items-center desc text-red-500 bg-red-200 hover:bg-red-300 focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
                                     @endif
                                     <a href="/marchandises/{{ $marchandise->id }}/edit" title="Modifier"
                                         aria-label="Modifier"
@@ -284,7 +285,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                
+
             </div>
         @else
             <h2 class="text-gray-300 text-xl sm:text-8xl select-none text-center mt-32">aucune marchendise</h2>
@@ -338,7 +339,7 @@
                 document.getElementById('cont').classList.remove('pointer-events-none');
             }
         </script>
-           <script>
+        <script>
             function qr(id) {
                 document.getElementById(`qr-${id}`).classList.toggle('enlarged');
             }
