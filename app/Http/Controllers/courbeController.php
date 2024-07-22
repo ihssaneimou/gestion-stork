@@ -114,9 +114,7 @@ class courbeController extends Controller
             'quantite' => $data_sortie->get($date)->total_quantite ?? 0
         ];
     });
-    
 
-            
 
         return view('rapports.chart', [
             'chartData' => $chartData,

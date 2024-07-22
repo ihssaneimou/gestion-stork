@@ -127,7 +127,7 @@
                     <option value="line" {{ request('type') == 'line' ? 'selected' : '' }}>Ligne</option>
                 </select>
             </form>
-            <canvas id="stockChart"></canvas>
+            <canvas id="stockChart" ></canvas>
         </div>
     </div>
 
@@ -335,7 +335,7 @@ stockChart = initializeChart(ctxStock, type, chartData.map(item => item.date), [
                                     borderColor: 'rgba(54, 162, 235, 1)',
                                     borderWidth: 1,
                                     fill: true, // Enable area fill
-                                    tension: 0.4 // Smooth curves
+                                    tension: 0.4 
                                 }]
                             },
                             options: {
