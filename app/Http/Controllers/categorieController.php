@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-
+use App\Models\activites;
 use App\Models\categories;
 use App\Models\entres;
 use App\Models\marchandises;
@@ -89,6 +89,10 @@ class CategorieController extends Controller
         $categorie = new Categories();
         $categorie->nom = $validatedData['nom'];
         $categorie->save();
+        $activite=new activites;
+        $activite->id_adm=auth()->user()->id;
+        $activite->nom_activite="ajouter une marchandises" .$categorie->nom;
+        $activite->save();
 
         return redirect()->route('marchandises.index_cat')->with('success', 'Catégorie ajoutée avec succès.');
     }
@@ -104,6 +108,10 @@ class CategorieController extends Controller
         ]);
         $categorie->nom = $validatedData['nom'];
         $categorie->save();
+        $activite=new activites;
+        $activite->id_adm=auth()->user()->id;
+        $activite->nom_activite="modifier une categorie" .$categorie->nom;
+        $activite->save();
 
         return redirect()->route('marchandises.index_cat')->with('success', 'Catégorie mise à jour avec succès.');
     }
@@ -197,6 +205,10 @@ class CategorieController extends Controller
             'current_password' => ['required', 'current_password'],
         ]);
             $categorie=categories::find($request->id);
+            $activite=new activites;
+            $activite->id_adm=auth()->user()->id;
+            $activite->nom_activite="supprimer une categorie" .$categorie->nom;
+            $activite->save();
             $categorie->delete();
             return redirect()->back()->with('success', 'Catégorie supprimée avec succès.');
         

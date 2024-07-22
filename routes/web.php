@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\activiteController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\categorieController;
 use App\Http\Controllers\courbeController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\rapportController;
 use App\Http\Controllers\sortieController;
 use App\Http\Controllers\UserController;
+use App\Models\activites;
 use Illuminate\Support\Facades\Route;
 use Spatie\FlareClient\View;
 
@@ -104,6 +106,7 @@ Route::get('register', [UserController::class, 'register'])
 ->name('register');
 
 Route::post('register', [UserController::class, 'store']);
+Route::get('historique', [activiteController::class, 'index']);
 
 Route::get('/admin/list', [UserController::class, 'list']);
 Route::get('/admin/update/{user}', [UserController::class, 'modif']);
