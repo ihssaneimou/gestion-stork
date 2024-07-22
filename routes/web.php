@@ -116,6 +116,9 @@ Route::delete('/admin/delete', [UserController::class, 'delete']);
 Route::get('/scanner', function () {
     return View('scanner.scanner');
 });
+Route::get('/tst', function () {
+    return View('tst');
+});
 Route::get('/qrscan', function () {
     return View('scanner.html5-qrcode.min.js');
 });

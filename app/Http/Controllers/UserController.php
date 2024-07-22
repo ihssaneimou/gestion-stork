@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\activites;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -32,6 +33,10 @@ class UserController extends Controller
           $formFields['password'] = bcrypt(($formFields['password']));
 
           $user = User::create($formFields);
+          $activite=new activites();
+          $activite->id_adm=auth()->user()->id;
+          $activite->nom_activite="ajouter admin ".$user->name;
+          $activite->save();
           return redirect()->back()->with('success', "le compt de ". $user->name ." est bien crée " );
      }
      function register()
@@ -74,6 +79,10 @@ class UserController extends Controller
                ]);
      
                $user->update($formFields);
+               $activite=new activites();
+               $activite->id_adm=auth()->user()->id;
+               $activite->nom_activite="Modifier les information de  l'admin ".$user->name;
+               $activite->save();
                return redirect()->back()->with('success', 'Your profile has been updated!');
           }
           return abort(403, 'you are not a super admin');
@@ -92,6 +101,10 @@ class UserController extends Controller
                ]);
                $formFields['password'] = bcrypt(($formFields['password']));
                $user->update($formFields);
+               $activite=new activites();
+               $activite->id_adm=auth()->user()->id;
+               $activite->nom_activite="Modifier le mot de passe  de  l'admin ".$user->name;
+               $activite->save();
                return redirect()->back()->with('success', 'Your password has been updated!');
           }
           return abort(403, 'you are not a super admin');
@@ -104,6 +117,10 @@ class UserController extends Controller
            ]);
         if (auth()->user()->role == 'S') {
             $user=User::find($request->id);
+            $activite=new activites();
+               $activite->id_adm=auth()->user()->id;
+               $activite->nom_activite="supprimer l'admin ".$user->name;
+               $activite->save();
             $user->delete();
             return redirect()->back()->with('success','user deleted seccessfuly');
        }
