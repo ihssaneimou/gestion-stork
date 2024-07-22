@@ -221,7 +221,7 @@
             }
 
             const ctxStock = document.getElementById('stockChart').getContext('2d');
-stockChart = initializeChart(ctxStock, 'line', chartData.map(item => item.date), [{
+stockChart = initializeChart(ctxStock, type, chartData.map(item => item.date), [{
     label: 'Quantité du stock',
     data: chartData.map(item => item.quantite),
     backgroundColor: 'rgba(54, 162, 235, 0.5)', // Semi-transparent fill for area effect
@@ -314,9 +314,11 @@ stockChart = initializeChart(ctxStock, 'line', chartData.map(item => item.date),
                                 datasets: [{
                                     label: 'Quantités',
                                     data: quantities,
-                                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
                                     borderColor: 'rgba(54, 162, 235, 1)',
-                                    borderWidth: 1
+                                    borderWidth: 1,
+                                    fill: true, // Enable area fill
+                                    tension: 0.4 // Smooth curves
                                 }]
                             },
                             options: {
@@ -380,16 +382,20 @@ stockChart = initializeChart(ctxStock, 'line', chartData.map(item => item.date),
                                     {
                                         label: 'Entrée',
                                         data: quantitiesEntre,
-                                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
                                         borderColor: 'rgba(54, 162, 235, 1)',
-                                        borderWidth: 1
+                                        borderWidth: 1,
+                                        fill: true, // Enable area fill
+                                        tension: 0.4 // Smooth curves
                                     },
                                     {
                                         label: 'Sortie',
                                         data: quantitiesSortie,
-                                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
                                         borderColor: 'rgba(255, 99, 132, 1)',
-                                        borderWidth: 1
+                                        borderWidth: 1,
+                                        fill: true, // Enable area fill
+                                        tension: 0.4 // Smooth curves
                                     }
                                 ]
                             },
