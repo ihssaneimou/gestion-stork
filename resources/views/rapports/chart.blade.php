@@ -111,7 +111,7 @@
                     <option value="line" {{ request('type') == 'line' ? 'selected' : '' }}>Ligne</option>
                 </select>
             </form>
-            <canvas id="stockChart"></canvas>
+            <canvas id="stockChart" ></canvas>
         </div>
     </div>
 
@@ -221,7 +221,7 @@
             }
 
             const ctxStock = document.getElementById('stockChart').getContext('2d');
-stockChart = initializeChart(ctxStock, 'line', chartData.map(item => item.date), [{
+stockChart = initializeChart(ctxStock, type , chartData.map(item => item.date), [{
     label: 'Quantité du stock',
     data: chartData.map(item => item.quantite),
     backgroundColor: 'rgba(54, 162, 235, 0.5)', // Semi-transparent fill for area effect
@@ -316,7 +316,9 @@ stockChart = initializeChart(ctxStock, 'line', chartData.map(item => item.date),
                                     data: quantities,
                                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                                     borderColor: 'rgba(54, 162, 235, 1)',
-                                    borderWidth: 1
+                                    borderWidth: 1,
+                                    fill: true, // Enable area fill
+                                    tension: 0.4 
                                 }]
                             },
                             options: {
@@ -382,7 +384,8 @@ stockChart = initializeChart(ctxStock, 'line', chartData.map(item => item.date),
                                         data: quantitiesEntre,
                                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
                                         borderColor: 'rgba(54, 162, 235, 1)',
-                                        borderWidth: 1
+                                        borderWidth: 1,
+                                       
                                     },
                                     {
                                         label: 'Sortie',
@@ -390,6 +393,7 @@ stockChart = initializeChart(ctxStock, 'line', chartData.map(item => item.date),
                                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
                                         borderColor: 'rgba(255, 99, 132, 1)',
                                         borderWidth: 1
+                                        
                                     }
                                 ]
                             },
