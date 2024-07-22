@@ -196,6 +196,27 @@
                         y: {
                             beginAtZero: true
                         }
+                    }
+                }
+                });
+            }
+            function initializeChart2(ctx, type, labels, datasets) {
+                return new Chart(ctx, {
+                    type: type,
+                    
+                    innerRadius: 90,
+                    data: {
+                        labels: labels,
+                        datasets: datasets,
+                    },
+                    options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: 120,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     },
             onClick: (event, elements) => {
                 if (elements.length > 0) {
@@ -210,7 +231,7 @@
             
             const colors = getColors(chartDatac.length);
             const ctxCategory = document.getElementById('categoryChart').getContext('2d');
-            initializeChart(ctxCategory, 'doughnut', chartDatac.map(item => item.nom), [{
+            initializeChart2(ctxCategory, 'doughnut', chartDatac.map(item => item.nom), [{
                 label: 'Quantité',
                 data: chartDatac.map(item => item.quantite),
                 backgroundColor: colors.backgroundColors,
