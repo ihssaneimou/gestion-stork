@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\acheters;
+use App\Models\activites;
 use App\Models\categories;
 use App\Models\entres;
 use App\Models\fournisseurs;
@@ -51,7 +52,11 @@ class entreController extends Controller
             $rapport->save();
         }
 
-    
+        $activite=new activites;
+        $activite->id_adm=auth()->user()->id;
+        $activite->nom_activite="ajouter une entré de $entre->quantite $marchandises->nom";
+        $activite->save();
+        
         return redirect()->back()->with('success', 'Entrée  crée avec success.');
     }
 
