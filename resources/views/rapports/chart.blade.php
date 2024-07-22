@@ -296,19 +296,41 @@ stockChart = initializeChart(ctxStock, 'line', chartData.map(item => item.date),
             $.ajax({
                 url: "{{ route('updateprd') }}",
                 method: 'GET',
-                data: { periode: periode },
+                data: { periode: periode, type: type },
                 success: function(data) {
-                    if (stockChart) {
-                        if (data.length > 0) {
-                            var labels = data.map(function(item) { return item.date; });
-                            var quantities = data.map(function(item) { return item.quantite; });
+                    if (data.length > 0) {
+                        var labels = data.map(function(item) { return item.date; });
+                        var quantities = data.map(function(item) { return item.quantite; });
 
-                            stockChart.data.labels = labels;
-                            stockChart.data.datasets[0].data = quantities;
-                            stockChart.update();
-                        } else {
-                            console.log('No data available');
+                        if (stockChart) {
+                            stockChart.destroy(); 
                         }
+
+                        var ctx = document.getElementById('stockChart').getContext('2d');
+                        stockChart = new Chart(ctx, {
+                            type: type,
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'Quantités',
+                                    data: quantities,
+                                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                    borderColor: 'rgba(54, 162, 235, 1)',
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'top',
+                                    },
+                                    tooltip: {
+                                        enabled: true
+                                    }
+                                }
+                            }
+                        });
                     } else {
                         console.error('stockChart is not defined.');
                     }
@@ -317,6 +339,7 @@ stockChart = initializeChart(ctxStock, 'line', chartData.map(item => item.date),
                     console.error('AJAX Error: ' + status + error);
                 }
             });
+
         }
 
         $('#periodeSelect').change(function() {
@@ -332,33 +355,65 @@ stockChart = initializeChart(ctxStock, 'line', chartData.map(item => item.date),
         });
 
        
-        function updateChartDataES(periode2) {
-        $.ajax({
-        url: "{{ route('updatees') }}",
-        method: 'GET',
-        data: { periode2: periode2 },
-        success: function(data) {
-            if (data.chartDataentre.length > 0 || data.chartDatasortie.length > 0) {
-                var labels = data.chartDataentre.map(function(item) { return item.date; });
-                var quantitiesEntre = data.chartDataentre.map(function(item) { return item.quantite; });
-                var quantitiesSortie = data.chartDatasortie.map(function(item) { return item.quantite; });
-                if (esChart) {
-                    esChart.data.labels = labels;
-                    esChart.data.datasets[0].data = quantitiesEntre;
-                    esChart.data.datasets[1].data = quantitiesSortie;
-                    esChart.update();
-                } else {
-                    console.error('esChart is not defined.');
+
+        function updateChartDataES(periode2, type2) {
+            $.ajax({
+                url: "{{ route('updatees') }}",
+                method: 'GET',
+                data: { periode2: periode2, type2: type2 },
+                success: function(data) {
+                    if (data.chartDataentre.length > 0 || data.chartDatasortie.length > 0) {
+                        var labels = data.chartDataentre.map(function(item) { return item.date; });
+                        var quantitiesEntre = data.chartDataentre.map(function(item) { return item.quantite; });
+                        var quantitiesSortie = data.chartDatasortie.map(function(item) { return item.quantite; });
+
+                        if (esChart) {
+                            esChart.destroy(); 
+                        }
+
+                        var ctx = document.getElementById('esChart').getContext('2d');
+                        esChart = new Chart(ctx, {
+                            type: type2,
+                            data: {
+                                labels: labels,
+                                datasets: [
+                                    {
+                                        label: 'Entrée',
+                                        data: quantitiesEntre,
+                                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                        borderColor: 'rgba(54, 162, 235, 1)',
+                                        borderWidth: 1
+                                    },
+                                    {
+                                        label: 'Sortie',
+                                        data: quantitiesSortie,
+                                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                        borderColor: 'rgba(255, 99, 132, 1)',
+                                        borderWidth: 1
+                                    }
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'top',
+                                    },
+                                    tooltip: {
+                                        enabled: true
+                                    }
+                                }
+                            }
+                        });
+                    } else {
+                        console.log('No data available');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error: ' + status + ' ' + error);
                 }
-            } else {
-                console.log('No data available');
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error('AJAX Error: ' + status + error);
+            });
         }
-    });
-}
 
 
 
@@ -366,14 +421,11 @@ $('#periode2Select, #type2Select').on('change', function() {
     const selectedPeriod = $('#periode2Select').val();
     const selectedType = $('#type2Select').val();
     const url = `{{ route('rapports.courbe') }}?type2=${selectedType}&periode2=${selectedPeriod}`;
-    updateChartDataES(selectedPeriod);
+    updateChartDataES(selectedPeriod,selectedType);
 });
 
 var initialPeriode2 = $('#periodeSelect2').val();
-updateChartDataES(initialPeriode2);
-
-  
-        
+        var initialType2 = $('#typeSelect2').val();
         var initialType2 = $('#type2Select').val();
         updateChartDataes(initialPeriode2, initialType2);
     </script>
