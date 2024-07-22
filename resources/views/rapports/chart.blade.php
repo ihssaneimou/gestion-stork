@@ -171,12 +171,12 @@
                 label: 'Quantité',
                 data: chartDatac.map(item => item.quantite),
                 backgroundColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64,1 )'
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)'
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
@@ -194,12 +194,12 @@
                 label: 'Quantité',
                 data: chartDatam.map(item => item.quantite),
                 backgroundColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)'
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
@@ -221,27 +221,36 @@
             }
 
             const ctxStock = document.getElementById('stockChart').getContext('2d');
-            stockChart = initializeChart(ctxStock, type, chartData.map(item => item.date), [{
-                label: 'Quantité du stock',
-                data: chartData.map(item => item.quantite),
-                backgroundColor: 'rgba(54, 162, 235, 1)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1
-            }]);
+stockChart = initializeChart(ctxStock, 'line', chartData.map(item => item.date), [{
+    label: 'Quantité du stock',
+    data: chartData.map(item => item.quantite),
+    backgroundColor: 'rgba(54, 162, 235, 0.5)', // Semi-transparent fill for area effect
+    borderColor: 'rgba(54, 162, 235, 1)',
+    borderWidth: 1,
+    fill: true, // Enable area fill
+    tension: 0.4 // Smooth curves
+}], {
+    scales: {
+        y: {
+            beginAtZero: true
+        }
+    }
+});
+
 
             const ctxES = document.getElementById('esChart').getContext('2d');
             esChart=initializeChart(ctxES, type2, chartDataentre.map(item => item.date), [
                 {
                     label: 'Entrée',
                     data: chartDataentre.map(item => item.quantite),
-                    backgroundColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
                 },
                 {
                     label: 'Sortie',
                     data: chartDatasortie.map(item => item.quantite),
-                    backgroundColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
                     borderColor: 'rgba(255, 99, 132, 1)',
                     borderWidth: 1
                 }
