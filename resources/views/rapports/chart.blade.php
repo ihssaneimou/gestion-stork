@@ -286,8 +286,8 @@ stockChart = initializeChart(ctxStock, type, chartData.map(item => item.date), [
                 {
                     label: 'Sortie',
                     data: chartDatasortie.map(item => item.quantite),
-                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 255, 51, 0.5)',
+                    borderColor: 'rgba(255, 255, 51, 1)',
                     borderWidth: 1
                 }
             ]);
@@ -429,8 +429,8 @@ stockChart = initializeChart(ctxStock, type, chartData.map(item => item.date), [
                                     {
                                         label: 'Sortie',
                                         data: quantitiesSortie,
-                                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                                        borderColor: 'rgba(255, 99, 132, 1)',
+                                        backgroundColor: 'rgba(255, 255, 52, 0.4)',
+                                        borderColor: 'rgba(255, 255, 52, 1)',
                                         borderWidth: 1,
                                         fill: true, // Enable area fill
                                         tension: 0.4 // Smooth curves
