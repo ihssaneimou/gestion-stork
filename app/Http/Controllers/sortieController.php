@@ -61,7 +61,7 @@ class sortieController extends Controller
         }
         $activite=new activites;
         $activite->id_adm=auth()->user()->id;
-        $activite->nom_activite="ajouter une sortie de $sortie->quantite  ".$marchandises->nom." de ".$marchandises->categories->nom;
+        $activite->nom_activite="ajout d'une sortie de $sortie->quantite  ".$marchandises->nom." de ".$marchandises->categories->nom;
         $activite->type='ajout';
         $activite->save();
         return redirect()->back()->with('success', 'sortie crée avec success.');

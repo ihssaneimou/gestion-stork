@@ -138,7 +138,7 @@ class marchandiseController extends Controller
         }
         $activite=new activites;
         $activite->id_adm=auth()->user()->id;
-        $activite->nom_activite="ajouter une marchandises : $marchandise->nom dans ".$marchandise->categories->nom;
+        $activite->nom_activite="ajout d'une marchandises : $marchandise->nom dans ".$marchandise->categories->nom;
         $activite->type='ajout';
         $activite->save();
 
@@ -188,7 +188,7 @@ class marchandiseController extends Controller
 
         $activite=new activites;
         $activite->id_adm=auth()->user()->id;
-        $activite->nom_activite="modifier une marchandises $marchandise->nom  dans ".$marchandise->categories->nom;
+        $activite->nom_activite="modification d'une marchandises $marchandise->nom  dans ".$marchandise->categories->nom;
         $activite->type='modif';
         $activite->save();
 
@@ -234,7 +234,7 @@ class marchandiseController extends Controller
                 }
                 $activite=new activites;
                 $activite->id_adm=auth()->user()->id;
-                $activite->nom_activite="supprimer une marchandises $marchandise->nom  dans ".$marchandise->categories->nom;
+                $activite->nom_activite="suppression d'une marchandises $marchandise->nom  dans ".$marchandise->categories->nom;
                 $activite->type='suppression';
                 $activite->save();
                $marchandise->delete();

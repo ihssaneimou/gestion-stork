@@ -91,7 +91,7 @@ class CategorieController extends Controller
         $categorie->save();
         $activite=new activites;
         $activite->id_adm=auth()->user()->id;
-        $activite->nom_activite="ajouter une marchandises " .$categorie->nom;
+        $activite->nom_activite="ajout d'une marchandises " .$categorie->nom;
         $activite->type='ajout';
         $activite->save();
 
@@ -111,7 +111,7 @@ class CategorieController extends Controller
         $categorie->save();
         $activite=new activites;
         $activite->id_adm=auth()->user()->id;
-        $activite->nom_activite="modifier une categorie " .$categorie->nom;
+        $activite->nom_activite="modification d'une categorie " .$categorie->nom;
         $activite->type='modif';
         $activite->save();
 
@@ -209,7 +209,7 @@ class CategorieController extends Controller
             $categorie=categories::find($request->id);
             $activite=new activites;
             $activite->id_adm=auth()->user()->id;
-            $activite->nom_activite="supprimer une categorie " .$categorie->nom;
+            $activite->nom_activite="suppression d'une categorie " .$categorie->nom;
             $activite->type='suppression';
             $activite->save();
             $categorie->delete();

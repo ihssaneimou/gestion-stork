@@ -35,7 +35,8 @@ class UserController extends Controller
           $user = User::create($formFields);
           $activite=new activites();
           $activite->id_adm=auth()->user()->id;
-          $activite->nom_activite="ajouter admin ".$user->name;
+          $activite->nom_activite="ajout d'un admin ".$user->name;
+          $activite->type='ajout';
           $activite->save();
           return redirect()->back()->with('success', "le compt de ". $user->name ." est bien crée " );
      }
@@ -81,7 +82,7 @@ class UserController extends Controller
                $user->update($formFields);
                $activite=new activites();
                $activite->id_adm=auth()->user()->id;
-               $activite->nom_activite="Modifier les information de  l'admin ".$user->name;
+               $activite->nom_activite="Modification des informations de  l'admin ".$user->name;
                $activite->save();
                return redirect()->back()->with('success', 'Your profile has been updated!');
           }
@@ -103,7 +104,7 @@ class UserController extends Controller
                $user->update($formFields);
                $activite=new activites();
                $activite->id_adm=auth()->user()->id;
-               $activite->nom_activite="Modifier le mot de passe  de  l'admin ".$user->name;
+               $activite->nom_activite="Modification du mot de passe  de  l'admin ".$user->name;
                $activite->save();
                return redirect()->back()->with('success', 'Your password has been updated!');
           }
@@ -119,7 +120,7 @@ class UserController extends Controller
             $user=User::find($request->id);
             $activite=new activites();
                $activite->id_adm=auth()->user()->id;
-               $activite->nom_activite="supprimer l'admin ".$user->name;
+               $activite->nom_activite="suppression de l'admin ".$user->name;
                $activite->save();
             $user->delete();
             return redirect()->back()->with('success','user deleted seccessfuly');
