@@ -15,14 +15,14 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body style="height: 100vh" class="bg-gray-100 text-gray-900 flex justify-center">
-    <div class="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
+    <div class="max-w-screen-xl m-0 sm:m-10 bg-gray-100 sm:bg-white shadow-lg sm:rounded-lg flex justify-center flex-1">
         <div class="flex-1 text-center hidden lg:flex">
             <div class=" w-full h-full bg-center bg-gray-800 bg-no-repeat" style="background-image: url('https://i.pinimg.com/564x/32/72/53/3272534ec28e93725aa4c5c0a44ef088.jpg');">
             </div>
         </div>
-        <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
-            <div class="mt-12 flex flex-col items-center ">
-                <div class="w-full flex-1 mt-16 ">
+        <div class="flex items-center lg:w-1/2 xl:w-5/12 p-8 sm:p-12 img">
+            <div class=" flex flex-col items-center w-full">
+                <div class="w-full flex-1  ">
                     <div class="">
                         {{ $slot }}
                     </div>
