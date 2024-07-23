@@ -92,9 +92,11 @@ class CategorieController extends Controller
 
     public function store(Request $request){
         $validatedData = $request->validate([
-            'nom' => 'required|min:3|string',
+            'nom' => 'required|min:3|string|unique:categories,nom',
         ]);
-       
+       if (stristr($validatedData['nom'],'Autre')) {
+        return redirect()->back()->with('error', 'choisi un autre nom');
+       }
         $categorie = new Categories();
         $categorie->nom = $validatedData['nom'];
         $categorie->save();
@@ -109,8 +111,11 @@ class CategorieController extends Controller
 
     public function update(Request $request, Categories $categorie) {
         $validatedData = $request->validate([
-            'nom' => 'required|min:3|string',
+            'nom' => 'required|min:3|string|unique:categories,nom'.$categorie->id,
         ]);
+        if (stristr($validatedData['nom'],'Autre')) {
+            return redirect()->back()->with('error', 'choisi un autre nom');
+           }
         $categorie->nom = $validatedData['nom'];
         $categorie->save();
 

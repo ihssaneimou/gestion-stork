@@ -40,13 +40,17 @@ class marchandiseController extends Controller
             $category->total_vendus = $sorties[$category->id] ?? 0;
         }
     
-        $entres = marchandises::select( DB::raw('COALESCE(SUM(marchandises.quantite), 0) as total_achetes'))
-        ->where('marchandises.id_cat', '=', null)->get();
+        $entres = marchandises::select(DB::raw('COALESCE(SUM(marchandises.quantite), 0) as total_achetes'))
+                ->where('marchandises.id_cat', '=', null)
+                ->first();
 
+        $entres = $entres->total_achetes;
+        
 // Fetch total 'sorties' (sales) grouped by category ID
         $sorties = marchandises::select( DB::raw('COALESCE(SUM(sorties.quantite), 0) as total_vendus'))
                 ->leftJoin('sorties', 'sorties.id_mar', '=', 'marchandises.id')
-                ->where('marchandises.id_cat', '=', null)->get();
+                ->where('marchandises.id_cat', '=', null)->first();
+                $sorties = $sorties->total_vendus;
         // Return the view with the categories data
         return view('marchandises.index_cat', compact('categories','entres','sorties'));
     }
@@ -56,7 +60,7 @@ class marchandiseController extends Controller
     }
     public function Autre(){
         $marchandise = marchandises::where('id_cat','=',null)->paginate(10)->withQueryString();
-        return view('marchandises.index', ['marchandises'=>$marchandise]);
+        return view('marchandises.index_autre', ['marchandises'=>$marchandise]);
     }
 
     public function getMarchandiseInfo(string $mar) {
@@ -104,8 +108,12 @@ class marchandiseController extends Controller
         
         if (strstr($valid['categorie'],'add')) {
             $valid2 = $request->validate([
-                'new_categorie' => 'required|string|min:3' 
+                'new_categorie' => 'required|string|min:3',
+                'nom' => 'required|min:3|string|unique:marchandises,nom', 
             ]);
+            if (stristr($valid2['nom'],'Autre')) {
+                return redirect()->back()->with('error', 'choisie un autre nom de categorie');
+               }
             $categorie = new Categories();
             $categorie->nom = $valid2['new_categorie'];
             $categorie->save();
@@ -167,12 +175,15 @@ class marchandiseController extends Controller
         $activite->id_adm=auth()->user()->id;
         if($marchandise->categories){
             $activite->nom_activite="ajouter une marchandises : $marchandise->nom dans ".$marchandise->categories->nom;
+            $activite->save();
+    
+            return redirect()->route('marchandises.index',$categorie)->with('success', 'Marchandise ajoutée avec succès.');
         }else{
             $activite->nom_activite="ajouter une marchandises : $marchandise->nom ";
+            $activite->save();
+    
+            return redirect()->route('marchandises.Autre')->with('success', 'Marchandise ajoutée avec succès.');
         }
-        $activite->save();
-
-        return redirect()->route('marchandises.index',$categorie)->with('success', 'Marchandise ajoutée avec succès.');
     } catch (Exception $e) {
         return redirect()->back()->with('error', $e->getMessage());
     }
@@ -197,8 +208,12 @@ class marchandiseController extends Controller
         
         if (strstr($valid['categorie'],'add')) {
             $valid2 = $request->validate([
-                'new_categorie' => 'required|string|min:3' 
+                'new_categorie' => 'required|string|min:3',
+                'nom' => 'required|min:3|string|unique:marchandises,nom', 
             ]);
+            if (stristr($valid2['nom'],'Autre')) {
+                return redirect()->back()->with('error', 'choisie un autre nom de categorie');
+               }
             $categorie = new Categories();
             $categorie->nom = $valid2['new_categorie'];
             $categorie->save();
