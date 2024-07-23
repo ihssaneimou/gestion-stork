@@ -184,6 +184,10 @@ class marchandiseController extends Controller
     
             return redirect()->route('marchandises.Autre')->with('success', 'Marchandise ajoutée avec succès.');
         }
+        $activite->type='ajout';
+        $activite->save();
+
+        return redirect()->route('marchandises.index',$categorie)->with('success', 'Marchandise ajoutée avec succès.');
     } catch (Exception $e) {
         return redirect()->back()->with('error', $e->getMessage());
     }
@@ -244,6 +248,7 @@ class marchandiseController extends Controller
         }else{
             $activite->nom_activite="ajouter une marchandises : $marchandise->nom ";
         }
+        $activite->type='modif';
         $activite->save();
 
         return redirect()->route('marchandises.index',$categorie)->with('success', 'marchandise modifier  avec success');
@@ -289,6 +294,7 @@ class marchandiseController extends Controller
                 $activite=new activites;
                 $activite->id_adm=auth()->user()->id;
                 $activite->nom_activite="supprimer une marchandises $marchandise->nom  dans ".$marchandise->categories->nom;
+                $activite->type='suppression';
                 $activite->save();
                $marchandise->delete();
         return redirect()->back()->with('success','marchandise supprimer  avec success');

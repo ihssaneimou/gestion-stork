@@ -69,6 +69,7 @@ class sortieController extends Controller
         } else {
             $activite->nom_activite = "ajouter une sortie de $sortie->quantite dans " . $marchandises->nom ;
         }
+        $activite->type='ajout';
         $activite->save();
         return redirect()->back()->with('success', 'sortie crée avec success.');
     }
