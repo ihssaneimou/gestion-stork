@@ -35,8 +35,7 @@
                     $(document).ready(function() {
                         $('#type').change(function() {
                             var type = $(this).val();
-                            console.log(type);
-                            $.ajax({
+                              $.ajax({
                                 url: "{{ route('type') }}",
                                 type: 'GET',
                                 data: {
@@ -46,7 +45,7 @@
                                     var activitiesContainer = $('.activities-container');
                                     activitiesContainer.empty();
                                     response.activites.forEach(function(activity) {
-                                        console.log(activity)
+                    
                                         var user = response.users.find(user => user.id === activity
                                             .id_adm);
                                         var activityHTML = `

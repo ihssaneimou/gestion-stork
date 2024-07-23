@@ -10,12 +10,18 @@ use Illuminate\Http\Request;
 class activiteController extends Controller
 {
     public function index() {
+        if (auth()->user()->role != 'S') {
+            return abort(403, 'you are not a super admin');
+        }
         $activites = activites::orderByDesc('created_at')->get();
         $users = User::all();
         return view('historiques', ['activites' => $activites, 'users' => $users]);
     }
     
     public function index_t(Request $request) {
+        if (auth()->user()->role != 'S') {
+            return abort(403, 'you are not a super admin');
+        }
         $validated = $request->validate([
             'type' => 'required|string',
         ]);
@@ -36,5 +42,17 @@ class activiteController extends Controller
 
         return response()->json(['activites' => $activites, 'users' => $users]);
         
+    }
+
+    public function index_adm(User $user) {
+        if (auth()->user()->role != 'S') {
+            return abort(403, 'you are not a super admin');
+        }
+        
+        $activites = Activites::where('id_adm',$user->id)->orderByDesc('created_at')->get();
+       
+     
+
+        return view('historiques', ['activites' => $activites, 'users' => $user]);
     }
 }
