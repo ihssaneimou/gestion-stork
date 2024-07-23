@@ -109,6 +109,7 @@ Route::post('register', [UserController::class, 'store']);
 Route::get('historique', [activiteController::class, 'index'])->name('histo');
 Route::get('histor', [activiteController::class, 'index_t'])->name('type');
 Route::get('hist/{user}', [activiteController::class, 'index_adm'])->name('adm');
+Route::get('his/{user}', [activiteController::class, 'type_adm'])->name('adm_t');
 
 Route::get('/admin/list', [UserController::class, 'list']);
 Route::get('/admin/update/{user}', [UserController::class, 'modif']);

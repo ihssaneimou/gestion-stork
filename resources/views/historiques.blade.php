@@ -49,7 +49,7 @@
                                         var user = response.users.find(user => user.id === activity
                                             .id_adm);
                                         var activityHTML = `
-                                            
+                                            <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:ml-[8.75rem] md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
                                           <div class="relative">
                             <div class="md:flex items-center md:space-x-4 mb-3">
                                 <div class="flex items-center space-x-4 md:space-x-2 md:space-x-reverse">
@@ -61,7 +61,7 @@
                                 <div class="text-slate-500 ml-14"><span class="text-slate-900 font-bold">${user.name}</span></div>
                             </div>
                             <div class="bg-white p-4 rounded border border-slate-200 text-slate-500 shadow ml-14 md:ml-44">${activity.nom_activite}</div>
-                        </div>`;
+                        </div></div>`;
                                         activitiesContainer.append(activityHTML);
                                     });
                                 },
@@ -85,6 +85,7 @@
 
 
 <div class="w-full max-w-3xl mx-auto activities-container">
+    <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:ml-[8.75rem] md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
     @foreach ($activites as $act)
         <div class="relative">
             <div class="md:flex items-center md:space-x-4 mb-3">
@@ -105,6 +106,7 @@
             <div class="bg-white p-4 rounded border border-slate-200 text-slate-500 shadow ml-14 md:ml-44">{{$act->nom_activite}}</div>
         </div>
     @endforeach
+    </div>
 </div>
 
             </div>

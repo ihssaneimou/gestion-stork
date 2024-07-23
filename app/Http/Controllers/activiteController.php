@@ -15,7 +15,11 @@ class activiteController extends Controller
         }
         $activites = activites::orderByDesc('created_at')->get();
         $users = User::all();
-        return view('historiques', ['activites' => $activites, 'users' => $users]);
+        return view('historiques', [
+            'activites' => $activites,
+            'users' => $users,
+            'source' => 'index'
+        ]);
     }
     
     public function index_t(Request $request) {
@@ -53,6 +57,34 @@ class activiteController extends Controller
        
      
 
-        return view('historiques', ['activites' => $activites, 'users' => $user]);
+        return view('historiques', [
+            'activites' => $activites,
+            'users' => $user,
+            'source' => 'index_adm'
+        ]);
+    }
+
+    public function type_adm(User $user,Request $request) {
+        if (auth()->user()->role != 'S') {
+            return abort(403, 'you are not a super admin');
+        }
+        
+        $validated = $request->validate([
+            'type' => 'required|string',
+        ]);
+
+        if ($validated['type'] == 'tous') {
+            $activites = Activites::where('id_adm',$user->id)->orderByDesc('created_at')->get();
+        } else {
+            $activites = Activites::where('type', $validated['type'],'and','id_adm',$user->id)->orderByDesc('created_at')->get();
+        }
+
+        $activites->transform(function ($item) {
+            $item->created_at = Carbon::parse($item->created_at)->format('d-m-Y H:i:s');
+            $item->updated_at = Carbon::parse($item->updated_at)->format('d-m-Y H:i:s');
+            return $item;
+        });
+
+        return response()->json(['activites' => $activites, 'users' => $user]);
     }
 }
