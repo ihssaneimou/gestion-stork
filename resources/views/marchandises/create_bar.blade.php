@@ -124,6 +124,15 @@
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                             @enderror
                         </div>
+                        @if ($barecode)
+                        <div class="mb-6">
+                            <label for="title" class="inline-block text-lg mb-2">Code barre</label>
+                            <input type="number" class="border border-gray-200 rounded p-2 w-full" name="barecode" value="{{$barecode}}" placeholder="Code barre" />
+                            @error('barecode')
+                                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                            @enderror
+                        </div>
+                        @else                            
                         <div class="mb-6">
                             <label for="title" class="inline-block text-lg mb-2">Code barre</label>
                             <input type="number" class="border border-gray-200 rounded p-2 w-full" name="barecode" value="{{old('barecode')}}" placeholder="Code barre" />
@@ -131,13 +140,7 @@
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                             @enderror
                         </div>
-                        <div class="mb-6">
-                            <label for="title" class="inline-block text-lg mb-2">Code barre</label>
-                            <input type="number" class="border border-gray-200 rounded p-2 w-full" name="barecode" value="{{old('barecode')}}" placeholder="Code barre" />
-                            @error('barecode')
-                                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                            @enderror
-                        </div>
+                        @endif
                         <div class="mb-6">
                             <label for="title" class="inline-block text-lg mb-2">Description</label>
                             <textarea name="description" class="border border-gray-200 rounded p-2 w-full h-52" placeholder="description">{{old('description')}}</textarea>

@@ -35,9 +35,17 @@ class CategorieController extends Controller
             $category->total_achetes = $entres[$category->id] ?? 0;
             $category->total_vendus = $sorties[$category->id] ?? 0;
         }
+
+        $entres = marchandises::select( DB::raw('COALESCE(SUM(marchandises.quantite), 0) as total_achetes'))
+                                ->where('marchandises.id_cat', '=', 0)->get();
+    
+        // Fetch total 'sorties' (sales) grouped by category ID
+        $sorties = marchandises::select('categories.id', DB::raw('COALESCE(SUM(sorties.quantite), 0) as total_vendus'))
+                                ->leftJoin('sorties', 'sorties.id_mar', '=', 'marchandises.id')
+                                ->where('marchandises.id_cat', '=', 0)->get();
     
         // Return the view with the categories data
-        return view('categories.index', compact('categories'));
+        return view('categories.index', compact('categories','entres','sorties'));
     }
 
     public function index_cat(){
@@ -46,6 +54,7 @@ class CategorieController extends Controller
     }
 
     public function index_mar(categories $categories){
+        dd($categories);
         $marchandise = marchandises::where('id_cat','=',$categories->id)->get();
        
         return view('categories.index_mar', ['marchandises'=>$marchandise]);
@@ -83,9 +92,11 @@ class CategorieController extends Controller
 
     public function store(Request $request){
         $validatedData = $request->validate([
-            'nom' => 'required|min:3|string',
+            'nom' => 'required|min:3|string|unique:categories,nom',
         ]);
-       
+       if (stristr($validatedData['nom'],'Autre')) {
+        return redirect()->back()->with('error', 'choisi un autre nom');
+       }
         $categorie = new Categories();
         $categorie->nom = $validatedData['nom'];
         $categorie->save();
@@ -105,8 +116,11 @@ class CategorieController extends Controller
 
     public function update(Request $request, Categories $categorie) {
         $validatedData = $request->validate([
-            'nom' => 'required|min:3|string',
+            'nom' => 'required|min:3|string|unique:categories,nom'.$categorie->id,
         ]);
+        if (stristr($validatedData['nom'],'Autre')) {
+            return redirect()->back()->with('error', 'choisi un autre nom');
+           }
         $categorie->nom = $validatedData['nom'];
         $categorie->save();
         $activite=new activites;

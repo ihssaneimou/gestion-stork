@@ -166,6 +166,7 @@
 
 
                 <div class=" overflow-hidden gap-3 grid grid-cols-2 sm:grid-cols-3 justify-items-center">
+
                     @foreach ($categories as $index => $categorie)
                         @php
                             $source = 'group_icons/' . $index % 12 . '.png';
@@ -225,6 +226,32 @@
                             </div>
                         </div>
                     @endforeach
+                    <div class="relative h-52 w-full backdrop-blur-lg  bg-150  bg-no-repeat m-3 flex flex-col    text-center justify-center "
+                    >
+                     <div
+                         class="bg-slate-400 h-full grid items-center rounded-xl   hover:border-2 hover:border-gray-100">
+                     <p class="text-center font-semibold text-black text-3xl mt-4">Autre</p>
+                                 <br>
+                                 <div class="w-full flex items-center justify-center font-medium">
+                                     entré:{{ $entres }} <br>
+                                     sortié:{{ $sorties }}
+                                 </div>
+                                 <div class="relative mr-2 text-right">
+                                     <a class="inline-flex w-11 h-11 justify-center items-center  hover:bg-gray-300 text-pink-50 hover:text-white rounded-full transition duration-150"
+                                         href="/marchandises/Autre"><abbr
+                                             title="Voir les marchandises de cette catégorie"><svg fill="#000000"
+                                                 height="20px" width="20px" version="1.1" id="Layer_1"
+                                                 xmlns="http://www.w3.org/2000/svg"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330"
+                                                 xml:space="preserve">
+                                                 <path id="XMLID_222_" d="M250.606,154.389l-150-149.996c-5.857-5.858-15.355-5.858-21.213,0.001
+                        c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213
+                        C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606
+                        C255,161.018,253.42,157.202,250.606,154.389z" />
+                                             </svg></abbr></a>
+                                 </div>
+                             </div>
+                         </div>
                 </div>
             </div>
         </div>

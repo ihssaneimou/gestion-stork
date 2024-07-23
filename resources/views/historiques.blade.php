@@ -16,20 +16,20 @@
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    
+
 
     <main class="relative min-h-screen flex flex-col justify-center bg-slate-50 overflow-hidden">
         <select name="type" id="type" class='max-h-12 w-52   m-16'>
-                    <option value='tous'>tous</option>
-                    <option value="ajout">ajout</option>
-                    <option value="modif">modification</option>
-                    <option value="suppression">suppression</option>
-    </select>
-        <div class="w-full max-w-6xl mx-auto px-4 md:px-6 "> 
-            
+            <option value='tous'>tous</option>
+            <option value="ajout">ajout</option>
+            <option value="modif">modification</option>
+            <option value="suppression">suppression</option>
+        </select>
+        <div class="w-full max-w-6xl mx-auto px-4 md:px-6 ">
+
             <div class="flex flex-col justify-center divide-y divide-slate-200 [&>*]:py-16">
 
-               
+
 
                 <script>
                     $(document).ready(function() {

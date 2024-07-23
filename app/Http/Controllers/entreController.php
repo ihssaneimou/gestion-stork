@@ -54,8 +54,11 @@ class entreController extends Controller
 
         $activite=new activites;
         $activite->id_adm=auth()->user()->id;
-        $activite->nom_activite="ajout d'une entré de $entre->quantite  ".$marchandises->nom." de ".$marchandises->categories->nom;
-        $activite->type='ajout';
+        if($marchandises->categories){
+        $activite->nom_activite="ajouter une entré de $entre->quantite dans ".$marchandises->nom."de".$marchandises->categories->nom;
+        }else{
+            $activite->nom_activite="ajouter une entré de $entre->quantite dans".$marchandises->nom;
+        }
         $activite->save();
         
         return redirect()->back()->with('success', 'Entrée  crée avec success.');
