@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 
 class marchandiseController extends Controller
 {
+   
     public function index_cat() {
         // Retrieve all categories
         $categories = categories::all();
@@ -83,11 +84,18 @@ class marchandiseController extends Controller
          return view('scanner.mar',['marchandise'=>$mars]);
        } 
         
-       return abort(404);
+       return redirect()->back()->with('warning', $mar);
     }
    
     public function create() {
         return view('marchandises.create',['categorie'=>categories::all()]);
+    }
+    public function create_bar(Request $request) {
+        $request->validate([
+            'barecode' => 'required|numeric',
+        ]);
+        $barecode = $request->barecode;
+        return view('marchandises.create',['categorie'=>categories::all(),'barecode'=>$barecode]);
     }
     public function create_cat(categories $categories) {
         return view('marchandises.create',['categorie'=>categories::all(),'category'=>$categories]);

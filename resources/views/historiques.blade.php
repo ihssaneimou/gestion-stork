@@ -11,25 +11,25 @@
             },
         };
 
-        <
+        
         !--Include jQuery-- >
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    
+
 
     <main class="relative min-h-screen flex flex-col justify-center bg-slate-50 overflow-hidden">
         <select name="type" id="type" class='max-h-12 w-52   m-16'>
-                    <option value='tous'>tous</option>
-                    <option value="ajout">ajout</option>
-                    <option value="modif">modification</option>
-                    <option value="suppression">suppression</option>
-    </select>
-        <div class="w-full max-w-6xl mx-auto px-4 md:px-6 "> 
-            
+            <option value='tous'>tous</option>
+            <option value="ajout">ajout</option>
+            <option value="modif">modification</option>
+            <option value="suppression">suppression</option>
+        </select>
+        <div class="w-full max-w-6xl mx-auto px-4 md:px-6 ">
+
             <div class="flex flex-col justify-center divide-y divide-slate-200 [&>*]:py-16">
 
-               
+
 
                 <script>
                     $(document).ready(function() {
@@ -85,28 +85,45 @@
                 </script>
 
 
-<div class="w-full max-w-3xl mx-auto activities-container">
-    @foreach ($activites as $act)
-        <div class="relative">
-            <div class="md:flex items-center md:space-x-4 mb-3">
-                <div class="flex items-center space-x-4 md:space-x-2 md:space-x-reverse">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow md:order-1">
-                        @if($act->type === 'ajout')
-                            <svg class="fill-emerald-500" xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M8 0a8 8 0 1 0 8 8 8.009 8.009 0 0 0-8-8Zm0 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z" /></svg>
-                        @elseif($act->type === 'modif')
-                            <svg class="fill-yellow-400" xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M8 0a8 8 0 1 0 8 8 8.009 8.009 0 0 0-8-8Zm0 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z" /></svg>
-                        @elseif($act->type === 'suppression')
-                            <svg class="fill-red-500" xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M8 0a8 8 0 1 0 8 8 8.009 8.009 0 0 0-8-8Zm0 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z" /></svg>
-                        @endif
-                    </div>
-                    <time class="font-caveat font-medium text-xl text-indigo-500 md:w-28">{{$act->created_at}}</time>
+                <div class="w-full max-w-3xl mx-auto activities-container">
+                    @foreach ($activites as $act)
+                        <div class="relative">
+                            <div class="md:flex items-center md:space-x-4 mb-3">
+                                <div class="flex items-center space-x-4 md:space-x-2 md:space-x-reverse">
+                                    <div
+                                        class="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow md:order-1">
+                                        @if ($act->type === 'ajout')
+                                            <svg class="fill-emerald-500" xmlns="http://www.w3.org/2000/svg"
+                                                width="16" height="16">
+                                                <path
+                                                    d="M8 0a8 8 0 1 0 8 8 8.009 8.009 0 0 0-8-8Zm0 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z" />
+                                            </svg>
+                                        @elseif($act->type === 'modif')
+                                            <svg class="fill-yellow-400" xmlns="http://www.w3.org/2000/svg"
+                                                width="16" height="16">
+                                                <path
+                                                    d="M8 0a8 8 0 1 0 8 8 8.009 8.009 0 0 0-8-8Zm0 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z" />
+                                            </svg>
+                                        @elseif($act->type === 'suppression')
+                                            <svg class="fill-red-500" xmlns="http://www.w3.org/2000/svg" width="16"
+                                                height="16">
+                                                <path
+                                                    d="M8 0a8 8 0 1 0 8 8 8.009 8.009 0 0 0-8-8Zm0 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z" />
+                                            </svg>
+                                        @endif
+                                    </div>
+                                    <time
+                                        class="font-caveat font-medium text-xl text-indigo-500 md:w-28">{{ $act->created_at }}</time>
+                                </div>
+                                <div class="text-slate-500 ml-14"><span
+                                        class="text-slate-900 font-bold">{{ $act->user->name }}</span></div>
+                            </div>
+                            <div
+                                class="bg-white p-4 rounded border border-slate-200 text-slate-500 shadow ml-14 md:ml-44">
+                                {{ $act->nom_activite }}</div>
+                        </div>
+                    @endforeach
                 </div>
-                <div class="text-slate-500 ml-14"><span class="text-slate-900 font-bold">{{$act->user->name}}</span></div>
-            </div>
-            <div class="bg-white p-4 rounded border border-slate-200 text-slate-500 shadow ml-14 md:ml-44">{{$act->nom_activite}}</div>
-        </div>
-    @endforeach
-</div>
 
             </div>
         </div>

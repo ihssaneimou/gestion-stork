@@ -200,7 +200,7 @@
                 </a>
                 <div class="h-px  w-full my-4 bg-gray-600">‎</div>
                 <a href="/entres/create"
-                    class="flex text-laravel font-medium text items-center hover:bg-slate-300  p-3 w-full {{ request()->is('entres/create') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-100' : '' }}">
+                    class="flex text-laravel font-medium text items-center hover:bg-slate-300  p-3 w-full  {{ request()->is('entres/create') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-100' : '' }}{{ request()->is('entres/create_bar') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-100' : '' }}">
                     <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
