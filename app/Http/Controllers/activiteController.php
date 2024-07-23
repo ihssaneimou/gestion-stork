@@ -4,13 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Models\activites;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class activiteController extends Controller
 {
-    public function index( User $user){
-        $activite = activites::where('id_adm','=',$user->id)->paginate(10)->withQueryString();
-        return view('historiques', ['activites'=>$activite,'user'=>$user]);
+    public function index() {
+        $activites = activites::orderByDesc('created_at')->get();
+        $users = User::all();
+        return view('historiques', ['activites' => $activites, 'users' => $users]);
     }
     
+    public function index_t(Request $request) {
+        $validated = $request->validate([
+            'type' => 'required|string',
+        ]);
+
+        if ($validated['type'] == 'tous') {
+            $activites = Activites::orderByDesc('created_at')->get();
+        } else {
+            $activites = Activites::where('type', $validated['type'])->orderByDesc('created_at')->get();
+        }
+
+        $activites->transform(function ($item) {
+            $item->created_at = Carbon::parse($item->created_at)->format('d-m-Y H:i:s');
+            $item->updated_at = Carbon::parse($item->updated_at)->format('d-m-Y H:i:s');
+            return $item;
+        });
+
+        $users = User::all();
+
+        return response()->json(['activites' => $activites, 'users' => $users]);
+        
+    }
 }
