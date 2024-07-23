@@ -152,7 +152,7 @@
                                   <option value="{{$item->id}}">{{$item->nom}}</option>
                                   @endif
                                 @endforeach
-                                @if (old('categorie')==0)
+                                @if (old('categorie')===0)
                                 <option value="0" selected>Autre</option>
                                 @else
                                 <option value="0">Autre</option>

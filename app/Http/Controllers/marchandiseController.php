@@ -175,19 +175,18 @@ class marchandiseController extends Controller
         $activite->id_adm=auth()->user()->id;
         if($marchandise->categories){
             $activite->nom_activite="ajouter une marchandises : $marchandise->nom dans ".$marchandise->categories->nom;
+            $activite->type='ajout';
             $activite->save();
     
             return redirect()->route('marchandises.index',$categorie)->with('success', 'Marchandise ajoutée avec succès.');
         }else{
             $activite->nom_activite="ajouter une marchandises : $marchandise->nom ";
+            $activite->type='ajout';
             $activite->save();
     
             return redirect()->route('marchandises.Autre')->with('success', 'Marchandise ajoutée avec succès.');
         }
-        $activite->type='ajout';
-        $activite->save();
 
-        return redirect()->route('marchandises.index',$categorie)->with('success', 'Marchandise ajoutée avec succès.');
     } catch (Exception $e) {
         return redirect()->back()->with('error', $e->getMessage());
     }
@@ -244,14 +243,18 @@ class marchandiseController extends Controller
         $activite=new activites;
         $activite->id_adm=auth()->user()->id;
         if($marchandise->categories){
-            $activite->nom_activite="ajouter une marchandises : $marchandise->nom dans ".$marchandise->categories->nom;
+            $activite->nom_activite="modifier une marchandises : $marchandise->nom dans ".$marchandise->categories->nom;
+            $activite->type='modif';
+            $activite->save();
+    
+            return redirect()->route('marchandises.index',$categorie)->with('success', 'Marchandise ajoutée avec succès.');
         }else{
-            $activite->nom_activite="ajouter une marchandises : $marchandise->nom ";
+            $activite->nom_activite="modifier une marchandises : $marchandise->nom ";
+            $activite->type='modif';
+            $activite->save();
+    
+            return redirect()->route('marchandises.Autre')->with('success', 'Marchandise ajoutée avec succès.');
         }
-        $activite->type='modif';
-        $activite->save();
-
-        return redirect()->route('marchandises.index',$categorie)->with('success', 'marchandise modifier  avec success');
     }
 
     public function delete(Request $request) {
