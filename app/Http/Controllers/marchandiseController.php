@@ -40,12 +40,23 @@ class marchandiseController extends Controller
             $category->total_vendus = $sorties[$category->id] ?? 0;
         }
     
+        $entres = marchandises::select( DB::raw('COALESCE(SUM(marchandises.quantite), 0) as total_achetes'))
+        ->where('marchandises.id_cat', '=', null)->get();
+
+// Fetch total 'sorties' (sales) grouped by category ID
+        $sorties = marchandises::select( DB::raw('COALESCE(SUM(sorties.quantite), 0) as total_vendus'))
+                ->leftJoin('sorties', 'sorties.id_mar', '=', 'marchandises.id')
+                ->where('marchandises.id_cat', '=', null)->get();
         // Return the view with the categories data
-        return view('marchandises.index_cat', compact('categories'));
+        return view('marchandises.index_cat', compact('categories','entres','sorties'));
     }
     public function index(categories $categories){
         $marchandise = marchandises::where('id_cat','=',$categories->id)->paginate(10)->withQueryString();
         return view('marchandises.index', ['marchandises'=>$marchandise,'categories'=>$categories]);
+    }
+    public function Autre(){
+        $marchandise = marchandises::where('id_cat','=',null)->paginate(10)->withQueryString();
+        return view('marchandises.index', ['marchandises'=>$marchandise]);
     }
 
     public function getMarchandiseInfo(string $mar) {
@@ -53,6 +64,17 @@ class marchandiseController extends Controller
     
      
         $mars = Marchandises::find($mar);
+       if ($mars) {
+         return view('scanner.mar',['marchandise'=>$mars]);
+       } 
+        
+       return abort(404);
+    }
+    public function getMarchandiseBare(string $mar) {
+      
+    
+     
+        $mars = Marchandises::select('marchandises.*')->where('barecode','=',$mar)->first();
        if ($mars) {
          return view('scanner.mar',['marchandise'=>$mars]);
        } 
@@ -70,8 +92,8 @@ class marchandiseController extends Controller
     // Valider les données d'entrée
     
     $valid = $request->validate([
-            'nom' => 'required|min:3|string',
-            
+            'nom' => 'required|min:3|string|unique:marchandises,nom',
+            'barecode'=>'nullable|unique:marchandises,barecode',
             'description' => 'string|nullable',
             'quantite' => 'integer|nullable',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:3000',
@@ -95,6 +117,7 @@ class marchandiseController extends Controller
         
         $marchandise = new marchandises();
         $marchandise->nom = $valid['nom'];
+        $marchandise->barecode = $valid['barecode'];
         
         $marchandise->description = $valid['description'];
         
@@ -106,8 +129,12 @@ class marchandiseController extends Controller
         if ($request->file('image') != null) {
             $marchandise->image = $request->file('image')->store('logos', 'public');
         }
+        if($valid['categorie']==0){
+            $marchandise->id_cat = null;
+        }else{
+            $marchandise->id_cat = $valid['categorie'] ;
+        }
         
-        $marchandise->id_cat = $valid['categorie'] ?? null;
         try{
         $marchandise->save();
         if ($valid['quantite']>0) {
@@ -138,7 +165,11 @@ class marchandiseController extends Controller
         }
         $activite=new activites;
         $activite->id_adm=auth()->user()->id;
-        $activite->nom_activite="ajouter une marchandises : $marchandise->nom dans ".$marchandise->categories->nom;
+        if($marchandise->categories){
+            $activite->nom_activite="ajouter une marchandises : $marchandise->nom dans ".$marchandise->categories->nom;
+        }else{
+            $activite->nom_activite="ajouter une marchandises : $marchandise->nom ";
+        }
         $activite->save();
 
         return redirect()->route('marchandises.index',$categorie)->with('success', 'Marchandise ajoutée avec succès.');
@@ -153,8 +184,9 @@ class marchandiseController extends Controller
     public function update(Request $request,marchandises $marchandise )
     {
         $valid = $request->validate([
-            'nom' => 'required|min:3|string',
+            'nom' => 'required|min:3|string|unique:marchandises,nom,'. $marchandise->id,
             'description' => 'string|nullable',
+            'barecode'=>'nullable|number|unique:marchandises,barecode,'. $marchandise->id,
             'quantite' => 'integer|nullable',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:3000',
             'categorie' => 'required'
@@ -175,6 +207,7 @@ class marchandiseController extends Controller
             $categorie=$valid['categorie'] ;
         }
         $marchandise->nom = $valid['nom'];
+        $marchandise->barecode = $valid['barecode'];
       
         $marchandise->description = $valid['description'];
     
@@ -182,12 +215,20 @@ class marchandiseController extends Controller
             $marchandise->image = $request->file('image')->store('logos', 'public');
         }
     
-        $marchandise->id_cat = $valid['categorie'] ?? null;
+        if($valid['categorie']==0){
+            $marchandise->id_cat = null;
+        }else{
+            $marchandise->id_cat = $valid['categorie'] ;
+        }
         $marchandise->save();
 
         $activite=new activites;
         $activite->id_adm=auth()->user()->id;
-        $activite->nom_activite="modifier une marchandises $marchandise->nom  dans ".$marchandise->categories->nom;
+        if($marchandise->categories){
+            $activite->nom_activite="ajouter une marchandises : $marchandise->nom dans ".$marchandise->categories->nom;
+        }else{
+            $activite->nom_activite="ajouter une marchandises : $marchandise->nom ";
+        }
         $activite->save();
 
         return redirect()->route('marchandises.index',$categorie)->with('success', 'marchandise modifier  avec success');

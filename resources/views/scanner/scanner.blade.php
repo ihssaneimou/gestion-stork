@@ -10,7 +10,13 @@
         const qrCodeSuccessCallback = (decodedText, decodedResult) => {
             console.log("QR Code scanned successfully:", decodedText);
             if (decodedText) {
-                const url = `/marchandise-info/${decodedText}`;
+                const format = decodedResult.result.format;
+                let url = `/marchandise-info/${decodedText}`;
+                alert(format);
+                if (format != 'QR_CODE') {
+                    url = `/marchandise-bare/${decodedText}`;
+                }
+                alert(url);
                 window.location.replace(url);
                 html5Qrcode.stop();
             }

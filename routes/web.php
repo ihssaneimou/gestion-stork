@@ -42,6 +42,7 @@ Route::post('/api/create-sortie', [sortieController::class, 'storescan']);
 Route::post('/api/create-entree', [entreController::class, 'storescan']);
 
 Route::get('/marchandise-info/{marchandises}', [marchandiseController::class, 'getMarchandiseInfo']);
+Route::get('/marchandise-bare/{marchandises}', [marchandiseController::class, 'getMarchandiseBare']);
 
 
 
@@ -64,6 +65,7 @@ Route::get('/categories/sortie/{sorties}', [categorieController::class, 'index_m
 
 Route::get('/marchandises', [marchandiseController::class, 'index_cat'])->name('marchandises.index_cat');
 Route::get('/marchandises/categories/{categories}', [marchandiseController::class, 'index'])->name('marchandises.index');
+Route::get('/marchandises/Autre', [marchandiseController::class, 'Autre'])->name('marchandises.Autre');
 Route::get('/marchandises/create', [marchandiseController::class, 'create'])->name('marchandises.create');
 Route::get('/marchandises/create/{categories}', [marchandiseController::class, 'create_cat'])->name('marchandises.create.cat');
 Route::post('/marchandises', [marchandiseController::class, 'store'])->name('marchandises.store');

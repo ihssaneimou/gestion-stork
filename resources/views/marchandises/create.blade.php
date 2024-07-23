@@ -124,13 +124,13 @@
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                             @enderror
                         </div>
-                        {{-- <div class="mb-6">
+                        <div class="mb-6">
                             <label for="title" class="inline-block text-lg mb-2">Code barre</label>
-                            <input type="text" class="border border-gray-200 rounded p-2 w-full" name="barre_code" placeholder="Code barre" />
-                            @error('barre_code')
+                            <input type="number" class="border border-gray-200 rounded p-2 w-full" name="barecode" placeholder="Code barre" />
+                            @error('barecode')
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                             @enderror
-                        </div> --}}
+                        </div>
                         <div class="mb-6">
                             <label for="title" class="inline-block text-lg mb-2">Description</label>
                             <textarea name="description" class="border border-gray-200 rounded p-2 w-full h-52" placeholder="description"></textarea>
@@ -152,19 +152,13 @@
                                   <option value="{{$item->id}}">{{$item->nom}}</option>
                                   @endif
                                 @endforeach
+                                <option value="0">Autre</option>
                                 <option value="add">ajouter categorie</option>
                             </select>
-                            @if (count($categorie) > 0)
                             <div id="inputForm" class="hidden">
                                 <label for="newCategorie" class="inline-block text-lg mb-2">Nouvelle catégorie</label>
                                 <input type="text" id="newCategorie" name="new_categorie" class="border border-gray-200 rounded p-2 w-full" placeholder="Nouvelle catégorie">
                             </div>
-                            @else
-                            <div >
-                                <label for="newCategorie" class="inline-block text-lg mb-2">Nouvelle catégorie</label>
-                                <input type="text" id="newCategorie" name="new_categorie" class="border border-gray-200 rounded p-2 w-full" placeholder="Nouvelle catégorie">
-                            </div>
-                            @endif
                             @error('categorie')
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                             @enderror

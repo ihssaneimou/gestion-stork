@@ -126,7 +126,7 @@
     <div id="cont" class="">
         <div class=" flex">
             <p class="text-2xl w-2/3 m-3 pl-6 underline underline-offset-4">marchandises</p>
-            <p class="text-xl w-1/3  m-3 pl-6"><a href="/marchandises/create/{{ $categories->id }}"
+            <p class="text-xl w-1/3  m-3 pl-6"><a href="/marchandises/create"
                     class="text-blue-600 hover:text-blue-900">Ajouter Marchendise</a></p>
         </div>
         <div class="container  w-full">
@@ -191,7 +191,7 @@
                         <tr>
                             <th scope="col" class="py-3 px-1 text-center">image</th>
                             <th scope="col" class="py-3 px-1 text-center">nom</th>
-                            <th scope="col" class="py-3 px-1 text-center hidden sm:block">code QR</th>
+                            <th scope="col" class="py-3 px-1 text-center hidden sm:block">code</th>
                             <th scope="col" class="py-3 px-1 text-center">categorie</th>
                             <th scope="col" class="py-3 px-1 text-center">quantite</th>
                             <th scope="col" class="py-3 px-1 text-center hidden sm:block">description</th>
@@ -213,18 +213,27 @@
                                 </td>
                                 <td class="py-4 px-1 text-center  ">{{ $marchandise->nom }}</td>
 
-                                <td class=" justify-center py-5 px-1 hidden sm:flex "> <abbr
-                                        title="{{ $marchandise->barre_code }}" id="qr-{{ $marchandise->id }}"
-                                        onclick="qr({{ $marchandise->id }})" class="block cursor-pointer qr-code">
-                                        {!! QrCode::size(40)->generate($marchandise->id) !!}
-                                    </abbr></td>
+                                @if ($marchandise->barecode)
+                                    <td class=" justify-center py-5 px-1 hidden sm:flex "> <abbr
+                                            title="{{ $marchandise->barecode }}"
+                                            class="block cursor-pointer qr-code">
+                                            {!! DNS1D::getBarcodeHTML($marchandise->barecode, 'C128', 1, 30) !!}
+                                        </abbr></td>
+                                @else
+                                    <td class=" justify-center py-5 px-1 hidden sm:flex "> <abbr
+                                            id="qr-{{ $marchandise->id }}" onclick="qr({{ $marchandise->id }})"
+                                            class="block cursor-pointer qr-code">
+                                            {!! QrCode::size(40)->generate($marchandise->id) !!}
+                                        </abbr></td>
+                                @endif
+
 
 
                                 <td class="py-4 px-1 text-center ">
-                                    @if ($marchandise->categories)
+                                    @if ($marchandise->categories && $marchandise->categories != 0)
                                         {{ $marchandise->categories->nom }}
                                     @else
-                                        {{ $marchandise->categories }}
+                                        Autre
                                     @endif
                                 </td>
                                 <td class="py-4 px-1 text-center ">{{ $marchandise->quantite }}</td>
