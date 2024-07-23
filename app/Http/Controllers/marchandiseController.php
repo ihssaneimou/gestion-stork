@@ -95,7 +95,7 @@ class marchandiseController extends Controller
             'barecode' => 'required|numeric',
         ]);
         $barecode = $request->barecode;
-        return view('marchandises.create',['categorie'=>categories::all(),'barecode'=>$barecode]);
+        return view('marchandises.create_bar',['categorie'=>categories::all(),'barecode'=>$barecode]);
     }
     public function create_cat(categories $categories) {
         return view('marchandises.create',['categorie'=>categories::all(),'category'=>$categories]);

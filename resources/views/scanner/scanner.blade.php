@@ -18,7 +18,7 @@
 </div>
 @endif
     @if (session('warning'))
-    <div class="fixed font-mono bg-slate-200 grid  rounded-md shadow-lg w-80 h-fit py-6 " id="ajoutEtnte"
+    <div class="fixed font-mono bg-slate-200 grid  rounded-md shadow-lg w-80 h-fit py-6 px-2 " id="ajoutEtnte"
     style=" justify-items: center; align-content: space-evenly;  left: 50%; top: 50%; transform: translate(-50%, -50%);"
     tabindex="-1" aria-labelledby="deleteGroupModalLabel" aria-hidden="true">
     <form action="{{ route('marchandises.create_bar') }}" method="get">

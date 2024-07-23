@@ -379,7 +379,7 @@
 
 
                                     <td class="py-4 px-1 text-center ">
-                                        @if ($marchandise->categories && $marchandise->categories != 0)
+                                        @if ($marchandise->categories)
                                             {{ $marchandise->categories->nom }}
                                         @else
                                             Autre
