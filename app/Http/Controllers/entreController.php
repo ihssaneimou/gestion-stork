@@ -59,6 +59,7 @@ class entreController extends Controller
         }else{
             $activite->nom_activite="ajouter une entré de $entre->quantite dans".$marchandises->nom;
         }
+        $activite->type='ajout';
         $activite->save();
         
         return redirect()->back()->with('success', 'Entrée  crée avec success.');
@@ -176,6 +177,15 @@ class entreController extends Controller
                         break;
                 }
             }
+            $activite = new activites;
+            $activite->id_adm = auth()->user()->id;
+            if ($marchandises->categories) {
+                $activite->nom_activite = "suppression d'une entre de $entre->quantite dans " . $marchandises->nom . "de" . $marchandises->categories->nom;
+            } else {
+                $activite->nom_activite = "supression d'une entre de $entre->quantite dans " . $marchandises->nom ;
+            }
+            $activite->type='suppression';
+            $activite->save();
                $entre->delete();
             
 

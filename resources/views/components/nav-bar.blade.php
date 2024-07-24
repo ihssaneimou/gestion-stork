@@ -190,7 +190,7 @@
                     </p>
                 </a>
                 <a href="/admin/list"
-                    class="flex text-laravel font-medium text items-center hover:bg-slate-400  p-3 w-full {{ request()->is('admin/*') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-300' : '' }}">
+                    class="flex text-laravel font-medium text items-center hover:bg-slate-400  p-3 w-full {{ request()->is('admin/*') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-300' : '' }}{{ request()->is('hist/*') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-300' : '' }}">
                     <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path

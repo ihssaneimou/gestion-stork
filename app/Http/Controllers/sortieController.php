@@ -62,9 +62,13 @@ class sortieController extends Controller
             $rapport->quantite -= $sortie->quantite;
             $rapport->save();
         }
-        $activite=new activites;
-        $activite->id_adm=auth()->user()->id;
-        $activite->nom_activite="ajouter une sortie de $sortie->quantite  ".$marchandises->nom." de ".$marchandises->categories->nom;
+        $activite = new activites;
+        $activite->id_adm = auth()->user()->id;
+        if ($marchandises->categories) {
+            $activite->nom_activite = "ajouter une sortie de $sortie->quantite dans " . $marchandises->nom . "de" . $marchandises->categories->nom;
+        } else {
+            $activite->nom_activite = "ajouter une sortie de $sortie->quantite dans " . $marchandises->nom ;
+        }
         $activite->type='ajout';
         $activite->save();
         return redirect()->back()->with('success', 'sortie crée avec success.');
@@ -189,6 +193,15 @@ class sortieController extends Controller
                 break;
             }
         }
+        $activite = new activites;
+        $activite->id_adm = auth()->user()->id;
+        if ($marchandises->categories) {
+            $activite->nom_activite = "suppression d'une sortie de $sortie->quantite dans " . $marchandises->nom . "de" . $marchandises->categories->nom;
+        } else {
+            $activite->nom_activite = "supression d'une sortie de $sortie->quantite dans " . $marchandises->nom ;
+        }
+        $activite->type='suppression';
+        $activite->save();
         $sortie->delete();
 
         return redirect()->back();

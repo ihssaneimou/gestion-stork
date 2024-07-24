@@ -76,7 +76,10 @@ class activiteController extends Controller
         if ($validated['type'] == 'tous') {
             $activites = Activites::where('id_adm',$user->id)->orderByDesc('created_at')->get();
         } else {
-            $activites = Activites::where('type', $validated['type'],'and','id_adm',$user->id)->orderByDesc('created_at')->get();
+            $activites = activites::where('id_adm', $user->id)
+            ->where('type', $validated['type'])
+            ->orderBy('created_at', 'desc')
+            ->get();
         }
 
         $activites->transform(function ($item) {

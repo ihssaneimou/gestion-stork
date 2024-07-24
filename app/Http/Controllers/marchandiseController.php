@@ -105,7 +105,7 @@ class marchandiseController extends Controller
     
     $valid = $request->validate([
             'nom' => 'required|min:3|string|unique:marchandises,nom',
-            'barecode'=>'nullable|unique:marchandises,barecode',
+            'barecode'=>'nullable|numeric|unique:marchandises,barecode',
             'description' => 'string|nullable',
             'quantite' => 'integer|nullable',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:3000',
@@ -181,11 +181,23 @@ class marchandiseController extends Controller
         }
         $activite=new activites;
         $activite->id_adm=auth()->user()->id;
-        $activite->nom_activite="ajouter une marchandises : $marchandise->nom dans ".$marchandise->categories->nom;
-        $activite->type='ajout';
-        $activite->save();
 
-        return redirect()->route('marchandises.index',$categorie)->with('success', 'Marchandise ajoutée avec succès.');
+        if($marchandise->categories){
+            $activite->nom_activite="ajouter une marchandises : $marchandise->nom dans ".$marchandise->categories->nom;
+            $activite->type='ajout';
+            $activite->save();
+    
+            return redirect()->route('marchandises.index',$categorie)->with('success', 'Marchandise ajoutée avec succès.');
+        }else{
+            $activite->nom_activite="ajouter une marchandises : $marchandise->nom ";
+            $activite->type='ajout';
+            $activite->save();
+    
+            return redirect()->route('marchandises.Autre')->with('success', 'Marchandise ajoutée avec succès.');
+        }
+
+
+       
     } catch (Exception $e) {
         return redirect()->back()->with('error', $e->getMessage());
     }
@@ -199,7 +211,7 @@ class marchandiseController extends Controller
         $valid = $request->validate([
             'nom' => 'required|min:3|string|unique:marchandises,nom,'. $marchandise->id,
             'description' => 'string|nullable',
-            'barecode'=>'nullable|number|unique:marchandises,barecode,'. $marchandise->id,
+            'barecode'=>'nullable|numeric|unique:marchandises,barecode,'. $marchandise->id,
             'quantite' => 'integer|nullable',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:3000',
             'categorie' => 'required'
@@ -241,11 +253,21 @@ class marchandiseController extends Controller
 
         $activite=new activites;
         $activite->id_adm=auth()->user()->id;
-        $activite->nom_activite="modifier une marchandises $marchandise->nom  dans ".$marchandise->categories->nom;
-        $activite->type='modif';
-        $activite->save();
 
-        return redirect()->route('marchandises.index',$categorie)->with('success', 'marchandise modifier  avec success');
+        if($marchandise->categories){
+            $activite->nom_activite="modifier une marchandises : $marchandise->nom dans ".$marchandise->categories->nom;
+            $activite->type='modif';
+            $activite->save();
+    
+            return redirect()->route('marchandises.index',$categorie)->with('success', 'Marchandise ajoutée avec succès.');
+        }else{
+            $activite->nom_activite="modifier une marchandises : $marchandise->nom ";
+            $activite->type='modif';
+            $activite->save();
+    
+            return redirect()->route('marchandises.Autre')->with('success', 'Marchandise ajoutée avec succès.');
+        }
+
     }
 
     public function delete(Request $request) {
