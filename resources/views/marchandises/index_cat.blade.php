@@ -158,7 +158,7 @@
     <div id="cont">
         <div class=" flex">
             <p class="text-2xl w-2/3 m-3 pl-6 underline underline-offset-4">categories</p>
-            <p class="text-xl w-1/3  m-3 pl-6"><a href="{{ route('categories.create') }}"
+            <p class="text-xl w-1/3  m-3 pl-6 text-center"><a href="{{ route('categories.create') }}"
                     class="text-blue-600 hover:text-blue-900">Ajouter categorie</a> </p>
         </div>
         <div class="py-12">
@@ -178,12 +178,11 @@
                                 class="{{ $color }} h-full grid items-center rounded-xl   hover:border-2 hover:border-gray-100">
                                 @if (auth()->user()->role == 'S')
                                     <div class="dropdown">
-                                        <button class="dropdown-toggle " type="button"
+                                        <button class="dropdown-toggle" type="button"
                                             id="dropdownMenu{{ $categorie->id }}" data-groupId="{{ $categorie->id }}"
                                             data-bs-toggle="dropdown" aria-expanded="false">
-                                            <?xml version="1.0" ?>
-                                            <svg class="icon icon-tabler icon-tabler-dots-vertical" fill="none"
-                                                height="24" stroke="currentColor" stroke-linecap="round"
+                                            <svg class="icon icon-tabler icon-tabler-dots-vertical hover:bg-gray-300 h-8 w-8 p-1 rounded-full " fill="none"
+                                                 stroke="currentColor" stroke-linecap="round"
                                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
                                                 width="24" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M0 0h24v24H0z" fill="none" stroke="none" />

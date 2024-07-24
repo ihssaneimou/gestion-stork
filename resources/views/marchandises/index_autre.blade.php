@@ -147,7 +147,7 @@
                         </svg></button>
                 </abbr>
             </form action="" method="GET">
-            <p class="sm:text-xl w-1/3 mx-2 my-3 sm:pl-6"><a href="/marchandises/create"
+            <p class="sm:text-xl w-1/3 mx-2 my-3 sm:pl-6 text-center"><a href="/marchandises/create"
                     class="text-blue-600 hover:text-blue-900">Ajouter Marchendise</a></p>
         </div>
         <div class="container  w-full">

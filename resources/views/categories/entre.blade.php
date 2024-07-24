@@ -142,6 +142,7 @@
             @endif
 
         </div>
+        <div class="flex justify-between">
         @if (isset($categories))
             <ul class="flex flex-wrap -mb-px">
 
@@ -160,6 +161,27 @@
                         class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Sorties</a>
                 </li>
             </ul>
+            <form action="{{route('categories.entre', $categories)}}" method="GET" class="relative w-2/5">
+                
+                @if (isset($search))
+                    <input type="search" name="search" id="default-search" value={{ $search }}
+                        class="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500  "
+                        placeholder="Rechercher" />
+                @else
+                    <input type="search" name="search" id="default-search"
+                        class="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500  "
+                        placeholder="Rechercher" />
+                @endif
+                <abbr title="filtre juste par bar de recherch">
+                    <button type="submit" name="action" value="filter"
+                        class="text-white absolute end-2.5 bottom-4 sm:bottom-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 sm:px-4 py-2 ">
+                        <svg class="w-2 h-2 sm:w-4 sm:h-4 text-white " aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg></button>
+                </abbr>
+            </form >
         @else
             <ul class="flex flex-wrap -mb-px">
 
@@ -178,22 +200,42 @@
                         class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Sorties</a>
                 </li>
             </ul>
+            <form action="{{route('categories_Autre.entre')}}" method="GET" class="relative w-2/5">
+                
+                @if (isset($search))
+                    <input type="search" name="search" id="default-search" value={{ $search }}
+                        class="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500  "
+                        placeholder="Rechercher" />
+                @else
+                    <input type="search" name="search" id="default-search"
+                        class="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500  "
+                        placeholder="Rechercher" />
+                @endif
+                <abbr title="filtre juste par bar de recherch">
+                    <button type="submit" name="action" value="filter"
+                        class="text-white absolute end-2.5 bottom-4 sm:bottom-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 sm:px-4 py-2 ">
+                        <svg class="w-2 h-2 sm:w-4 sm:h-4 text-white " aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg></button>
+                </abbr>
+            </form >
         @endif
-
+        </div>
 
 
         <table class="w-full text-sm text-left text-gray-500 mb-14">
             <tbody>
                 @foreach ($entres as $entre)
                     <tr class="bg-white hover:bg-gray-50">
-                        <td class="py-4 px-6">{{ $entre->type }}</td>
-                        <td class="py-4 px-6">{{ $entre->created_at }}</td>
-                        <td class="py-4 px-6">{{ $entre->nom }}</td>
-                        <td class="py-4 px-6 sm:justify-center sm:space-x-4 sm:flex">
+                        <td class="py-4 px-2 sm:px-6">{{ $entre->type }}</td>
+                        <td class="py-4 px-2 sm:px-6">{{ $entre->quantite }}</td>
+                        <td class="py-4 px-2 sm:px-6">{{ $entre->created_at }}</td>
+                        <td class="py-4 px-2 sm:px-6">{{ $entre->nom }}</td>
+                        <td class="py-4 px-2 sm:px-6 sm:justify-center sm:space-x-4 sm:flex">
                             <button onclick="warnning({{ $entre->id }})"
                                 class="text-red-600 hover:text-red-900">retirer</button>
-
-                            <a href="{{ route('categories.index_mar_a', $entre) }}">consulter</a>
                         </td>
                     </tr>
                 @endforeach

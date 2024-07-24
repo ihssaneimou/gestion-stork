@@ -146,8 +146,8 @@
                                 stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                         </svg></button>
                 </abbr>
-            </form action="" method="GET">
-            <p class="sm:text-xl w-1/3 mx-2 my-3 sm:pl-6"><a href="/marchandises/create/{{ $categories->id }}"
+            </form >
+            <p class="sm:text-xl w-1/3 mx-2 my-3 sm:pl-6 text-center"><a href="/marchandises/create/{{ $categories->id }}"
                     class="text-blue-600 hover:text-blue-900">Ajouter Marchendise</a></p>
         </div>
         <div class="container  w-full">

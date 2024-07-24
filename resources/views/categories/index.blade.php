@@ -1,7 +1,7 @@
 <x-nav-bar>
     <div class=" flex">
         <p class="text-2xl w-2/3 m-3 pl-6 underline underline-offset-4">categories</p>
-        <p class="text-xl w-1/3  m-3 pl-6"><a href="{{ route('categories.create') }}"
+        <p class="text-xl w-1/3  m-3 pl-6 text-center"><a href="{{ route('categories.create') }}"
                 class="text-blue-600 hover:text-blue-900">Ajouter categorie</a> </p>
     </div>
     <div class="py-12">
