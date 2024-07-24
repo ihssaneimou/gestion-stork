@@ -18,7 +18,7 @@
         }
 
         ::-webkit-scrollbar {
-            width: 7px;
+            width: 5px;
             height: 7px;
             border-radius: 10px;
 
