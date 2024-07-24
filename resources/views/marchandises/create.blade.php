@@ -116,24 +116,24 @@
                                 </label>
                             </center>
                         </div>
-                        <input type="File" name="image" accept="image/png, image/gif, image/jpeg,image/jpg" value=""  id="fileToUpload">
+                        <input type="File" name="image" accept="image/png, image/gif, image/jpeg,image/jpg"  id="fileToUpload">
                         <div class="mb-6">
                             <label for="title" class="inline-block text-lg mb-2">Nom du marchandise</label>
-                            <input type="text" class="border border-gray-200 rounded p-2 w-full" name="nom" placeholder="nom"  />
+                            <input type="text" class="border border-gray-200 rounded p-2 w-full" name="nom" value="{{old('nom')}}" placeholder="nom"  />
                             @error('nom')
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                             @enderror
                         </div>
-                        {{-- <div class="mb-6">
+                        <div class="mb-6">
                             <label for="title" class="inline-block text-lg mb-2">Code barre</label>
-                            <input type="text" class="border border-gray-200 rounded p-2 w-full" name="barre_code" placeholder="Code barre" />
-                            @error('barre_code')
+                            <input type="number" class="border border-gray-200 rounded p-2 w-full" name="barecode" value="{{old('barecode')}}" placeholder="Code barre" />
+                            @error('barecode')
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                             @enderror
-                        </div> --}}
+                        </div>
                         <div class="mb-6">
                             <label for="title" class="inline-block text-lg mb-2">Description</label>
-                            <textarea name="description" class="border border-gray-200 rounded p-2 w-full h-52" placeholder="description"></textarea>
+                            <textarea name="description" class="border border-gray-200 rounded p-2 w-full h-52" placeholder="description">{{old('description')}}</textarea>
                             @error('description')
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                             @enderror
@@ -143,7 +143,7 @@
                             <select name="categorie" class="border border-gray-200 rounded p-2 w-full" id="selectOption">
                                 @foreach ($categorie as $item)
                                   @if(isset($category))
-                                  @if ($category->id==$item->id)
+                                  @if ($category->id==$item->id || old('categorie')==$item->id)
                                   <option value="{{$item->id}}" selected>{{$item->nom}}</option>
                                   @else
                                   <option value="{{$item->id}}">{{$item->nom}}</option>
@@ -152,15 +152,25 @@
                                   <option value="{{$item->id}}">{{$item->nom}}</option>
                                   @endif
                                 @endforeach
+                                @if (old('categorie')===0)
+                                <option value="0" selected>Autre</option>
+                                @else
+                                <option value="0">Autre</option>
+                                @endif
+                                @if (stristr(old('categorie'),"add"))
+                                <option value="add" selected>ajouter categorie</option>
+                                @else
                                 <option value="add">ajouter categorie</option>
+                                @endif
+                                
                             </select>
-                            @if (count($categorie) > 0)
-                            <div id="inputForm" class="hidden">
+                            @if (stristr(old('categorie'),"add"))
+                            <div id="inputForm" class="">
                                 <label for="newCategorie" class="inline-block text-lg mb-2">Nouvelle catégorie</label>
-                                <input type="text" id="newCategorie" name="new_categorie" class="border border-gray-200 rounded p-2 w-full" placeholder="Nouvelle catégorie">
+                                <input type="text" id="newCategorie" name="new_categorie" value="{{old('new_categorie')}}" class="border border-gray-200 rounded p-2 w-full" placeholder="Nouvelle catégorie">
                             </div>
                             @else
-                            <div >
+                            <div id="inputForm" class="hidden">
                                 <label for="newCategorie" class="inline-block text-lg mb-2">Nouvelle catégorie</label>
                                 <input type="text" id="newCategorie" name="new_categorie" class="border border-gray-200 rounded p-2 w-full" placeholder="Nouvelle catégorie">
                             </div>
@@ -171,7 +181,11 @@
                         </div>
                         <div class="mb-6">
                             <label for="title" class="inline-block text-lg mb-2">Quantité</label>
-                            <input type="number" class="border border-gray-200 rounded p-2 w-full" value=0 name="quantite" placeholder="title" id="quantite" onchange="toggleEntranceFields()" />
+                            @if (old('quantite'))
+                            <input type="number" class="border border-gray-200 rounded p-2 w-full"  value="{{old('quantite')}}"  name="quantite" placeholder="title" id="quantite" onchange="toggleEntranceFields()" />
+                            @else
+                            <input type="number" class="border border-gray-200 rounded p-2 w-full"  value=0 name="quantite" placeholder="title" id="quantite" onchange="toggleEntranceFields()" />
+                            @endif
                             @error('quantite')
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                             @enderror

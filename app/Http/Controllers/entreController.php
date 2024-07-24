@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\acheters;
+use App\Models\activites;
 use App\Models\categories;
 use App\Models\entres;
 use App\Models\fournisseurs;
@@ -51,9 +52,76 @@ class entreController extends Controller
             $rapport->save();
         }
 
-    
+        $activite=new activites;
+        $activite->id_adm=auth()->user()->id;
+        if($marchandises->categories){
+        $activite->nom_activite="ajouter une entré de $entre->quantite dans ".$marchandises->nom."de".$marchandises->categories->nom;
+        }else{
+            $activite->nom_activite="ajouter une entré de $entre->quantite dans".$marchandises->nom;
+        }
+        $activite->type='ajout';
+        $activite->save();
+        
         return redirect()->back()->with('success', 'Entrée  crée avec success.');
     }
+
+    public function storescan(Request $request) {
+        // Validation des données de la requête
+        $validatedData = $request->validate([
+            'quantite' => 'required|integer',
+            'id_mar' => 'required|exists:marchandises,id'
+        ]);
+    
+        // Vérifier que la quantité est positive
+        if ($validatedData['quantite'] < 0) {
+            return response()->json(['error' => 'La quantité doit être positive.'], 400);
+        }
+    
+        // Créer une nouvelle entrée
+        $entre = new Entres();
+        $entre->quantite = $validatedData['quantite'];
+        $entre->id_mar = $validatedData['id_mar'];
+        
+        // Mettre à jour la quantité de la marchandise
+        $marchandises = Marchandises::find($validatedData['id_mar']);
+        $marchandises->quantite += $validatedData['quantite'];
+        $marchandises->save();
+        
+        // Sauvegarder la nouvelle entrée
+        $entre->save();
+    
+        // Mettre à jour ou créer un nouveau rapport basé sur la date
+        $rapports = Rapport::all();
+        $found = false;
+        foreach ($rapports as $rapport) {
+            $rapportDate = (new DateTime($rapport->date))->format('Y-m-d');
+            $entreDate = (new DateTime($entre->created_at))->format('Y-m-d');
+    
+            if ($rapportDate == $entreDate) {
+                $rapport->quantite += $entre->quantite;
+                $rapport->save();
+                $found = true;
+                break;
+            }
+        }
+    
+        if (!$found) {
+            $rapport = new Rapport();
+            $rapport->date = $entre->created_at;
+            $rapport->quantite = $entre->quantite;
+            $rapport->save();
+        }
+    
+        // Retourner une réponse JSON
+        return response()->json([
+            'success' => true,
+            'message' => 'Entrée créée avec succès.',
+            'entre' => $entre,
+            'marchandises' => $marchandises,
+            'rapport' => $rapport
+        ], 201);
+    }
+    
     
     
     
@@ -109,6 +177,15 @@ class entreController extends Controller
                         break;
                 }
             }
+            $activite = new activites;
+            $activite->id_adm = auth()->user()->id;
+            if ($marchandises->categories) {
+                $activite->nom_activite = "suppression d'une entre de $entre->quantite dans " . $marchandises->nom . "de" . $marchandises->categories->nom;
+            } else {
+                $activite->nom_activite = "supression d'une entre de $entre->quantite dans " . $marchandises->nom ;
+            }
+            $activite->type='suppression';
+            $activite->save();
                $entre->delete();
             
 

@@ -3,13 +3,24 @@
         abbr {
             text-decoration: none;
         }
-        @media(max-width: 640px){
-    .desc{
-       margin-top: 4px;
-    }
-}
 
+        @media(max-width: 640px) {
+            .desc {
+                margin-top: 4px;
+            }
+        }
     </style>
+    <style>
+        .qr-code {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .enlarged {
+            transform: scale(2);
+            z-index: 1000;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.0/dist/alpine.min.js" defer></script>
     <div id="cont" class="">
         <div class="container  w-full">
             <!-- Error Message -->
@@ -55,40 +66,25 @@
         </div>
         <div class="">
             <div class="w-full">
-                <div class=" flex justify-center  sm:justify-end sm:mr-5 mb-10"> 
-                <p class="text-2xl w-full m-3 pl-4  sm:pl-6 underline underline-offset-4">Rapport</p>
-                <div class="mr-5 mb-10">
-                <a href="{{ route('rapports.courbe') }}" title="courbe"
-                    aria-label="Modifier"
-                    class="flex items-center text-red-500 bg-red-300 hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
-                    <svg fill="#000000" width="50px" height="30px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                        <title>chart3</title>
-                        <path d="M3.987 4h-0.987v24h26v-0.963l-24.996-0.050-0.017-22.987zM17 5c0-0.553-0.448-1-1-1h-3c-0.553 0-1 0.447-1 1v20h5v-20zM11 11c0-0.552-0.448-1-1-1h-3c-0.553 0-1 0.448-1 1v14h5v-14zM23 17c0-0.553-0.448-1-1-1h-3c-0.553 0-1 0.447-1 1v8h5v-8zM28 22h-3c-0.553 0-1 0.447-1 1v2h5v-2c0-0.553-0.448-1-1-1z"></path>
-                        </svg>
-                </a>
-                </div>
-                
-                    
-                    <form action="{{ route('rapports.pdf') }}" method="POST" >
-                        @csrf
-                        @if (isset($search))
-                            <input type="search" name="search" id="default-search" value={{ $search }}
-                                class="hidden" />
-                        @else
-                            <input type="search" name="search" id="default-search" class="hidden" />
-                        @endif
-                        @if (isset($start) && isset($end))
-                            <input id="start" name="start" type="date" class="hidden"
-                                value={{ $start }}>
-                            <input id="end" name="end" type="date" class="hidden"
-                                value={{ $end }}>
-                        @else
-                            <input id="start" name="start" type="date" class="hidden">
-                            <input id="end" name="end" type="date" class="hidden">
-                        @endif
-                        <div class="mr-5 mb-10">
-                            <button type='submit' aria-label="pdf"
-                                class="flex items-center text-blue-500 bg-blue-200 hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
+                <div class=" flex justify-center  sm:justify-end sm:mr-5 mb-10">
+                    <p class="text-2xl w-full m-3   sm:pl-6 underline underline-offset-4">Rapport</p>
+                    <div class="mr-5 mb-10">
+                        <a href="{{ route('rapports.courbe') }}" title="courbe" aria-label="Modifier"
+                            class="flex items-center text-red-500 bg-red-300 hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
+                            <svg fill="#000000" width="50px" height="30px" viewBox="0 0 32 32" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <title>chart3</title>
+                                <path
+                                    d="M3.987 4h-0.987v24h26v-0.963l-24.996-0.050-0.017-22.987zM17 5c0-0.553-0.448-1-1-1h-3c-0.553 0-1 0.447-1 1v20h5v-20zM11 11c0-0.552-0.448-1-1-1h-3c-0.553 0-1 0.448-1 1v14h5v-14zM23 17c0-0.553-0.448-1-1-1h-3c-0.553 0-1 0.447-1 1v8h5v-8zM28 22h-3c-0.553 0-1 0.447-1 1v2h5v-2c0-0.553-0.448-1-1-1z">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <div x-data="{ open: false }" class="relative mr-5 mb-10 inline-block text-left">
+                        <div>
+                            <button @click="open = !open" type="button" aria-label="pdf"
+                                class="flex items-center  text-blue-500 bg-blue-200 hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
                                 <svg width="50px" height="30px" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -97,7 +93,108 @@
                                 </svg>
                             </button>
                         </div>
-                    </form>
+
+                        <div x-show="open" @click.away="open = false"
+                            class="origin-top-right z-50 absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                            role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                            <div class="py-1" role="none">
+                                <!-- Active: "bg-gray-100", Not Active: "" -->
+                                <form action="{{ route('rapports.pdf') }}" method="POST">
+                                    @csrf
+                                    @if (isset($search))
+                                        <input type="search" name="search" id="default-search"
+                                            value={{ $search }} class="hidden" />
+                                    @else
+                                        <input type="search" name="search" id="default-search" class="hidden" />
+                                    @endif
+                                    @if (isset($start) && isset($end))
+                                        <input name="start" type="date" class="hidden" value={{ $start }}>
+                                        <input name="end" type="date" class="hidden" value={{ $end }}>
+                                    @else
+                                        <input name="start" type="date" class="hidden">
+                                        <input name="end" type="date" class="hidden">
+                                    @endif
+                                    <div>
+                                        <button class="text-gray-700 hover:bg-gray-200 w-full block px-4 py-2 text-sm"
+                                            role="menuitem" tabindex="-1" id="menu-item-1" aria-label="pdf">
+                                            tous
+                                        </button>
+                                    </div>
+                                </form>
+                                <form action="{{ route('rapports.entre') }}" method="POST">
+                                    @csrf
+                                    @if (isset($search))
+                                        <input type="search" name="search" id="default-search"
+                                            value={{ $search }} class="hidden" />
+                                    @else
+                                        <input type="search" name="search" id="default-search" class="hidden" />
+                                    @endif
+                                    @if (isset($start) && isset($end))
+                                        <input name="start" type="date" class="hidden" value={{ $start }}>
+                                        <input name="end" type="date" class="hidden" value={{ $end }}>
+                                    @else
+                                        <input name="start" type="date" class="hidden">
+                                        <input name="end" type="date" class="hidden">
+                                    @endif
+                                    <div>
+                                        <button class="text-gray-700 hover:bg-gray-200 w-full block px-4 py-2 text-sm"
+                                            role="menuitem" tabindex="-1" id="menu-item-2" aria-label="pdf">
+                                            les entrés
+                                        </button>
+                                    </div>
+                                </form>
+                                <form action="{{ route('rapports.sortie') }}" method="POST">
+                                    @csrf
+                                    @if (isset($search))
+                                        <input type="search" name="search" id="default-search"
+                                            value={{ $search }} class="hidden" />
+                                    @else
+                                        <input type="search" name="search" id="default-search" class="hidden" />
+                                    @endif
+                                    @if (isset($start) && isset($end))
+                                        <input name="start" type="date" class="hidden"
+                                            value={{ $start }}>
+                                        <input name="end" type="date" class="hidden"
+                                            value={{ $end }}>
+                                    @else
+                                        <input name="start" type="date" class="hidden">
+                                        <input name="end" type="date" class="hidden">
+                                    @endif
+                                    <div>
+                                        <button class="text-gray-700 hover:bg-gray-200 w-full block px-4 py-2 text-sm"
+                                            role="menuitem" tabindex="-1" id="menu-item-3" aria-label="pdf">
+                                            les sorties
+                                        </button>
+                                    </div>
+                                </form>
+                                <form action="{{ route('rapports.qr') }}" method="POST">
+                                    @csrf
+                                    @if (isset($search))
+                                        <input type="search" name="search" id="default-search"
+                                            value={{ $search }} class="hidden" />
+                                    @else
+                                        <input type="search" name="search" id="default-search" class="hidden" />
+                                    @endif
+                                    @if (isset($start) && isset($end))
+                                        <input name="start" type="date" class="hidden"
+                                            value={{ $start }}>
+                                        <input name="end" type="date" class="hidden"
+                                            value={{ $end }}>
+                                    @else
+                                        <input name="start" type="date" class="hidden">
+                                        <input name="end" type="date" class="hidden">
+                                    @endif
+                                    <div>
+                                        <button class="text-gray-700 hover:bg-gray-200 w-full block px-4 py-2 text-sm"
+                                            role="menuitem" tabindex="-1" id="menu-item-4" aria-label="pdf">
+                                            les qr codes
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <form action="{{ route('rapports.excel') }}" method="POST">
                         @csrf
@@ -108,19 +205,18 @@
                             <input type="search" name="search" id="default-search" class="hidden" />
                         @endif
                         @if (isset($start) && isset($end))
-                            <input id="start" name="start" type="date" class="hidden"
-                                value={{ $start }}>
-                            <input id="end" name="end" type="date" class="hidden"
-                                value={{ $end }}>
+                            <input name="start" type="date" class="hidden" value={{ $start }}>
+                            <input name="end" type="date" class="hidden" value={{ $end }}>
                         @else
-                            <input id="start" name="start" type="date" class="hidden">
-                            <input id="end" name="end" type="date" class="hidden">
+                            <input name="start" type="date" class="hidden">
+                            <input name="end" type="date" class="hidden">
                         @endif
                         <div class="mr-5 mb-10">
                             <button type='submit'aria-label="pdf"
                                 class="flex items-center text-green-500 bg-green-200 hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
-                                <svg fill="#000000" width="50px" height="30px" viewBox="0 0 14 14" role="img"
-                                    focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                                <svg fill="#000000" width="50px" height="30px" viewBox="0 0 14 14"
+                                    role="img" focusable="false" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="m 12.7765,2.551 -4.02,0 0,0.744 1.185,0 0,1.177 -1.185,0 0,0.375 1.185,0 0,1.1785 -1.185,0 0,0.3855 1.185,0 0,1.1145 -1.185,0 0,0.4465 1.185,0 0,1.117 -1.185,0 0,0.4465 1.185,0 0,1.1235 -1.185,0 0,0.8195 4.02,0 c 0.0635,-0.019 0.1165,-0.094 0.159,-0.224 C 12.978,11.1235 13,11.017 13,10.9365 L 13,2.687 C 13,2.623 12.978,2.5845 12.9355,2.571 12.893,2.558 12.84,2.551 12.7765,2.551 Z m -0.5215,8.107 -1.9285,0 0,-1.1225 1.9285,0 0,1.1235 0,-0.001 z m 0,-1.569 -1.9285,0 0,-1.1175 1.9285,0 0,1.1175 z m 0,-1.564 -1.9285,0 0,-1.1095 1.9285,0 0,1.1105 0,-10e-4 z m 0,-1.5 -1.9285,0 0,-1.177 1.9285,0 0,1.1775 0,-5e-4 z m 0,-1.5595 -1.9285,0 0,-1.17 1.9285,0 0,1.1775 0,-0.0075 z M 1,2.3655 1,11.666 8.08,12.8905 8.08,1.1095 1,2.3695 1,2.3655 Z M 5.1965,9.401 C 5.1695,9.328 5.0425,9.018 4.8175,8.4695 4.593,7.9215 4.4575,7.6025 4.418,7.5115 l -0.0125,0 L 3.646,9.319 2.631,9.2505 l 1.204,-2.25 -1.1025,-2.25 1.035,-0.0545 0.684,1.7605 0.0135,0 L 5.2375,4.616 6.307,4.5485 5.0335,6.9835 6.346,9.4675 5.1965,9.4 l 0,10e-4 z" />
                                 </svg></button>
@@ -128,8 +224,8 @@
                     </form>
                 </div>
                 <form method="GET" action="/rapports/search" class="max-w-full  my-1">
-                    <div class="grid  sm:flex  justify-between">
-                        <div class="relative w-full sm:w-1/3">
+                    <div class="grid  lg:flex  justify-between">
+                        <div class="relative w-full lg:w-1/3">
                             @if (isset($search))
                                 <input type="search" name="search" id="default-search" value={{ $search }}
                                     class="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500  "
@@ -150,74 +246,77 @@
                             </abbr>
                         </div>
                         <div id="date-range-picker" date-rangepicker class="grid  sm:flex items-center mb-1">
-                            <div class=" sm:relative flex  w-full ">
-                            @if (isset($start) && isset($end))
-                                <div class="relative">
+                            <div class=" lg:relative flex  w-full ">
+                                @if (isset($start) && isset($end))
+                                    <div class="relative">
+                                        <div
+                                            class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                            <svg class="w-4 h-4 text-gray-500 " aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                            </svg>
+                                        </div>
+                                        <abbr title="premier date">
+                                            <input id="start" name="start" type="date"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 "
+                                                placeholder="Select date start" value={{ $start }}>
+                                        </abbr>
+                                    </div>
+                                    <span class="mx-4 text-gray-500">to</span>
+                                    <div class="relative">
+                                        <div
+                                            class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                            <svg class="w-4 h-4 text-gray-500 " aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                            </svg>
+                                        </div>
+                                        <abbr title="dernier date">
+                                            <input id="end" name="end" type="date"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 "
+                                                placeholder="Select date end" value={{ $end }}>
+                                        </abbr>
+                                    </div>
+                                @else
+                                    <div class="relative">
 
-                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                        <svg class="w-4 h-4 text-gray-500 " aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            viewBox="0 0 20 20">
-                                            <path
-                                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                        </svg>
+                                        <div
+                                            class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                            <svg class="w-4 h-4 text-gray-500 " aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                            </svg>
+                                        </div>
+                                        <abbr title="premier date">
+                                            <input id="start" name="start" type="date"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 "
+                                                placeholder="Select date start">
+                                        </abbr>
                                     </div>
-                                    <abbr title="premier date">
-                                        <input id="start" name="start" type="date"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 "
-                                            placeholder="Select date start" value={{ $start }}>
-                                    </abbr>
-                                </div>
-                                <span class="mx-4 text-gray-500">to</span>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                        <svg class="w-4 h-4 text-gray-500 " aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            viewBox="0 0 20 20">
-                                            <path
-                                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                        </svg>
+                                    <span class="mx-4 text-gray-500">to</span>
+                                    <div class="relative">
+                                        <div
+                                            class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                            <svg class="w-4 h-4 text-gray-500 " aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                            </svg>
+                                        </div>
+                                        <abbr title="dernier date">
+                                            <input id="end" name="end" type="date"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 "
+                                                placeholder="Select date end">
+                                        </abbr>
                                     </div>
-                                    <abbr title="dernier date">
-                                        <input id="end" name="end" type="date"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 "
-                                            placeholder="Select date end" value={{ $end }}>
-                                    </abbr>
-                                </div>
-                            @else
-                                <div class="relative">
-
-                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                        <svg class="w-4 h-4 text-gray-500 " aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            viewBox="0 0 20 20">
-                                            <path
-                                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                        </svg>
-                                    </div>
-                                    <abbr title="premier date">
-                                        <input id="start" name="start" type="date"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 "
-                                            placeholder="Select date start">
-                                    </abbr>
-                                </div>
-                                <span class="mx-4 text-gray-500">to</span>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                        <svg class="w-4 h-4 text-gray-500 " aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            viewBox="0 0 20 20">
-                                            <path
-                                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                        </svg>
-                                    </div>
-                                    <abbr title="dernier date">
-                                        <input id="end" name="end" type="date"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 "
-                                            placeholder="Select date end">
-                                    </abbr>
-                                </div>
-                            @endif
+                                @endif
                             </div>
                             <abbr title="filtre  par bar de recherch et date">
                                 <button type="submit" name="action" value="search"
@@ -234,13 +333,13 @@
                 </form>
             </div>
             @if (count($marchandises) > 0)
-                <div class="overflow-x-auto relative shadow-md w-full sm:rounded-lg mb-10">
+                <div class="overflow-x-auto relative shadow-md w-full lg:rounded-lg mb-10">
                     <table class="w-full text-sm text-left text-gray-500">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
                             <tr>
                                 <th scope="col" class="py-3 px-1 text-center">image</th>
                                 <th scope="col" class="py-3 px-1 text-center ">nom</th>
-                                <th scope="col" class="py-3 px-1 text-center hidden sm:block">code QR</th>
+                                <th scope="col" class="py-3 px-1 text-center hidden sm:block">code</th>
                                 <th scope="col" class="py-3 px-1 text-center ">categorie</th>
                                 <th scope="col" class="py-3 px-1 text-center ">quantite</th>
                                 <th scope="col" class="py-3 px-1 text-center">entre</th>
@@ -250,7 +349,7 @@
                         <tbody>
                             @foreach ($marchandises as $marchandise)
                                 <tr class="bg-white border-b hover:bg-gray-200 hover:text-black ">
-                                    <td class="py-4 px-6 text-center">
+                                    <td class="py-3 px-1 text-center flex justify-center">
                                         @if (isset($marchandise->image) && $marchandise->image !== null)
                                             <img class="image w-10 h-10 rounded-full bg-cover"
                                                 src="{{ asset('/storage/' . $marchandise->image) }}"
@@ -262,17 +361,18 @@
 
                                     </td>
                                     <td class="py-4 px-1 text-center  ">{{ $marchandise->nom }}</td>
-                                  
-                                    <td class=" justify-center py-4 px-1 hidden sm:block ">
-                                        {!! QrCode::size(40)->generate(" le nom: ".$marchandise->nom."\n categorie: ".$marchandise->categories->nom."\n quantite: ".$marchandise->quantite) !!}
-                                        
-                                        </td>
-                                    
+
+
+                                    <td class=" justify-center py-5 px-1 hidden sm:flex "> <abbr
+                                            id="qr-{{ $marchandise->id }}" onclick="qr({{ $marchandise->id }})"
+                                            class="block cursor-pointer qr-code">
+                                            {!! QrCode::size(40)->generate($marchandise->id) !!}
+                                        </abbr></td>
                                     <td class="py-4 px-1 text-center ">
                                         @if ($marchandise->categories)
                                             {{ $marchandise->categories->nom }}
                                         @else
-                                            {{ $marchandise->categories }}
+                                            Autre
                                         @endif
                                     </td>
                                     <td class="py-4 px-1 text-center ">{{ $marchandise->solde }}</td>
@@ -288,7 +388,7 @@
                     </table>
                 </div>
             @else
-                <h2 class="text-gray-300 text-8xl select-none text-center mt-32">aucune marchendise</h2>
+                <h2 class="text-gray-300 text-xl sm:text-8xl select-none text-center mt-32">aucune marchendise</h2>
             @endif
             <script>
                 function warnning(id) {
@@ -359,6 +459,11 @@
                     var endDate = this.value;
                     document.getElementById('start').setAttribute('max', endDate);
                 });
+            </script>
+            <script>
+                function qr(id) {
+                    document.getElementById(`qr-${id}`).classList.toggle('enlarged');
+                }
             </script>
             {{ $marchandises->links() }}
         </div>

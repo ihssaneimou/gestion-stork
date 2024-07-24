@@ -66,10 +66,18 @@
                             <center>
                                 <label for="fileToUpload">
                                     {{-- @dd($site->logo) --}}
+                                    @if (isset($marchandise->image) && $marchandise->image !== null)
+
+                                    <div class="profile-pic" id="photo" style="background-image: url('{{ asset('/storage/' . $marchandise->image) }}')">
+                                        <!-- <span class="glyphicon glyphicon-camera"></span> -->
+                                        <span>Changer Image</span>
+                                    </div>
+                                    @else
                                         <div class="profile-pic" id="photo" style="background-image: url('/logo.jpg')">
                                             <!-- <span class="glyphicon glyphicon-camera"></span> -->
                                             <span>Changer Image</span>
                                         </div>
+                                    @endif
                                 </label>
                             </center>
                         </div>
@@ -82,14 +90,14 @@
                             <p class="text-red-500 test-xs mt-1">{{$message}}</p>
                             @enderror
                         </div>
-                        {{-- <div class="mb-6">
+                        <div class="mb-6">
                             <label for="title" class="inline-block text-lg mb-2">Code barre</label>
-                            <input type="number" class="border border-gray-200 rounded p-2 w-full" value="{{ $marchandise->barre_code }}" name="barre_code"
+                            <input type="number" class="border border-gray-200 rounded p-2 w-full" value="{{ $marchandise->barecode }}" name="barecode"
                             placeholder="Code barre"  />
-                            @error('barre_code')
+                            @error('barecode')
                             <p class="text-red-500 test-xs mt-1">{{$message}}</p>
                             @enderror
-                        </div> --}}
+                        </div>
                         <div class="mb-6">
                             <label for="title" class="inline-block text-lg mb-2">description</label>
                             <textarea name="description" id="" class="border border-gray-200 rounded p-2 w-full h-52"  placeholder="description">{{ $marchandise->description }}</textarea>
@@ -107,6 +115,7 @@
                                     <option value="{{$item->id}}">{{$item->nom}}</option>
                                     @endif
                                 @endforeach
+                                <option value="0">Autre</option>
                                 <option value="add">ajouter categorie</option>
                             </select>
                             <div id="inputForm" class="hidden">

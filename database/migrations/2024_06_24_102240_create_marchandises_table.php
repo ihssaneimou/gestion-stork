@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('marchandises', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
+            $table->string('nom')->unique();
             $table->longText('description')->nullable();
             $table->integer('quantite')->nullable();
             $table->string('image')->nullable();
+            $table->string('barecode')->unique()->nullable();
             $table->unsignedBigInteger('id_cat')->nullable();
             $table->foreign('id_cat')->references('id')->on('categories')->onDelete('set null');
             $table->timestamps();

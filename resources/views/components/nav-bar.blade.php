@@ -18,7 +18,7 @@
         }
 
         ::-webkit-scrollbar {
-            width: 7px;
+            width: 5px;
             height: 7px;
             border-radius: 10px;
 
@@ -48,9 +48,9 @@
     <div class="flex h-full w-full ">
 
         <div id="sidebar"
-            class='hidden flex-col items-start justify-start w-72 left-0 h-calc overflow-auto sm:flex pb-6 bg-gray-200 overflow-x-hidden'>
+            class='hidden flex-col items-start justify-start w-72 left-0 h-calc overflow-auto sm:flex pb-6 bg-gray-300 overflow-x-hidden'>
             <a href="/marchandises"
-                class="flex text-laravel font-medium text items-center hover:bg-slate-300 w-full  p-3 {{ request()->is('marchandises/*') ? 'bg-slate-400' : '' }} {{ request()->is('marchandises') ? 'bg-slate-400' : '' }}">
+                class="flex text-laravel font-medium text items-center hover:bg-slate-400 w-full  p-3 {{ request()->is('marchandises/*') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-300' : '' }} {{ request()->is('marchandises') ? 'border-l-4 border-indigo-400 text-gray-600 bg-gray-300' : '' }}">
                 <svg width="30px" height="30px" viewBox="0 -0.5 25 25"fill="#1967D2"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -61,7 +61,8 @@
                     Marchandises
                 </p>
             </a>
-            <a class="flex text-laravel font-medium text items-center hover:bg-slate-300  p-3 w-full {{ request()->is('categories/entre/*') ? 'bg-slate-400' : '' }} {{ request()->is('categories/sortie/*') ? 'bg-slate-400' : '' }} {{ request()->is('categories/*/documents/*') ? 'bg-slate-400' : '' }} {{ request()->is('categories/*/documents') ? 'bg-slate-400' : '' }} {{ request()->is('documents') ? 'bg-slate-400' : '' }}" href="/documents">
+            <a class="flex text-laravel font-medium text items-center hover:bg-slate-400  p-3 w-full {{ request()->is('categories/entre/*') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-300' : '' }} {{ request()->is('categories/sortie/*') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-300' : '' }} {{ request()->is('categories/*/documents/*') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-300' : '' }} {{ request()->is('categories/*/documents') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-300' : '' }} {{ request()->is('documents') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-300' : '' }} {{ request()->is('categories_Autre/*') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-300' : '' }}"
+                href="/documents">
                 <svg height='30px' enable-background="new 0 0 512 512" version="1.1" viewBox="0 0 512 512"
                     xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <g id="Layer_1" />
@@ -90,7 +91,7 @@
                     Documents
                 </p>
             </a>
-            {{-- <a class="flex text-laravel font-medium text items-center hover:bg-slate-400  p-3 w-full"
+            {{-- <a class="flex text-laravel font-medium text items-center hover:border-l-4 border-indigo-400 text-gray-600 bg-slate-300  p-3 w-full"
                 href="/categories">
                 <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
@@ -102,7 +103,8 @@
                     categories
                 </p>
             </a> --}}
-            <a class="flex text-laravel font-medium text items-center hover:bg-slate-300  p-3 w-full {{ request()->is('rapports') ? 'bg-slate-400' : '' }} {{ request()->is('rapports/*') ? 'bg-slate-400' : '' }}" href="/rapports">
+            <a class="flex text-laravel font-medium text items-center hover:bg-slate-400  p-3 w-full {{ request()->is('rapports') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-300' : '' }} {{ request()->is('rapports/*') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-300' : '' }}"
+                href="/rapports">
                 <svg width="30px" height="30px" viewBox="0 0 48 48" data-name="Layer 1" id="Layer_1"
                     xmlns="http://www.w3.org/2000/svg">
                     <defs>
@@ -141,61 +143,92 @@
             </a>
             <div class="h-px  w-full my-4 bg-gray-600">‎</div>
             <a href="/entres/create"
-            class="flex text-laravel font-medium text items-center hover:bg-slate-300  p-3 w-full {{ request()->is('entres/create') ? 'bg-slate-400' : '' }}">
-            <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path
-            d="M23 18C23 18.75 22.79 19.46 22.42 20.06C22.21 20.42 21.94 20.74 21.63 21C20.93 21.63 20.01 22 19 22C17.78 22 16.69 21.45 15.97 20.59C15.95 20.56 15.92 20.54 15.9 20.51C15.78 20.37 15.67 20.22 15.58 20.06C15.21 19.46 15 18.75 15 18C15 16.74 15.58 15.61 16.5 14.88C17.19 14.33 18.06 14 19 14C20 14 20.9 14.36 21.6 14.97C21.72 15.06 21.83 15.17 21.93 15.28C22.59 16 23 16.95 23 18Z"
-            stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-            stroke-linejoin="round" />
-            <path d="M20.49 17.98H17.51" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10"
-            stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M19 16.52V19.51" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10"
-            stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M3.17004 7.43994L12 12.5499L20.7701 7.46991" stroke="#292D32" stroke-width="1.5"
-            stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M12 21.6099V12.5399" stroke="#292D32" stroke-width="1.5" stroke-linecap="round"
-            stroke-linejoin="round" />
-            <path
-            d="M21.61 9.17V14.83C21.61 14.88 21.61 14.92 21.6 14.97C20.9 14.36 20 14 19 14C18.06 14 17.19 14.33 16.5 14.88C15.58 15.61 15 16.74 15 18C15 18.75 15.21 19.46 15.58 20.06C15.67 20.22 15.78 20.37 15.9 20.51L14.07 21.52C12.93 22.16 11.07 22.16 9.93001 21.52L4.59001 18.56C3.38001 17.89 2.39001 16.21 2.39001 14.83V9.17C2.39001 7.79 3.38001 6.11002 4.59001 5.44002L9.93001 2.48C11.07 1.84 12.93 1.84 14.07 2.48L19.41 5.44002C20.62 6.11002 21.61 7.79 21.61 9.17Z"
-            stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-        <p class="ml-4">
-            Ajouter Marchandises
-        </p>
-    </a>
-    <div class="h-px  w-full my-4 bg-gray-600">‎</div>
-    @if (auth()->user()->role=='S')
-            
-                <a href="/register" class="flex text-laravel font-medium text items-center hover:bg-slate-300  p-3 w-full {{ request()->is('register') ? 'bg-slate-400' : '' }}">
-                    <svg fill="#000000" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                class="flex text-laravel font-medium text items-center hover:bg-slate-400  p-3 w-full {{ request()->is('entres/create') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-300' : '' }} {{ request()->is('entres/create_bar') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-100' : '' }}">
+                <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M23 18C23 18.75 22.79 19.46 22.42 20.06C22.21 20.42 21.94 20.74 21.63 21C20.93 21.63 20.01 22 19 22C17.78 22 16.69 21.45 15.97 20.59C15.95 20.56 15.92 20.54 15.9 20.51C15.78 20.37 15.67 20.22 15.58 20.06C15.21 19.46 15 18.75 15 18C15 16.74 15.58 15.61 16.5 14.88C17.19 14.33 18.06 14 19 14C20 14 20.9 14.36 21.6 14.97C21.72 15.06 21.83 15.17 21.93 15.28C22.59 16 23 16.95 23 18Z"
+                        stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M20.49 17.98H17.51" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M19 16.52V19.51" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M3.17004 7.43994L12 12.5499L20.7701 7.46991" stroke="#292D32" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M12 21.6099V12.5399" stroke="#292D32" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path
+                        d="M21.61 9.17V14.83C21.61 14.88 21.61 14.92 21.6 14.97C20.9 14.36 20 14 19 14C18.06 14 17.19 14.33 16.5 14.88C15.58 15.61 15 16.74 15 18C15 18.75 15.21 19.46 15.58 20.06C15.67 20.22 15.78 20.37 15.9 20.51L14.07 21.52C12.93 22.16 11.07 22.16 9.93001 21.52L4.59001 18.56C3.38001 17.89 2.39001 16.21 2.39001 14.83V9.17C2.39001 7.79 3.38001 6.11002 4.59001 5.44002L9.93001 2.48C11.07 1.84 12.93 1.84 14.07 2.48L19.41 5.44002C20.62 6.11002 21.61 7.79 21.61 9.17Z"
+                        stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <p class="ml-4">
+                    Ajouter Marchandises
+                </p>
+            </a>
+            <div class="h-px  w-full my-4 bg-gray-600">‎</div>
+            @if (auth()->user()->role == 'S')
+                <a href="/register"
+                    class="flex text-laravel font-medium text items-center hover:bg-slate-400  p-3 w-full {{ request()->is('register') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-300' : '' }}">
+                    <svg fill="#000000" height="20px" width="20px" version="1.1" id="Layer_1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                         viewBox="0 0 328 328" xml:space="preserve">
-                    <g id="XMLID_455_">
-                        <path id="XMLID_458_" d="M15,286.75h125.596c19.246,24.348,49.031,40,82.404,40c57.897,0,105-47.103,105-105s-47.103-105-105-105
+                        <g id="XMLID_455_">
+                            <path id="XMLID_458_" d="M15,286.75h125.596c19.246,24.348,49.031,40,82.404,40c57.897,0,105-47.103,105-105s-47.103-105-105-105
                             c-34.488,0-65.145,16.716-84.298,42.47c-7.763-1.628-15.694-2.47-23.702-2.47c-63.411,0-115,51.589-115,115
                             C0,280.034,6.716,286.75,15,286.75z M223,146.75c41.355,0,75,33.645,75,75s-33.645,75-75,75s-75-33.645-75-75
-                            S181.645,146.75,223,146.75z"/>
-                        <path id="XMLID_461_" d="M115,1.25c-34.602,0-62.751,28.15-62.751,62.751S80.398,126.75,115,126.75
-                            c34.601,0,62.75-28.148,62.75-62.749S149.601,1.25,115,1.25z"/>
-                        <path id="XMLID_462_" d="M193,236.75h15v15c0,8.284,6.716,15,15,15s15-6.716,15-15v-15h15c8.284,0,15-6.716,15-15s-6.716-15-15-15
-                            h-15v-15c0-8.284-6.716-15-15-15s-15,6.716-15,15v15h-15c-8.284,0-15,6.716-15,15S184.716,236.75,193,236.75z"/>
-                    </g>
+                            S181.645,146.75,223,146.75z" />
+                            <path id="XMLID_461_" d="M115,1.25c-34.602,0-62.751,28.15-62.751,62.751S80.398,126.75,115,126.75
+                            c34.601,0,62.75-28.148,62.75-62.749S149.601,1.25,115,1.25z" />
+                            <path id="XMLID_462_"
+                                d="M193,236.75h15v15c0,8.284,6.716,15,15,15s15-6.716,15-15v-15h15c8.284,0,15-6.716,15-15s-6.716-15-15-15
+                            h-15v-15c0-8.284-6.716-15-15-15s-15,6.716-15,15v15h-15c-8.284,0-15,6.716-15,15S184.716,236.75,193,236.75z" />
+                        </g>
                     </svg>
                     <p class="ml-4">
                         Ajouter un admin
                     </p>
                 </a>
-                <a href="/admin/list" class="flex text-laravel font-medium text items-center hover:bg-slate-300  p-3 w-full {{ request()->is('admin/*') ? 'bg-slate-400' : '' }}">
-                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <p class="ml-4">
+                <a href="/admin/list"
+                    class="flex text-laravel font-medium text items-center hover:bg-slate-400  p-3 w-full {{ request()->is('admin/*') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-300' : '' }}{{ request()->is('hist/*') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-300' : '' }}">
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
+                            stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <p class="ml-4">
                         Gérer les admin
                     </p>
                 </a>
+
+                <a href="/historique"
+                    class="flex text-laravel font-medium text items-center hover:bg-slate-400  p-3 w-full {{ request()->is('historique') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-300' : '' }}">
+                    <svg fill="#000000" width="20px" height="20px" viewBox="0 0 14 14" role="img"
+                        focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="m 12.35135,11.7027 -7.45946,0 c -0.30811,0 -1.2973,-1.13514 -1.2973,-1.13514 0,0 0.98919,-1.13513 1.2973,-1.13513 l 7.45946,0 C 12.70811,9.43243 13,9.72433 13,10.08108 l 0,0.97297 c 0,0.35676 -0.29189,0.64865 -0.64865,0.64865 z m 0,-3.56757 -7.45946,0 C 4.58378,8.13513 3.59459,7 3.59459,7 c 0,0 0.98919,-1.13514 1.2973,-1.13514 l 7.45946,0 C 12.70811,5.86486 13,6.15676 13,6.51351 l 0,0.97297 c 0,0.35676 -0.29189,0.64865 -0.64865,0.64865 z m 0,-3.56757 -7.45946,0 c -0.30811,0 -1.2973,-1.13513 -1.2973,-1.13513 0,0 0.98919,-1.13513 1.2973,-1.13513 l 7.45946,0 C 12.70811,2.2973 13,2.58919 13,2.94594 l 0,0.97297 c 0,0.35676 -0.29189,0.64865 -0.64865,0.64865 z M 1.81081,11.37837 C 1.35676,11.37837 1,11.02163 1,10.56756 1,10.11351 1.35676,9.75675 1.81081,9.75675 c 0.45405,0 0.81081,0.35676 0.81081,0.81081 0,0.45407 -0.35676,0.81081 -0.81081,0.81081 z m 0.16216,-3.25945 0,1.32972 c -0.0487,0 -0.11351,-0.0162 -0.16216,-0.0162 -0.0487,0 -0.11351,0.0162 -0.16216,0.0162 l 0,-1.32972 c 0.0487,0 0.11351,0.0162 0.16216,0.0162 0.0487,0 0.11351,-0.0162 0.16216,-0.0162 z M 1.81081,7.81081 C 1.35676,7.81081 1,7.45405 1,7 1,6.54595 1.35676,6.18918 1.81081,6.18918 c 0.45405,0 0.81081,0.35677 0.81081,0.81082 0,0.45406 -0.35676,0.81081 -0.81081,0.81081 z m 0.16216,-3.25946 0,1.32973 c -0.0487,0 -0.11351,-0.0162 -0.16216,-0.0162 -0.0487,0 -0.11351,0.0162 -0.16216,0.0162 l 0,-1.32973 c 0.0487,0 0.11351,0.0162 0.16216,0.0162 0.0487,0 0.11351,-0.0162 0.16216,-0.0162 z M 1.81081,4.24324 C 1.35676,4.24324 1,3.88648 1,3.43243 1,2.97837 1.35676,2.62162 1.81081,2.62162 c 0.45405,0 0.81081,0.35675 0.81081,0.81081 0,0.45405 -0.35676,0.81081 -0.81081,0.81081 z m -0.16216,-1.92973 0,-0.82702 c 0,-0.0973 0.0649,-0.16216 0.16216,-0.16216 0.0973,0 0.16216,0.0649 0.16216,0.16216 l 0,0.82702 c -0.0487,0 -0.11351,-0.0162 -0.16216,-0.0162 -0.0487,0 -0.11351,0.0162 -0.16216,0.0162 z m 0.32432,9.37297 0,0.82703 c 0,0.0973 -0.0649,0.16216 -0.16216,0.16216 -0.0973,0 -0.16216,-0.0649 -0.16216,-0.16216 l 0,-0.82703 c 0.0487,0 0.11351,0.0162 0.16216,0.0162 0.0487,0 0.11351,-0.0162 0.16216,-0.0162 z" />
+                    </svg>
+                    <p class="ml-4">
+                        historique
+                    </p>
+                </a>
+                <div class="h-px  w-full my-4 bg-gray-600">‎</div>
             @endif
+
+            <a href="/scanner"
+                class="flex text-laravel font-medium text items-center hover:bg-slate-400  p-3 w-full {{ request()->is('scanner') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-300' : '' }} {{ request()->is('marchandise-info/*') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-300' : '' }}">
+                <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M3 9h6V3H3zm1-5h4v4H4zm1 1h2v2H5zm10 4h6V3h-6zm1-5h4v4h-4zm1 1h2v2h-2zM3 21h6v-6H3zm1-5h4v4H4zm1 1h2v2H5zm15 2h1v2h-2v-3h1zm0-3h1v1h-1zm0-1v1h-1v-1zm-10 2h1v4h-1v-4zm-4-7v2H4v-1H3v-1h3zm4-3h1v1h-1zm3-3v2h-1V3h2v1zm-3 0h1v1h-1zm10 8h1v2h-2v-1h1zm-1-2v1h-2v2h-2v-1h1v-2h3zm-7 4h-1v-1h-1v-1h2v2zm6 2h1v1h-1zm2-5v1h-1v-1zm-9 3v1h-1v-1zm6 5h1v2h-2v-2zm-3 0h1v1h-1v1h-2v-1h1v-1zm0-1v-1h2v1zm0-5h1v3h-1v1h-1v1h-1v-2h-1v-1h3v-1h-1v-1zm-9 0v1H4v-1zm12 4h-1v-1h1zm1-2h-2v-1h2zM8 10h1v1H8v1h1v2H8v-1H7v1H6v-2h1v-2zm3 0V8h3v3h-2v-1h1V9h-1v1zm0-4h1v1h-1zm-1 4h1v1h-1zm3-3V6h1v1z" />
+                    <path fill="none" d="M0 0h24v24H0z" />
+                </svg>
+                <p class="ml-4">
+                    Scanner
+                </p>
+            </a>
             {{-- <a href="/sorties/create"
-                class="flex text-laravel font-medium text items-center hover:bg-slate-400  p-3 w-full">
+                class="flex text-laravel font-medium text items-center hover:border-l-4 border-indigo-400 text-gray-600 bg-slate-300  p-3 w-full">
                 <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -216,9 +249,10 @@
                     Ajouter sorties
                 </p>
             </a> --}}
+            <div class="h-56  w-full my-4 ">‎</div>
 
         </div>
-        <main id="item" class="calc w-full p-2 overflow-y-auto">
+        <main id="item" class="calc w-full  sm:p-2 overflow-y-auto">
             {{ $slot }}
         </main>
     </div>

@@ -32,9 +32,26 @@
             </form>
         </div>
     </div> --}}
+    <style>
+        .deleteGroupModal {
+            width: 800px;
+            height: 250px;
+            justify-items: center;
+            align-content: space-evenly;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            tabindex="-1";
+        }
 
-    <div class="fixed font-mon bg-white grid hidden rounded-md shadow-md z-50" id="deleteGroupModal"
-        style="width: 800px; justify-items: center; align-content: space-evenly ;height: 250px; left: 50%; top:50%; transform: translate(-50%, -50%); tabindex="-1"
+        @media(max-width: 640px) {
+            .deleteGroupModal {
+                width: 400px;
+                height: auto;
+            }
+        }
+    </style>
+    <div class="fixed font-mon bg-white grid hidden rounded-md shadow-md  deleteGroupModal  z-50" id="deleteGroupModal"
         aria-labelledby="deleteGroupModalLabel" aria-hidden="true">
         <div class="grid justify-items-center w-full">
             <form action="/entres/delete" method="POST" class="p-6 w-full">
@@ -51,7 +68,7 @@
 
                 <div class="mt-6">
                     <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
-                    <x-text-input  name="current_password" type="password" class="mt-1 block w-3/4"
+                    <x-text-input name="current_password" type="password" class="mt-1 block w-3/4"
                         placeholder="{{ __('Password') }}" />
                     <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" id="err" />
                 </div>
@@ -61,18 +78,19 @@
                         {{ __('Cancel') }}
                     </x-secondary-button>
 
-                    <button type="submit" class=' ms-3 inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150'id="sub">retirer</button>
+                    <button type="submit"
+                        class=' ms-3 inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150'id="sub">retirer</button>
                 </div>
             </form>
         </div>
     </div>
-    
-    <div class="text-sm font-medium text-center text-gray-500 border-gray-200 dark:text-gray-400 dark:border-gray-700" id='cont'>
+
+    <div class="text-sm font-medium text-center text-gray-500 border-gray-200 dark:text-gray-400 dark:border-gray-700"
+        id='cont'>
         <div class="container  w-full">
             <!-- Error Message -->
             @if (session('error'))
-                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-                    role="alert">
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                     <strong class="font-bold">Erreur!</strong>
                     <span class="block sm:inline">{{ session('error') }}</span>
                 </div>
@@ -98,8 +116,7 @@
 
             <!-- General Validation Errors -->
             @if ($errors->any())
-                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-                    role="alert">
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                     <strong class="font-bold">Oops!</strong>
                     <span class="block sm:inline">Il y avait quelques problèmes avec vos données
                         saisies.</span>
@@ -111,42 +128,114 @@
                 </div>
             @endif
             @if ($errors->userDeletion->get('current_password'))
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mb-1 rounded relative" role="alert">
-                <strong class="font-bold">Oops!</strong>
-                <span class="block sm:inline">Il y avait quelques problèmes avec vos données
-                    saisies.</span>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mb-1 rounded relative"
+                    role="alert">
+                    <strong class="font-bold">Oops!</strong>
+                    <span class="block sm:inline">Il y avait quelques problèmes avec vos données
+                        saisies.</span>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
         </div>
-        <ul class="flex flex-wrap -mb-px">
-            <li class="me-2">
-                <a href="{{ route('categories.entre_sortie', $categories) }}" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Tous</a>
-            </li> 
-            <li class="me-2">
-                <a href="{{ route('categories.entre', $categories) }}" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" aria-current="page">Entrés</a>
-            </li>
-            <li class="me-2">
-                <a href="{{ route('categories.sortie', $categories) }}" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Sorties</a>
-            </li>
-        </ul>
-        
+        <div class="flex justify-between">
+        @if (isset($categories))
+            <ul class="flex flex-wrap -mb-px">
+
+                <li class="me-2">
+                    <a href="{{ route('categories.entre_sortie', $categories) }}"
+                        class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">
+                        Tous</a>
+                </li>
+                <li class="me-2">
+                    <a href="{{ route('categories.entre', $categories) }}"
+                        class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500"
+                        aria-current="page">Entrés</a>
+                </li>
+                <li class="me-2">
+                    <a href="{{ route('categories.sortie', $categories) }}"
+                        class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Sorties</a>
+                </li>
+            </ul>
+            <form action="{{route('categories.entre', $categories)}}" method="GET" class="relative w-2/5">
+                
+                @if (isset($search))
+                    <input type="search" name="search" id="default-search" value={{ $search }}
+                        class="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500  "
+                        placeholder="Rechercher" />
+                @else
+                    <input type="search" name="search" id="default-search"
+                        class="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500  "
+                        placeholder="Rechercher" />
+                @endif
+                <abbr title="filtre juste par bar de recherch">
+                    <button type="submit" name="action" value="filter"
+                        class="text-white absolute end-2.5 bottom-4 sm:bottom-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 sm:px-4 py-2 ">
+                        <svg class="w-2 h-2 sm:w-4 sm:h-4 text-white " aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg></button>
+                </abbr>
+            </form >
+        @else
+            <ul class="flex flex-wrap -mb-px">
+
+                <li class="me-2">
+                    <a href="{{ route('categories_Autre.entre_sortie') }}"
+                        class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">
+                        Tous</a>
+                </li>
+                <li class="me-2">
+                    <a href="{{ route('categories_Autre.entre') }}"
+                        class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500"
+                        aria-current="page">Entrés</a>
+                </li>
+                <li class="me-2">
+                    <a href="{{ route('categories_Autre.sortie') }}"
+                        class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Sorties</a>
+                </li>
+            </ul>
+            <form action="{{route('categories_Autre.entre')}}" method="GET" class="relative w-2/5">
+                
+                @if (isset($search))
+                    <input type="search" name="search" id="default-search" value={{ $search }}
+                        class="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500  "
+                        placeholder="Rechercher" />
+                @else
+                    <input type="search" name="search" id="default-search"
+                        class="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500  "
+                        placeholder="Rechercher" />
+                @endif
+                <abbr title="filtre juste par bar de recherch">
+                    <button type="submit" name="action" value="filter"
+                        class="text-white absolute end-2.5 bottom-4 sm:bottom-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 sm:px-4 py-2 ">
+                        <svg class="w-2 h-2 sm:w-4 sm:h-4 text-white " aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg></button>
+                </abbr>
+            </form >
+        @endif
+        </div>
+
+
         <table class="w-full text-sm text-left text-gray-500 mb-14">
             <tbody>
-                @foreach($entres as $entre)
+                @foreach ($entres as $entre)
                     <tr class="bg-white hover:bg-gray-50">
-                        <td class="py-4 px-6">{{ $entre->type }}</td>
-                        <td class="py-4 px-6">{{ $entre->created_at }}</td>
-                        <td class="py-4 px-6">{{ $entre->nom }}</td>
-                        <td class="py-4 px-6 justify-center space-x-4 flex">
-                                <button  onclick="warnning({{ $entre->id }})" class="text-red-600 hover:text-red-900">retirer</button>
-                         
-                            <a href="{{ route('categories.index_mar_a', $entre) }}">consulter</a>
+                        <td class="py-4 px-2 sm:px-6">{{ $entre->type }}</td>
+                        <td class="py-4 px-2 sm:px-6">{{ $entre->quantite }}</td>
+                        <td class="py-4 px-2 sm:px-6">{{ $entre->created_at }}</td>
+                        <td class="py-4 px-2 sm:px-6">{{ $entre->nom }}</td>
+                        <td class="py-4 px-2 sm:px-6 sm:justify-center sm:space-x-4 sm:flex">
+                            <button onclick="warnning({{ $entre->id }})"
+                                class="text-red-600 hover:text-red-900">retirer</button>
                         </td>
                     </tr>
                 @endforeach

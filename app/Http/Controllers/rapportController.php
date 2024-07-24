@@ -139,6 +139,180 @@ class RapportController extends Controller
         return view('rapports.index', compact('marchandises'));
     }
 
+    public function downloadentre(Request $request)
+{
+        // Fetch the data to be passed to the view
+        $search=$request->input('search');
+        $start = $request->input('start');
+        $end = $request->input('end');
+        if ($search!==null && (empty($start) && empty($end))) {
+            $marchandises = marchandises::join('categories', 'marchandises.id_cat', '=', 'categories.id')
+                                        ->where('marchandises.nom', 'LIKE', '%' . $search . '%')
+                                        ->orWhere('categories.nom', 'LIKE', '%' . $search . '%')
+                                        ->select('marchandises.*')
+                                        ->get();
+            $marchandiseIds = $marchandises->pluck('id');
+            $entres =  entres::select('entres.*','marchandises.nom as nom')
+                                        ->join('marchandises','entres.id_mar','=','marchandises.id')
+                                        ->wherein('marchandises.id',$marchandiseIds)
+                                        ->orderBy('nom')                  
+                                        ->get();                
+            } elseif (!empty($start) && !empty($end)) {
+            $query = marchandises::join('categories', 'marchandises.id_cat', '=', 'categories.id')
+                ->select('marchandises.*');
+        
+            if (isset($search)) {
+                $query->where(function($q) use ($search) {
+                    $q->where('marchandises.nom', 'LIKE', '%' . $search . '%')
+                      ->orWhere('categories.nom', 'LIKE', '%' . $search . '%');
+                });
+            }
+        
+            $marchandises = $query->get();
+            $marchandiseIds = $marchandises->pluck('id');
+            $entresQuery =  entres::select('entres.*','marchandises.nom as nom')
+                                        ->join('marchandises','entres.id_mar','=','marchandises.id')
+                                        ->wherein('marchandises.id',$marchandiseIds)
+                                        ->orderBy('nom');
+            
+                if ($start == $end) {
+                    // If start and end dates are the same, use a single date comparison
+                    $entresQuery->whereDate('entres.created_at', $start);
+                } else {
+                    // Otherwise, use the range comparison
+                    $entresQuery->whereBetween('entres.created_at', [$start, $end]);
+                }
+            $entres= $entresQuery->get();
+    } else {
+       
+                    $entres = entres::select('entres.*','marchandises.nom as nom')
+                                        ->join('marchandises','entres.id_mar','=','marchandises.id')
+                                        ->orderBy('nom')                  
+                                        ->get();
+    }
+
+    // Récupérer les entrées pour chaque marchandise
+    
+    $data = [
+        'title' => 'Liste des entres PDF',
+        'entres' => $entres,
+        'start' => $start,
+        'end' => $end,
+    ];
+
+   
+    $pdf = PDF::loadView('rapports.entre', $data);
+    return $pdf->download('rapport.entre.pdf');
+}
+    public function downloadsortie(Request $request)
+{
+        // Fetch the data to be passed to the view
+        $search=$request->input('search');
+        $start = $request->input('start');
+        $end = $request->input('end');
+        if ($search!==null && (empty($start) && empty($end))) {
+            $marchandises = marchandises::join('categories', 'marchandises.id_cat', '=', 'categories.id')
+                                        ->where('marchandises.nom', 'LIKE', '%' . $search . '%')
+                                        ->orWhere('categories.nom', 'LIKE', '%' . $search . '%')
+                                        ->select('marchandises.*')
+                                        ->get();
+            $marchandiseIds = $marchandises->pluck('id');
+            $sorties =  sorties::select('sorties.*','marchandises.nom as nom')
+                                        ->join('marchandises','sorties.id_mar','=','marchandises.id')
+                                        ->wherein('marchandises.id',$marchandiseIds)
+                                        ->orderBy('nom')                  
+                                        ->get();                
+            } elseif (!empty($start) && !empty($end)) {
+            $query = marchandises::join('categories', 'marchandises.id_cat', '=', 'categories.id')
+                ->select('marchandises.*');
+        
+            if (isset($search)) {
+                $query->where(function($q) use ($search) {
+                    $q->where('marchandises.nom', 'LIKE', '%' . $search . '%')
+                      ->orWhere('categories.nom', 'LIKE', '%' . $search . '%');
+                });
+            }
+        
+            $marchandises = $query->get();
+            $marchandiseIds = $marchandises->pluck('id');
+            $sortiesQuery =  sorties::select('sorties.*','marchandises.nom as nom')
+                                        ->join('marchandises','sorties.id_mar','=','marchandises.id')
+                                        ->wherein('marchandises.id',$marchandiseIds)
+                                        ->orderBy('nom');
+            
+                if ($start == $end) {
+                    // If start and end dates are the same, use a single date comparison
+                    $sortiesQuery->whereDate('sorties.created_at', $start);
+                } else {
+                    // Otherwise, use the range comparison
+                    $sortiesQuery->whereBetween('sorties.created_at', [$start, $end]);
+                }
+            $sorties= $sortiesQuery->get();
+    } else {
+       
+                    $sorties = sorties::select('sorties.*','marchandises.nom as nom')
+                                        ->join('marchandises','sorties.id_mar','=','marchandises.id')
+                                        ->orderBy('nom')                  
+                                        ->get();
+    }
+
+    // Récupérer les entrées pour chaque marchandise
+    
+    $data = [
+        'title' => 'Liste des sorties PDF',
+        'sorties' => $sorties,
+        'start' => $start,
+        'end' => $end,
+    ];
+
+   
+    $pdf = PDF::loadView('rapports.sorties', $data);
+    return $pdf->download('rapport.sortie.pdf');
+}
+    public function downloadqr(Request $request)
+{
+        // Fetch the data to be passed to the view
+        $search=$request->input('search');
+        $start = $request->input('start');
+        $end = $request->input('end');
+        if ($search!==null && (empty($start) && empty($end))) {
+            $marchandises = marchandises::join('categories', 'marchandises.id_cat', '=', 'categories.id')
+                                        ->where('marchandises.nom', 'LIKE', '%' . $search . '%')
+                                        ->orWhere('categories.nom', 'LIKE', '%' . $search . '%')
+                                        ->select('marchandises.*')
+                                        ->get();          
+            } elseif (!empty($start) && !empty($end)) {
+            $query = marchandises::join('categories', 'marchandises.id_cat', '=', 'categories.id')
+                ->select('marchandises.*');
+        
+            if (isset($search)) {
+                $query->where(function($q) use ($search) {
+                    $q->where('marchandises.nom', 'LIKE', '%' . $search . '%')
+                      ->orWhere('categories.nom', 'LIKE', '%' . $search . '%');
+                });
+            }
+        
+            $marchandises = $query->get();
+    } else {
+       
+                   $marchandises=marchandises::all();
+    }
+
+    // Récupérer les entrées pour chaque marchandise
+    
+    $data = [
+        'title' => 'Liste des marchandises PDF',
+        'marchandises' => $marchandises,
+        'start' => $start,
+        'end' => $end,
+    ];
+
+   
+    $pdf = PDF::loadView('rapports.qr', $data);
+    return $pdf->download('rapport.qr.pdf');
+}
+
+
     public function search(Request $request) {
         $search=$request->input('search');
         $start = $request->input('start');
