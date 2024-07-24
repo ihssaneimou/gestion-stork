@@ -33,22 +33,24 @@
         </div>
     </div> --}}
     <style>
-        .deleteGroupModal{
+        .deleteGroupModal {
             width: 800px;
             height: 250px;
             justify-items: center;
-            align-content: space-evenly ;
-            left: 50%; top:50%;
-        transform: translate(-50%, -50%);
-        tabindex="-1";
+            align-content: space-evenly;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            tabindex="-1";
         }
-        @media(max-width: 640px){
-    .deleteGroupModal{
-        width: 400px;
-        height: auto;
-    }
-}
-        </style>
+
+        @media(max-width: 640px) {
+            .deleteGroupModal {
+                width: 400px;
+                height: auto;
+            }
+        }
+    </style>
     <div class="fixed font-mon bg-white grid hidden rounded-md shadow-md  deleteGroupModal  z-50" id="deleteGroupModal"
         aria-labelledby="deleteGroupModalLabel" aria-hidden="true">
         <div class="grid justify-items-center w-full">
@@ -66,7 +68,7 @@
 
                 <div class="mt-6">
                     <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
-                    <x-text-input  name="current_password" type="password" class="mt-1 block w-3/4"
+                    <x-text-input name="current_password" type="password" class="mt-1 block w-3/4"
                         placeholder="{{ __('Password') }}" />
                     <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" id="err" />
                 </div>
@@ -76,17 +78,18 @@
                         {{ __('Cancel') }}
                     </x-secondary-button>
 
-                    <button type="submit" class=' ms-3 inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150'id="sub">rajouter</button>
+                    <button type="submit"
+                        class=' ms-3 inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150'id="sub">rajouter</button>
                 </div>
             </form>
         </div>
     </div>
-    <div class="text-sm font-medium text-center text-gray-500  border-gray-200 dark:text-gray-400 dark:border-gray-700" id='cont'>
+    <div class="text-sm font-medium text-center text-gray-500  border-gray-200 dark:text-gray-400 dark:border-gray-700"
+        id='cont'>
         <div class="container  w-full">
             <!-- Error Message -->
             @if (session('error'))
-                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-                    role="alert">
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                     <strong class="font-bold">Erreur!</strong>
                     <span class="block sm:inline">{{ session('error') }}</span>
                 </div>
@@ -112,8 +115,7 @@
 
             <!-- General Validation Errors -->
             @if ($errors->any())
-                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-                    role="alert">
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                     <strong class="font-bold">Oops!</strong>
                     <span class="block sm:inline">Il y avait quelques problèmes avec vos données
                         saisies.</span>
@@ -126,41 +128,70 @@
             @endif
 
             @if ($errors->userDeletion->get('current_password'))
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mb-1 rounded relative" role="alert">
-                <strong class="font-bold">Oops!</strong>
-                <span class="block sm:inline">Il y avait quelques problèmes avec vos données
-                    saisies.</span>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mb-1 rounded relative"
+                    role="alert">
+                    <strong class="font-bold">Oops!</strong>
+                    <span class="block sm:inline">Il y avait quelques problèmes avec vos données
+                        saisies.</span>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
         </div>
-        <ul class="flex flex-wrap -mb-px">
-           
-            <li class="me-2">
-                <a href="{{ route('categories.entre_sortie', $categories) }}"  class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">  Tous</a>
-            </li> 
-            <li class="me-2">
-                <a href="{{ route('categories.entre', $categories) }}"  class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Entrés</a>
-            </li>
-            <li class="me-2">
-                <a href="{{ route('categories.sortie', $categories) }}"class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" aria-current="page">Sorties</a>
-            </li>
-        </ul>
+        @if (isset($categories))
+            <ul class="flex flex-wrap -mb-px">
+
+                <li class="me-2">
+                    <a href="{{ route('categories.entre_sortie', $categories) }}"
+                        class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">
+                        Tous</a>
+                </li>
+                <li class="me-2">
+                    <a href="{{ route('categories.entre', $categories) }}"
+                        class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Entrés</a>
+                </li>
+                <li class="me-2">
+                    <a href="{{ route('categories.sortie', $categories) }}"
+                        class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500"
+                        aria-current="page">Sorties</a>
+                </li>
+            </ul>
+        @else
+            <ul class="flex flex-wrap -mb-px">
+
+                <li class="me-2">
+                    <a href="{{ route('categories_Autre.entre_sortie') }}"
+                        class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">
+                        Tous</a>
+                </li>
+                <li class="me-2">
+                    <a href="{{ route('categories_Autre.entre') }}"
+                        class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Entrés</a>
+                </li>
+                <li class="me-2">
+                    <a href="{{ route('categories_Autre.sortie') }}"
+                        class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500"
+                        aria-current="page">Sorties</a>
+                </li>
+            </ul>
+        @endif
+
+
         <table class="w-full text-sm text-left text-gray-500 mb-14">
             <tbody>
-                @foreach($sorties as $item)
+                @foreach ($sorties as $item)
                     <tr class="bg-white  hover:bg-gray-50" href='categories.index_mar_'>
                         <td class="py-4 px-6">{{ $item->type }}</td>
                         <td class="py-4 px-6">{{ $item->created_at }}</td>
                         <td class="py-4 px-6">{{ $item->nom }}</td>
                         <td class="py-4 px-6 sm:justify-center sm:space-x-4 sm:flex">
-                            <button  onclick="warnning({{ $item->id }})" class="text-red-600 hover:text-red-900">rajouter</button>
-                            <a href="{{ route('categories.index_mar_v',$item) }}">consulter</a>
+                            <button onclick="warnning({{ $item->id }})"
+                                class="text-red-600 hover:text-red-900">rajouter</button>
+                            <a href="{{ route('categories.index_mar_v', $item) }}">consulter</a>
                         </td>
                     </tr>
                 @endforeach
@@ -184,5 +215,4 @@
             document.getElementById('cont').classList.remove('pointer-events-none');
         }
     </script>
-    </x-nav-bar>
-    
+</x-nav-bar>

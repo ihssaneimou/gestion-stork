@@ -59,6 +59,9 @@ Route::get('/categories/{categories}/edit', [categorieController::class, 'edit']
 Route::get('/categories/{categories}/documents', [categorieController::class, 'entre_sortie'])->name('categories.entre_sortie'); 
 Route::get('/categories/{categories}/documents/entres', [categorieController::class, 'entre'])->name('categories.entre'); 
 Route::get('/categories/{categories}/documents/sorties', [categorieController::class, 'sortie'])->name('categories.sortie'); 
+Route::get('/categories_Autre/documents', [categorieController::class, 'entre_sortie_A'])->name('categories_Autre.entre_sortie'); 
+Route::get('/categories_Autre/documents/entres', [categorieController::class, 'entre_A'])->name('categories_Autre.entre'); 
+Route::get('/categories_Autre/documents/sorties', [categorieController::class, 'sortie_A'])->name('categories_Autre.sortie'); 
 Route::get('/categories/{categories}', [categorieController::class, 'index_mar'])->name('categories.index_mar');
 Route::get('/categories/entre/{entre}', [categorieController::class, 'index_mar_acheter'])->name('categories.index_mar_a');
 Route::get('/categories/sortie/{sorties}', [categorieController::class, 'index_mar_vendre'])->name('categories.index_mar_v');
@@ -67,7 +70,9 @@ Route::get('/categories/sortie/{sorties}', [categorieController::class, 'index_m
 
 Route::get('/marchandises', [marchandiseController::class, 'index_cat'])->name('marchandises.index_cat');
 Route::get('/marchandises/categories/{categories}', [marchandiseController::class, 'index'])->name('marchandises.index');
-Route::get('/marchandises/Autre', [marchandiseController::class, 'Autre'])->name('marchandises.Autre');
+Route::get('/marchandises/categories/{categories}/search', [marchandiseController::class, 'search'])->name('marchandises.search'); 
+Route::get('/marchandises/Autre', [marchandiseController::class, 'Autre'])->name('marchandises.Autre');  
+Route::get('/marchandises/Autre/search', [marchandiseController::class, 'search_Autre'])->name('marchandises.search_Autre');  
 Route::get('/marchandises/create', [marchandiseController::class, 'create'])->name('marchandises.create');
 Route::get('/entres/create_bar', [marchandiseController::class, 'create_bar'])->name('marchandises.create_bar');
 Route::get('/marchandises/create/{categories}', [marchandiseController::class, 'create_cat'])->name('marchandises.create.cat');

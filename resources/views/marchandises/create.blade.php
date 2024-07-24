@@ -116,10 +116,10 @@
                                 </label>
                             </center>
                         </div>
-                        <input type="File" name="image" accept="image/png, image/gif, image/jpeg,image/jpg" value="{{old('nom')}}" id="fileToUpload">
+                        <input type="File" name="image" accept="image/png, image/gif, image/jpeg,image/jpg"  id="fileToUpload">
                         <div class="mb-6">
                             <label for="title" class="inline-block text-lg mb-2">Nom du marchandise</label>
-                            <input type="text" class="border border-gray-200 rounded p-2 w-full" name="nom" placeholder="nom"  />
+                            <input type="text" class="border border-gray-200 rounded p-2 w-full" name="nom" value="{{old('nom')}}" placeholder="nom"  />
                             @error('nom')
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                             @enderror

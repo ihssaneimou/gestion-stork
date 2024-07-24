@@ -3,15 +3,17 @@
         .qr-code {
             transition: transform 0.3s ease-in-out;
         }
+
         .enlarged {
             transform: scale(2);
             z-index: 1000;
         }
-        @media(max-width: 640px){
-    .desc{
-        display: none;
-    }
-}
+
+        @media(max-width: 640px) {
+            .desc {
+                display: none;
+            }
+        }
     </style>
     <div class="fixed font-mon bg-slate-200 grid hidden rounded-md shadow-md " id="deleteGroupModal"
         style="width: 400px; justify-items: center; align-content: space-evenly ;height: 200px; left: 50%; top:50%; transform: translate(-50%, -50%); tabindex="-1"
@@ -39,8 +41,7 @@
             Êtes-vous sûr de vouloir supprimer cette marchendise?
         </div>
         <div class="flex w-2/3 justify-around">
-            <button type="button" class="btn btn-secondary" onclick="hide()"
-                data-bs-dismiss="modal">Annuler</button>
+            <button type="button" class="btn btn-secondary" onclick="hide()" data-bs-dismiss="modal">Annuler</button>
             <form action="/marchandises/delete" method="POST">
                 @csrf
                 @method('DELETE')
@@ -50,7 +51,7 @@
             </form>
         </div>
     </div>
-    <div id="cont" class="" >
+    <div id="cont" class="">
         <div class=" flex">
             <p class="text-2xl w-2/3 m-3 pl-6 underline underline-offset-4">marchandises</p>
             <p class="text-xl w-1/3  m-3 pl-6"><a href="/marchandises/create"
@@ -58,7 +59,7 @@
                     Marchendise</a> </p>
         </div>
         <div class="overflow-x-auto relative shadow-md w-full sm:rounded-lg mb-10">
-                
+
             <table class="w-full text-sm text-left text-gray-500">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
                     <tr>
@@ -68,38 +69,53 @@
                         <th scope="col" class="py-3 px-6 ">categorie</th>
                         <th scope="col" class="py-3 px-6 ">quantite</th>
                         <th scope="col" class="py-3 px-6 hidden sm:block">description</th>
-                        
+
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="bg-white border-b hover:bg-gray-200 hover:text-black ">
-                    @foreach ($marchandises as $marchandise)
-                    <td class="py-3 px-1 text-center flex justify-center">
-                        @if (isset($marchandise->image) && $marchandise->image !== null)
-                            <img class="image w-10 h-10 rounded-full bg-cover"
-                                src="{{ asset('/storage/' . $marchandise->image) }}" alt="" />
-                        @else
-                            <img class="image w-10 h-10 rounded-full bg-cover"
-                                src="{{ asset('/logo.jpg') }}" alt="" />
-                        @endif
+                        @foreach ($marchandises as $marchandise)
+                            <td class="py-3 px-1 text-center flex justify-center">
+                                @if (isset($marchandise->image) && $marchandise->image !== null)
+                                    <img class="image w-10 h-10 rounded-full bg-cover"
+                                        src="{{ asset('/storage/' . $marchandise->image) }}" alt="" />
+                                @else
+                                    <img class="image w-10 h-10 rounded-full bg-cover" src="{{ asset('/logo.jpg') }}"
+                                        alt="" />
+                                @endif
 
-                    </td>
-                        <td class="py-4 px-6  ">{{ $marchandise->nom }}</td>
-                     
-                        <td class=" justify-center py-5 px-1 hidden sm:flex "> <abbr title="{{$marchandise->barre_code}}" id="qrCodeContainer" class="block cursor-pointer qr-code">
-                            {!! QrCode::size(40)->generate($marchandise->id) !!}
-                        </abbr></td>
-                
-                        
-                        <td class="py-4 px-6 ">{{ $marchandise->categories->nom }}</td>
-                        <td class="py-4 px-6 ">{{ $marchandise->qte }}</td>
-                        <td class="py-4 px-6 ">{{ $marchandise->description }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table> 
-            </div>
-            
+                            </td>
+                            <td class="py-4 px-6  ">{{ $marchandise->nom }}</td>
+                            @if ($marchandise->barecode)
+                                <td class=" justify-center py-5 px-1 hidden sm:flex "> <abbr
+                                        title="{{ $marchandise->barecode }}" class="block cursor-pointer qr-code">
+                                        {!! DNS1D::getBarcodeHTML($marchandise->barecode, 'C128', 1, 30) !!}
+                                    </abbr></td>
+                            @else
+                                <td class=" justify-center py-5 px-1 hidden sm:flex "> <abbr
+                                        id="qr-{{ $marchandise->id }}" onclick="qr({{ $marchandise->id }})"
+                                        class="block cursor-pointer qr-code">
+                                        {!! QrCode::size(40)->generate($marchandise->id) !!}
+                                    </abbr></td>
+                            @endif
+
+
+
+                            <td class="py-4 px-6 ">
+                                @if ($marchandise->categories)
+                                    {{ $marchandise->categories->nom }}
+                                @else
+                                    Autre
+                                @endif
+                            </td>
+                            <td class="py-4 px-6 ">{{ $marchandise->qte }}</td>
+                            <td class="py-4 px-6 ">{{ $marchandise->description }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
         <script>
             function warnning(id) {
                 document.getElementById('deleteGroupModal').classList.remove('hidden');
@@ -120,7 +136,7 @@
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const qrCodeContainer = document.getElementById('qrCodeContainer');
-    
+
                 qrCodeContainer.addEventListener('click', function() {
                     this.classList.toggle('enlarged');
                 });

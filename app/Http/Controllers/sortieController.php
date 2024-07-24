@@ -193,6 +193,15 @@ class sortieController extends Controller
                 break;
             }
         }
+        $activite=new activites;
+            $activite->id_adm=auth()->user()->id;
+            if($marchandises->categories){
+            $activite->nom_activite="suppression une sortie de $sortie->quantite dans ".$marchandises->nom."de".$marchandises->categories->nom;
+            }else{
+                $activite->nom_activite="suppression une sortie de $sortie->quantite dans".$marchandises->nom;
+            }
+            $activite->type='suppression';
+            $activite->save();
         $sortie->delete();
 
         return redirect()->back();
