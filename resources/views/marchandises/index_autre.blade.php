@@ -108,7 +108,7 @@
 
                 <div>
                     <label for="quantite" class="block text-sm font-medium text-gray-700">Quantité :</label>
-                    <input type="number" id="quantite" name="quantite" required
+                    <input type="number" id="quantitee" name="quantite" required
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     @error('quantite')
                         <script>
@@ -124,9 +124,30 @@
         </div>
     </div>
     <div id="cont" class="">
-        <div class=" flex">
-            <p class="text-2xl w-2/3 m-3 pl-6 underline underline-offset-4">marchandises</p>
-            <p class="text-xl w-1/3  m-3 pl-6"><a href="/marchandises/create"
+       <div class=" flex">
+            <p class="sm:text-2xl w-1/3 m-3 sm:pl-6 underline underline-offset-4">marchandises</p>
+            <form action="{{route('marchandises.search_Autre')}}" method="GET" class="relative w-full lg:w-1/3">
+                
+                @if (isset($search))
+                    <input type="search" name="search" id="default-search" value={{ $search }}
+                        class="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500  "
+                        placeholder="Rechercher" />
+                @else
+                    <input type="search" name="search" id="default-search"
+                        class="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500  "
+                        placeholder="Rechercher" />
+                @endif
+                <abbr title="filtre juste par bar de recherch">
+                    <button type="submit" name="action" value="filter"
+                        class="text-white absolute end-2.5 bottom-8 sm:bottom-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 sm:px-4 py-2 ">
+                        <svg class="w-4 h-4 text-white " aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg></button>
+                </abbr>
+            </form action="" method="GET">
+            <p class="sm:text-xl w-1/3 mx-2 my-3 sm:pl-6"><a href="/marchandises/create"
                     class="text-blue-600 hover:text-blue-900">Ajouter Marchendise</a></p>
         </div>
         <div class="container  w-full">
@@ -201,7 +222,7 @@
                     <tbody>
                         @foreach ($marchandises as $marchandise)
                             <tr class="bg-white border-b hover:bg-gray-200 hover:text-black ">
-                                <td class="py-3 px-1 text-center flex justify-center">
+                                <td class="py-3 sm:px-1 text-center flex justify-center">
                                     @if (isset($marchandise->image) && $marchandise->image !== null)
                                         <img class="image w-10 h-10 rounded-full bg-cover"
                                             src="{{ asset('/storage/' . $marchandise->image) }}" alt="" />
@@ -211,41 +232,35 @@
                                     @endif
 
                                 </td>
-                                <td class="py-4 px-1 text-center  ">{{ $marchandise->nom }}</td>
+                                <td class="py-4 sm:px-1 text-center  ">{{ $marchandise->nom }}</td>
 
-                                @if ($marchandise->barecode)
-                                <td class=" justify-center py-5 px-1 hidden sm:flex "> <abbr
-                                    title="{{$marchandise->barecode}}"
-                                    class="block cursor-pointer qr-code">
-                                    {!! DNS1D::getBarcodeHTML($marchandise->barecode, 'C128', 1, 30) !!}
-                                </abbr></td>
-                            @else
-                                 <td class=" justify-center py-5 px-1 hidden sm:flex "> <abbr
+                               
+                                 <td class=" justify-center py-5 sm:px-1 hidden sm:flex "> <abbr
                                     id="qr-{{ $marchandise->id }}"
                                     onclick="qr({{ $marchandise->id }})" class="block cursor-pointer qr-code">
                                     {!! QrCode::size(40)->generate($marchandise->id) !!}
                                 </abbr></td>
-                            @endif
+                       
 
                                    
 
-                                <td class="py-4 px-1 text-center ">
+                                <td class="py-4 sm:px-1 text-center ">
                                     @if ($marchandise->categories)
                                         {{ $marchandise->categories->nom }}
                                     @else
                                         Autre
                                     @endif
                                 </td>
-                                <td class="py-4 px-1 text-center ">{{ $marchandise->quantite }}</td>
-                                <td class="py-4 px-1 text-center desc">
+                                <td class="py-4 sm:px-1 text-center ">{{ $marchandise->quantite }}</td>
+                                <td class="py-4 sm:px-1 text-center desc">
                                     <p class="overflow-hidden max-h-10 max-w-[500px] line-clamp-2">
                                         {{ $marchandise->description }}</p>
                                 </td>
 
-                                <td class="py-4 px-3 sm:px-6 justify-between flex text-center space-x-2">
+                                <td class="py-4  sm:px-6 justify-between flex text-center space-x-2">
                                     <button onclick="warnning2({{ $marchandise->id }})" title="Ajout"
                                         aria-label="Ajout"
-                                        class="flex items-center text-green-500 bg-green-200 hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
+                                        class="flex items-center text-green-500 bg-green-200 hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-opacity-50 px-2 sm:px-3 py-2 rounded shadow-md transition duration-200">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke="currentColor" class="w-5 h-5">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -255,7 +270,7 @@
 
                                     <button onclick="warnning3({{ $marchandise->id }})" title="Sortie"
                                         aria-label="Sortie"
-                                        class="flex items-center text-yellow-500 bg-yellow-200 hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
+                                        class="flex items-center text-yellow-500 bg-yellow-200 hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-opacity-50 px-2 sm:px-3 py-2 rounded shadow-md transition duration-200">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke="currentColor" class="w-5 h-5">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -265,7 +280,7 @@
                                     @if (auth()->user()->role == 'S')
                                         <button onclick="warnning({{ $marchandise->id }})" title="Supprimer"
                                             aria-label="Supprimer"
-                                            class="flex items-center desc text-red-500 bg-red-200 hover:bg-red-300 focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
+                                            class="flex items-center  text-red-500 bg-red-200 hover:bg-red-300 focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-opacity-50 px-2 sm:px-3 py-2 rounded shadow-md transition duration-200">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -275,7 +290,7 @@
                                     @endif
                                     <a href="/marchandises/{{ $marchandise->id }}/edit" title="Modifier"
                                         aria-label="Modifier"
-                                        class="flex items-center desc text-blue-500 bg-blue-200 hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">
+                                        class="flex items-center  text-blue-500 bg-blue-200 hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50 px-2 sm:px-3 py-2 rounded shadow-md transition duration-200">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke="currentColor" class="w-5 h-5">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

@@ -36,13 +36,18 @@ class CategorieController extends Controller
             $category->total_vendus = $sorties[$category->id] ?? 0;
         }
 
-        $entres = marchandises::select( DB::raw('COALESCE(SUM(marchandises.quantite), 0) as total_achetes'))
-                                ->where('marchandises.id_cat', '=', 0)->get();
-    
-        // Fetch total 'sorties' (sales) grouped by category ID
-        $sorties = marchandises::select('categories.id', DB::raw('COALESCE(SUM(sorties.quantite), 0) as total_vendus'))
-                                ->leftJoin('sorties', 'sorties.id_mar', '=', 'marchandises.id')
-                                ->where('marchandises.id_cat', '=', 0)->get();
+        $entres = marchandises::select(DB::raw('COALESCE(SUM(marchandises.quantite), 0) as total_achetes'))
+                ->where('marchandises.id_cat', '=', null)
+                ->first();
+
+        $entres = $entres->total_achetes;
+        
+// Fetch total 'sorties' (sales) grouped by category ID
+        $sorties = marchandises::select( DB::raw('COALESCE(SUM(sorties.quantite), 0) as total_vendus'))
+                ->leftJoin('sorties', 'sorties.id_mar', '=', 'marchandises.id')
+                ->where('marchandises.id_cat', '=', null)->first();
+                $sorties = $sorties->total_vendus;
+        // Return the view with the categories data
     
         // Return the view with the categories data
         return view('categories.index', compact('categories','entres','sorties'));
@@ -209,6 +214,85 @@ class CategorieController extends Controller
         $tous = $tous->sortByDesc('created_at');
 
         return view('categories.sortie', ['categories'=>$categories,'tous' => $tous,'entres'=>$entres , 'sorties'=>$sorties]);
+    }
+    
+    public function entre_sortie_A() {
+        // Récupérer les entres en ajoutant une colonne 'type' avec la valeur 'entre'
+        $entres = entres::select('entres.*','marchandises.nom as nom', DB::raw('"entre" as type'))
+            ->join('marchandises','entres.id_mar','=','marchandises.id')
+            ->where('marchandises.id_cat','=',null)
+            ->orderBy('entres.created_at', 'desc')                  
+            ->get();
+    
+        // Récupérer les sorties en ajoutant une colonne 'type' avec la valeur 'sortie'
+        $sorties = sorties::select('sorties.*', 'marchandises.nom as nom',DB::raw('"sortie" as type'))
+            ->join('marchandises','sorties.id_mar','=','marchandises.id')
+            ->where('marchandises.id_cat','=',null)
+            ->orderBy('sorties.created_at', 'desc')                  
+            ->get();
+    
+        // Fusionner les collections d'entres et de sorties
+        $tous = $entres->concat($sorties);
+    
+        // Trier toutes les données ensemble par date de document en ordre décroissant
+        $tous = $tous->sort(function ($a, $b) {
+            $comp = strcmp($b->created_at, $a->created_at); // Tri décroissant par 'created_at'
+            if ($comp === 0) {
+                return strcmp($b->created_at, $a->created_at); // Si égaux, tri décroissant par 'created_at'
+            }
+            return $comp;
+        });
+        
+        // Retourner la vue avec toutes les données nécessaires
+        return view('categories.entre_sortie', [
+           
+            'tous' => $tous,
+            'entres' => $entres, 
+            'sorties' => $sorties
+        ]);
+    }
+    
+    public function entre_A( ){
+
+        $entres = entres::select('entres.*','marchandises.nom as nom', DB::raw('"entre" as type'))
+            ->join('marchandises','entres.id_mar','=','marchandises.id')
+            ->where('marchandises.id_cat','=',null)
+            ->orderBy('entres.created_at', 'desc')                  
+            ->get();
+    
+        // Récupérer les sorties en ajoutant une colonne 'type' avec la valeur 'sortie'
+        $sorties = sorties::select('sorties.*', 'marchandises.nom as nom',DB::raw('"sortie" as type'))
+            ->join('marchandises','sorties.id_mar','=','marchandises.id')
+            ->where('marchandises.id_cat','=',null)
+            ->orderBy('sorties.created_at', 'desc')                  
+            ->get();
+
+        $tous = $entres->merge($sorties);
+        $tous = $tous->sortByDesc('created_at');
+
+        return view('categories.entre', ['tous' => $tous,'entres'=>$entres , 'sorties'=>$sorties]);
+
+        
+    }
+    public function sortie_A( ){
+
+         $entres = entres::select('entres.*','marchandises.nom as nom', DB::raw('"entre" as type'))
+            ->join('marchandises','entres.id_mar','=','marchandises.id')
+            ->where('marchandises.id_cat','=',null)
+            ->orderBy('entres.created_at', 'desc')                  
+            ->get();
+    
+        // Récupérer les sorties en ajoutant une colonne 'type' avec la valeur 'sortie'
+        $sorties = sorties::select('sorties.*', 'marchandises.nom as nom',DB::raw('"sortie" as type'))
+            ->join('marchandises','sorties.id_mar','=','marchandises.id')
+            ->where('marchandises.id_cat','=',null)
+            ->orderBy('sorties.created_at', 'desc')                  
+            ->get();
+            
+        $tous = $entres->merge($sorties);
+        $tous = $tous->sortByDesc('created_at');
+
+        return view('categories.sortie', ['tous' => $tous,'entres'=>$entres , 'sorties'=>$sorties]);
     }
     
 

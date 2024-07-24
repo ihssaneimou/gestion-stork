@@ -117,7 +117,7 @@
                         Marchandises
                     </p>
                 </a>
-                <a class="flex text-laravel font-medium text items-center hover:bg-slate-300  p-3 w-full {{ request()->is('categories/entre/*') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-100' : '' }} {{ request()->is('categories/sortie/*') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-100' : '' }} {{ request()->is('categories/*/documents/*') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-100' : '' }} {{ request()->is('categories/*/documents') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-100' : '' }} {{ request()->is('documents') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-100' : '' }}"
+                <a class="flex text-laravel font-medium text items-center hover:bg-slate-300  p-3 w-full {{ request()->is('categories/entre/*') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-100' : '' }} {{ request()->is('categories/sortie/*') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-100' : '' }} {{ request()->is('categories/*/documents/*') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-100' : '' }} {{ request()->is('categories/*/documents') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-100' : '' }} {{ request()->is('documents') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-100' : '' }} {{ request()->is('categories_Autre/*') ? 'border-l-4 border-indigo-400 text-gray-600 bg-slate-100' : '' }}"
                     href="/documents">
                     <svg height='30px' enable-background="new 0 0 512 512" version="1.1" viewBox="0 0 512 512"
                         xml:space="preserve" xmlns="http://www.w3.org/2000/svg"

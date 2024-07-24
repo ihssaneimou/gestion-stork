@@ -362,22 +362,12 @@
                                     </td>
                                     <td class="py-4 px-1 text-center  ">{{ $marchandise->nom }}</td>
 
-                                    @if ($marchandise->barecode)
-                                        <td class=" justify-center py-5 px-1 hidden sm:flex "> <abbr
-                                                title="{{ $marchandise->barecode }}"
-                                                class="block cursor-pointer qr-code">
-                                                {!! DNS1D::getBarcodeHTML($marchandise->barecode, 'C128', 1, 30) !!}
-                                            </abbr></td>
-                                    @else
-                                        <td class=" justify-center py-5 px-1 hidden sm:flex "> <abbr
-                                                id="qr-{{ $marchandise->id }}" onclick="qr({{ $marchandise->id }})"
-                                                class="block cursor-pointer qr-code">
-                                                {!! QrCode::size(40)->generate($marchandise->id) !!}
-                                            </abbr></td>
-                                    @endif
 
-
-
+                                    <td class=" justify-center py-5 px-1 hidden sm:flex "> <abbr
+                                            id="qr-{{ $marchandise->id }}" onclick="qr({{ $marchandise->id }})"
+                                            class="block cursor-pointer qr-code">
+                                            {!! QrCode::size(40)->generate($marchandise->id) !!}
+                                        </abbr></td>
                                     <td class="py-4 px-1 text-center ">
                                         @if ($marchandise->categories)
                                             {{ $marchandise->categories->nom }}
