@@ -303,7 +303,8 @@
                     }
                 });
 
-
+                console.log(chartDataentre);
+                console.log(chartDatasortie);
                 const ctxES = document.getElementById('esChart').getContext('2d');
                 esChart = initializeChart(ctxES, type2, chartDataentre.map(item => item.date), [{
                         label: 'Entrée',

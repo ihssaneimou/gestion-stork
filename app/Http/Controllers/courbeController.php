@@ -46,18 +46,33 @@ class courbeController extends Controller
         }
 
         $categoryData = DB::table('categories')
-            ->select(DB::raw("categories.id, SUM(marchandises.quantite) as total_quantite, categories.nom"))
-            ->join('marchandises', 'marchandises.id_cat', '=', 'categories.id')
-            ->groupBy('categories.id', 'categories.nom')
-            ->get();
+        ->select(DB::raw("categories.id, SUM(marchandises.quantite) as total_quantite, categories.nom"))
+        ->join('marchandises', 'marchandises.id_cat', '=', 'categories.id')
+        ->groupBy('categories.id', 'categories.nom')
+        ->get();
+    
+    $categoryAutreData = DB::table('marchandises')
+        ->select(DB::raw("SUM(marchandises.quantite) as total_quantite"))
+        ->whereNull('id_cat')
+        ->first();
+    
+    $chartDatac = $categoryData->map(function($item) {
+        return [
+            'id' => $item->id,
+            'nom' => $item->nom,
+            'quantite' => $item->total_quantite
+        ];
+    })->toArray();
+    
+    if ($categoryAutreData && $categoryAutreData->total_quantite) {
+        $chartDatac[] = [
+            'id' => null,
+            'nom' => 'Autre',
+            'quantite' => $categoryAutreData->total_quantite
+        ];
+    }
+    
 
-        $chartDatac = $categoryData->map(function($item) {
-            return [
-                'id' => $item->id,
-                'nom' => $item->nom,
-                'quantite' => $item->total_quantite
-            ];
-        });
 
         $datam = [];
         $chartDatam = [];
@@ -73,6 +88,18 @@ class courbeController extends Controller
                     'quantite' => $item->quantite
                 ];
             });
+        }else{
+            $datam = DB::table('marchandises')
+            ->select('nom', 'quantite')
+            ->where('id_cat', null)
+            ->get();
+
+        $chartDatam = $datam->map(function($item) {
+            return [
+                'nom' => $item->nom,
+                'quantite' => $item->quantite
+            ];
+        });
         }
 
         $categories = categories::all();
@@ -99,21 +126,22 @@ class courbeController extends Controller
         $data_sortie->keys()->all()
     ))->unique()->sort();
     
-    // Prepare chart data for 'entres'
-    $chartDataentre = $uniqueDates->map(function($date) use ($data_entre) {
-        return [
+    $chartDataentre = [];
+    foreach ($uniqueDates as $date) {
+        $chartDataentre[] = [
             'date' => $date,
-            'quantite' => $data_entre->get($date)->total_quantite ?? 0
+            'quantite' => $data_entre->get($date)->total_quantite ?? '0'
         ];
-    });
+    }
     
-    // Prepare chart data for 'sorties'
-    $chartDatasortie = $uniqueDates->map(function($date) use ($data_sortie) {
-        return [
+    $chartDatasortie = [];
+    foreach ($uniqueDates as $date) {
+        $chartDatasortie[] = [
             'date' => $date,
-            'quantite' => $data_sortie->get($date)->total_quantite ?? 0
+            'quantite' => $data_sortie->get($date)->total_quantite ?? '0'
         ];
-    });
+    }
+    
 
 
         return view('rapports.chart', [
@@ -207,20 +235,22 @@ $uniqueDates = collect(array_merge(
 ))->unique()->sort();
 
 // Prepare chart data for 'entres'
-$chartDataentre = $uniqueDates->map(function($date) use ($data_entre) {
-    return [
+ 
+$chartDataentre = [];
+foreach ($uniqueDates as $date) {
+    $chartDataentre[] = [
         'date' => $date,
-        'quantite' => $data_entre->get($date)->total_quantite ?? 0
+        'quantite' => $data_entre->get($date)->total_quantite ?? '0'
     ];
-});
+}
 
-// Prepare chart data for 'sorties'
-$chartDatasortie = $uniqueDates->map(function($date) use ($data_sortie) {
-    return [
+$chartDatasortie = [];
+foreach ($uniqueDates as $date) {
+    $chartDatasortie[] = [
         'date' => $date,
-        'quantite' => $data_sortie->get($date)->total_quantite ?? 0
+        'quantite' => $data_sortie->get($date)->total_quantite ?? '0'
     ];
-});
+}
 
 
     // Combine both datasets into an associative array
