@@ -159,11 +159,24 @@ class courbeController extends Controller
     }
     public function updateChartDatam(Request $request)
 {
-    $categoryId = $request->get('id_cat', 1);
+    $categoryId = $request->get('id_cat');
 
-    $datam = DB::table('marchandises')
+    if ($categoryId) {
+        $datam = DB::table('marchandises')
+            ->select('nom', 'quantite')
+            ->where('id_cat', $categoryId)
+            ->get();
+
+        $chartDatam = $datam->map(function($item) {
+            return [
+                'nom' => $item->nom,
+                'quantite' => $item->quantite
+            ];
+        });
+    }else{
+        $datam = DB::table('marchandises')
         ->select('nom', 'quantite')
-        ->where('id_cat', $categoryId)
+        ->where('id_cat', null)
         ->get();
 
     $chartDatam = $datam->map(function($item) {
@@ -172,6 +185,7 @@ class courbeController extends Controller
             'quantite' => $item->quantite
         ];
     });
+    }
 
     return response()->json($chartDatam);
 }
