@@ -155,6 +155,7 @@
             </form>
         </div>
     </div>
+    
     <div id="cont">
         <div class=" flex">
             <p class="text-2xl w-2/3 m-3 pl-6 underline underline-offset-4">categories</p>
@@ -163,8 +164,6 @@
         </div>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
-
                 <div class=" overflow-hidden gap-3 grid grid-cols-2 sm:grid-cols-3 justify-items-center">
 
                     @foreach ($categories as $index => $categorie)
