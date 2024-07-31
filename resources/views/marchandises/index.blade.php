@@ -227,7 +227,9 @@
                         <tr>
                             <th scope="col" class="py-3 px-1 text-center">image</th>
                             <th scope="col" class="py-3 px-1 text-center">nom</th>
+                            @if (auth()->user()->role == 'S')
                             <th scope="col" class="py-3 px-1 text-center hidden sm:block">code</th>
+                            @endif
                             <th scope="col" class="py-3 px-1 text-center">categorie</th>
                             <th scope="col" class="py-3 px-1 text-center">quantite</th>
                             <th scope="col" class="py-3 px-1 text-center hidden sm:block">description</th>
@@ -249,13 +251,13 @@
                                 </td>
                                 <td class="py-4 sm:px-1 text-center  ">{{ $marchandise->nom }}</td>
 
-                                
+                                @if (auth()->user()->role == 'S')
                                     <td class=" justify-center py-5 px-1 hidden sm:flex "> <abbr
                                             id="qr-{{ $marchandise->id }}" onclick="qr({{ $marchandise->id }})"
                                             class="block cursor-pointer qr-code">
                                             {!! QrCode::size(40)->generate($marchandise->id) !!}
                                         </abbr></td>
-                             
+                                @endif
 
 
 
@@ -273,25 +275,19 @@
                                 </td>
 
                                 <td class="py-4 sm:px-6 justify-between flex text-center space-x-1 sm:space-x-2">
-                                    <button onclick="warnning2({{ $marchandise->id }})" title="Ajout"
+                                    <a href="/scanner" title="scanner"
                                         aria-label="Ajout"
                                         class="flex items-center text-green-500 bg-green-200 hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-opacity-50 px-2 sm:px-3 py-2 rounded shadow-md transition duration-200">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke="currentColor" class="w-5 h-5">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 4v16m8-8H4" />
-                                        </svg>
-                                    </button>
+                                        <svg  class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path opacity="0.5" d="M10 22C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 18.7712 2 15" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
+                                            <path opacity="0.5" d="M22 15C22 18.7712 22 19.6569 20.8284 20.8284C19.6569 22 17.7712 22 14 22" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
+                                            <path opacity="0.5" d="M14 2C17.7712 2 19.6569 2 20.8284 3.17157C22 4.34315 22 5.22876 22 9" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
+                                        <path opacity="0.5" d="M10 2C6.22876 2 4.34315 2 3.17157 3.17157C2 4.34315 2 5.22876 2 9" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
+                                            <path d="M2 12H22" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
+                                            </svg>
+                                        </a>
 
-                                    <button onclick="warnning3({{ $marchandise->id }})" title="Sortie"
-                                        aria-label="Sortie"
-                                        class="flex items-center text-yellow-500 bg-yellow-200 hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-opacity-50 px-2 sm:px-3 py-2 rounded shadow-md transition duration-200">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke="currentColor" class="w-5 h-5">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M20 12H4" />
-                                        </svg>
-                                    </button>
+                                   
                                     @if (auth()->user()->role == 'S')
                                         <button onclick="warnning({{ $marchandise->id }})" title="Supprimer"
                                             aria-label="Supprimer"
