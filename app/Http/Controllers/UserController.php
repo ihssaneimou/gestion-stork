@@ -83,6 +83,7 @@ class UserController extends Controller
                $activite=new activites();
                $activite->id_adm=auth()->user()->id;
                $activite->nom_activite="Modification des informations de  l'admin ".$user->name;
+               $activite->type='modif';
                $activite->save();
                return redirect()->back()->with('success', 'Your profile has been updated!');
           }
@@ -105,6 +106,7 @@ class UserController extends Controller
                $activite=new activites();
                $activite->id_adm=auth()->user()->id;
                $activite->nom_activite="Modification du mot de passe  de  l'admin ".$user->name;
+               $activite->type='modif';
                $activite->save();
                return redirect()->back()->with('success', 'Your password has been updated!');
           }
@@ -121,6 +123,7 @@ class UserController extends Controller
             $activite=new activites();
                $activite->id_adm=auth()->user()->id;
                $activite->nom_activite="suppression de l'admin ".$user->name;
+               $activite->type='suppression';
                $activite->save();
             $user->delete();
             return redirect()->back()->with('success','user deleted seccessfuly');
