@@ -139,7 +139,7 @@
                 @endif
                 <abbr title="filtre juste par bar de recherch">
                     <button type="submit" name="action" value="filter"
-                        class="text-white absolute end-2.5 bottom-8 sm:bottom-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 sm:px-4 py-2 ">
+                        class="text-white absolute end-2.5 bottom-8 sm:bottom-10 lg:bottom-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 sm:px-4 py-2 ">
                         <svg class="w-4 h-4 text-white " aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"

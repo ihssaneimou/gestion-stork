@@ -118,7 +118,9 @@
                         @foreach ($categories as $item)
                             <option value="{{ $item->id }}" {{ request('id_cat') == $item->id ? 'selected' : '' }}>
                                 {{ $item->nom }}</option>
-                        @endforeach
+                                @endforeach
+                            <option value=>
+                                    Autre</option>
                     </select>
                 </form>
                 <div id="itemChartMessage" class="no-data-message" style="display: none;">Aucune marchandise disponible
@@ -254,7 +256,6 @@
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
-                            cutout: 150,
                         }
                     });
                 }
@@ -270,7 +271,7 @@
                 }]);
                 const colors2 = getColors(chartDatam.length);
                 const ctxItem = document.getElementById('itemChart').getContext('2d');
-                itemChart = initializeChart3(ctxItem, 'doughnut', chartDatam.map(item => item.nom), [{
+                itemChart = initializeChart3(ctxItem, 'pie', chartDatam.map(item => item.nom), [{
                     label: 'Quantité',
                     data: chartDatam.map(item => item.quantite),
                     backgroundColor: colors2.backgroundColors,
@@ -303,7 +304,8 @@
                     }
                 });
 
-
+                console.log(chartDataentre);
+                console.log(chartDatasortie);
                 const ctxES = document.getElementById('esChart').getContext('2d');
                 esChart = initializeChart(ctxES, type2, chartDataentre.map(item => item.date), [{
                         label: 'Entrée',

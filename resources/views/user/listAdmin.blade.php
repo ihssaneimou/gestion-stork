@@ -52,7 +52,7 @@
 
     </div>
 
-    <div id="list" class="">
+    <div id="list" class="mt-2">
         <div class="relative overflow-x-auto shadow-md rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right  text-gray-400">
                 <thead class="text-xs  uppercase  bg-gray-700 text-gray-400">
@@ -80,7 +80,7 @@
                                     </abbr>
                                 <abbr title="activite">
                                     <a href="{{ route('adm', $admin->id) }}">
-                                        <svg width="30px" height="30px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <svg class="w-5 h-5 sm:w-8 sm:h-8" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <rect width="48" height="48" fill="white" fill-opacity="0.01"/>
                                             <rect x="18" y="20" width="20" height="8" fill="#2F88FF" stroke="#000000" stroke-width="4" stroke-linejoin="round"/>
                                             <rect x="18" y="6" width="14" height="8" fill="#2F88FF" stroke="#000000" stroke-width="4" stroke-linejoin="round"/>
