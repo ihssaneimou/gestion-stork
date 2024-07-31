@@ -70,7 +70,7 @@ class marchandiseController extends Controller
                 ->where('marchandises.nom', 'LIKE', '%' . $search . '%')
                 ->select('marchandises.*')
                 ->paginate(10)->withQueryString();
-            return view('marchandises.index', ['marchandises' => $marchandise, 'categories' => $categories,'search'=>$search]);
+            return view('marchandises.index', ['marchandises' => $marchandise, 'categories' => $categories, 'search' => $search]);
         } else {
             $marchandise = marchandises::where('id_cat', '=', $categories->id)->paginate(10)->withQueryString();
             return view('marchandises.index', ['marchandises' => $marchandise, 'categories' => $categories]);
@@ -84,7 +84,7 @@ class marchandiseController extends Controller
                 ->where('marchandises.nom', 'LIKE', '%' . $search . '%')
                 ->select('marchandises.*')
                 ->paginate(10)->withQueryString();
-            return view('marchandises.index_autre', ['marchandises' => $marchandise,'search'=>$search]);
+            return view('marchandises.index_autre', ['marchandises' => $marchandise, 'search' => $search]);
         } else {
             $marchandise = marchandises::where('id_cat', '=', null)->paginate(10)->withQueryString();
             return view('marchandises.index_autre', ['marchandises' => $marchandise]);
@@ -146,7 +146,7 @@ class marchandiseController extends Controller
             'barecode' => 'nullable|numeric|unique:marchandises,barecode',
             'description' => 'string|nullable',
             'quantite' => 'integer|nullable',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:3000',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000',
             'categorie' => 'required',
 
         ]);
@@ -180,8 +180,47 @@ class marchandiseController extends Controller
         }
         $marchandise->quantite = $valid['quantite'];
 
-        if ($request->file('image') != null) {
-            $marchandise->image = $request->file('image')->store('logos', 'public');
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+
+            // Check if the file size is greater than 3 MB
+            if ($image->getSize() > 3 * 1024 * 1024) {
+                // Get the original image
+                $originalImage = imagecreatefromstring(file_get_contents($image));
+
+                // Get the original width and height
+                list($originalWidth, $originalHeight) = getimagesize($image);
+
+                // Calculate new dimensions maintaining aspect ratio
+                $newWidth = $originalWidth;
+                $newHeight = $originalHeight;
+
+                // Reducing by 50% (you can adjust this factor)
+                $resizeFactor = 0.5;
+
+                while (filesize($image) > 3 * 1024 * 1024 && $resizeFactor > 0) {
+                    $newWidth *= $resizeFactor;
+                    $newHeight *= $resizeFactor;
+
+                    $resizedImage = imagecreatetruecolor($newWidth, $newHeight);
+                    imagecopyresampled($resizedImage, $originalImage, 0, 0, 0, 0, $newWidth, $newHeight, $originalWidth, $originalHeight);
+
+                    // Save the resized image to a temporary file
+                    $tempPath = sys_get_temp_dir() . '/' . uniqid() . '.' . $image->getClientOriginalExtension();
+                    imagejpeg($resizedImage, $tempPath);
+
+                    // Update the image size and continue resizing if necessary
+                    $image = new \Illuminate\Http\UploadedFile($tempPath, $image->getClientOriginalName(), null, null, true);
+                    list($originalWidth, $originalHeight) = getimagesize($tempPath);
+                }
+
+                // Store the resized image
+                $path = $image->store('logos', 'public');
+            } else {
+                // Store the original image if it's within the size limit
+                $path = $image->store('logos', 'public');
+            }
+            $marchandise->image = $path;
         }
         if ($valid['categorie'] == 0) {
             $marchandise->id_cat = null;
