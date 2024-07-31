@@ -40,7 +40,7 @@ More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
                
                 <div class="relati w-full h-full  rounded-lg p-2 overflow-hidden justify-center">
                     <!-- Illustration -->
-                    <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40  ">
+                    <article class="relative h-full w-full isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40  ">
                         <img loading="lazy" src="{{asset('/mar.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
                         <div class="relative z-10 flex justify-between items-center text-sm leading-6 text-gray-300">
@@ -58,7 +58,7 @@ More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
                 </div>
                 <div class="relati    rounded-lg  w-full h-full  p-2 overflow-hidden">
                     <!-- Illustration -->
-                    <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
+                    <article class="relative h-full w-full isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
                         <img loading="lazy" src="{{asset('/ajou.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
                         <div class="relative z-10 flex justify-between items-center text-sm leading-6 text-gray-300">
@@ -79,7 +79,7 @@ More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
 
                 <div class="relati    rounded-lg w-full  p-2 overflow-hidden">
                     <!-- Illustration -->
-                    <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
+                    <article class="relative h-full w-full isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
                         <img loading="lazy" src="{{asset('/doc.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
                         <div class="relative z-10 flex justify-between items-center text-sm leading-6 text-gray-300">
@@ -100,7 +100,7 @@ More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
 
                 <div class="relati    rounded-lg  w-full h-full  p-2 overflow-hidden">
                     <!-- Illustration -->
-                    <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
+                    <article class="relative h-full w-full isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
                         <img loading="lazy" src="{{asset('/rapp.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
                         <div class="relative z-10 flex justify-between items-center text-sm leading-6 text-gray-300">
@@ -119,7 +119,7 @@ More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
                 </div>
                 <div class="relati    rounded-lg  w-full h-full   p-2 overflow-hidden">
                     <!-- Illustration -->
-                    <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
+                    <article class="relative h-full w-full isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
                         <img loading="lazy" src="{{asset('/scanner.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
                         <div class="relative z-10 flex justify-between items-center text-sm leading-6 text-gray-300">
@@ -140,7 +140,7 @@ More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
                 @if (auth()->user()->role == 'S')
                 <div class="relati    rounded-lg  w-full h-full   p-2 overflow-hidden">
                     <!-- Illustration -->
-                    <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
+                    <article class="relative h-full w-full isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
                         <img loading="lazy" src="{{asset('/image.png')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
                         <div class="relative z-10 flex justify-between items-center text-sm leading-6 text-gray-300">
@@ -160,7 +160,7 @@ More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
                 <div class="relati    rounded-lg  w-full h-full   p-2 overflow-hidden">
                                 
                            
-                                <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
+                                <article class="relative h-full w-full isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
                                     <img loading="lazy" src="{{asset('/addadmin.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
                                     <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
                                     <div class="relative z-10 flex justify-between items-center text-sm leading-6 text-gray-300">
@@ -183,7 +183,7 @@ More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
 
                             <div class="relati    rounded-lg  w-full h-full   p-2 overflow-hidden">
                                 <!-- Illustration -->
-                                <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
+                                <article class="relative h-full w-full isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
                                     <img loading="lazy" src="{{asset('/listadmin.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
                                     <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
                                     <div class="relative z-10 flex justify-between items-center text-sm leading-6 text-gray-300">
