@@ -23,9 +23,24 @@
             transform: scale(2);
             z-index: 1000;
         }
+        .deleteGroupModal {
+            width: 800px;
+            height: 250px;
+            justify-items: center;
+            align-content: space-evenly;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            tabindex="-1";
+        }
+
+        @media(max-width: 640px) {
+            .deleteGroupModal {
+                width: 400px;
+                height: auto;
+            }}
     </style>
-    <div class="fixed font-mon bg-white grid hidden rounded-md shadow-md z-50" id="deleteGroupModal"
-        style="width: 800px; justify-items: center; align-content: space-evenly ;height: 250px; left: 50%; top:50%; transform: translate(-50%, -50%); tabindex="-1"
+    <div class="fixed font-mon bg-white grid hidden rounded-md shadow-md z-50  deleteGroupModal" id="deleteGroupModal"
         aria-labelledby="deleteGroupModalLabel" aria-hidden="true">
         <div class="grid justify-items-center w-full">
             <form method="post" action="/marchandises/delete" class="p-6 w-full">
