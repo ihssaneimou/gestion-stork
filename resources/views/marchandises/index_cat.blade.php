@@ -158,7 +158,7 @@
     
     <div id="cont">
         <div class=" flex">
-            <p class="text-2xl w-2/3 m-3 pl-6 underline underline-offset-4">categories</p>
+            <p class="text-2xl w-2/3 m-3 pl-6 font-bold capitalize">categories des marchandises</p>
             <p class="text-xl w-1/3  m-3 pl-6 text-center"><a href="{{ route('categories.create') }}"
                     class="text-blue-600 hover:text-blue-900">Ajouter categorie</a> </p>
         </div>
@@ -201,13 +201,13 @@
                                         </ul>
                                     </div>
                                 @endif
-                                <p class="text-center mt-4  text-2xl font-bold text-indigo-500">{{ $categorie->nom }}</p>
+                                <p class="text-center mt-4   text-3xl font-bold text-gray-900">{{ $categorie->nom }}</p>
                                 <br>
                                 <section class="text-gray-700 body-font">
                                     <div class="container mx-auto px-4 ">
-                                      <div class="flex -m-4">
+                                      <div class="grid grid-cols-2  -m-4">
                                         <!-- Premier carreau -->
-                                        <div class=" p-2 ml-10 w-full">
+                                        <div class=" p-2  w-full">
                                           <div class="border-2 border-gray-600  rounded-lg transform transition duration-500 hover:scale-110">
                                             <svg viewBox="0 0 24 24" class="text-indigo-500 w-8 h-8 inline-block" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                               <title/>
@@ -265,13 +265,13 @@
                     >
                      <div
                          class="bg-white p-4  shadow-lg  h-full grid items-center rounded-xl   hover:border-2 hover:border-gray-100">
-                     <p class="text-center  text-2xl font-bold text-indigo-500  mt-3">Autre</p>
+                     <p class="text-center  text-3xl font-bold text-gray-900  mt-3">Autre</p>
                                  <br>
                                  <section class="text-gray-700 body-font">
                                     <div class="container mx-auto px-4 ">
-                                      <div class="flex -m-4">
+                                      <div class="grid grid-cols-2  -m-4">
                                         <!-- Premier carreau -->
-                                        <div class=" p-2 ml-10 w-full">
+                                        <div class=" p-2  w-full">
                                             <div class="border-2 border-gray-600  rounded-lg transform transition duration-500 hover:scale-110">
                                               <svg  viewBox="0 0 24 24" class="text-indigo-500 w-8 h-8 inline-block" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                                 <title/>

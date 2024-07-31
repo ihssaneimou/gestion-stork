@@ -212,7 +212,9 @@
                         <tr>
                             <th scope="col" class="py-3 px-1 text-center">image</th>
                             <th scope="col" class="py-3 px-1 text-center">nom</th>
+                            @if (auth()->user()->role  == 'S') 
                             <th scope="col" class="py-3 px-1 text-center hidden sm:block">code</th>
+                            @endif
                             <th scope="col" class="py-3 px-1 text-center">categorie</th>
                             <th scope="col" class="py-3 px-1 text-center">quantite</th>
                             <th scope="col" class="py-3 px-1 text-center hidden sm:block">description</th>
@@ -233,8 +235,7 @@
 
                                 </td>
                                 <td class="py-4 sm:px-1 text-center  ">{{ $marchandise->nom }}</td>
-
-                               
+                                @if (auth()->user()->role  == 'S')
                                  <td class=" justify-center py-5 sm:px-1 hidden sm:flex "> <abbr
                                     id="qr-{{ $marchandise->id }}"
                                     onclick="qr({{ $marchandise->id }})" class="block cursor-pointer qr-code">
