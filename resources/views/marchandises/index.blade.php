@@ -272,7 +272,7 @@
                                         {{ $marchandise->description }}</p>
                                 </td>
 
-                                <td class="py-4 sm:px-6 justify-between flex text-center space-x-1 sm:space-x-2">
+                                <td class="py-4 sm:px-6 justify-around flex text-center space-x-1 sm:space-x-2">
                                     <a href="/scanner" title="scanner"
                                         aria-label="Ajout"
                                         class="flex items-center text-green-500 bg-green-200 hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-opacity-50 px-2 sm:px-3 py-2 rounded shadow-md transition duration-200">

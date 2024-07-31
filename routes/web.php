@@ -119,7 +119,7 @@ Route::get('histor', [activiteController::class, 'index_t'])->name('type');
 Route::get('hist/{user}', [activiteController::class, 'index_adm'])->name('adm');
 Route::get('his/{user}', [activiteController::class, 'type_adm'])->name('adm_t');
 
-Route::get('/admin/list', [UserController::class, 'list']);
+Route::get('/admin/list', [UserController::class, 'list'])->name('admin.list');
 Route::get('/admin/update/{user}', [UserController::class, 'modif']);
 Route::put('/admin/update/{user}', [UserController::class, 'modif_info'])->name('user.update');
 Route::put('/admin/password/{user}', [UserController::class, 'modif_password'])->name('user.password');

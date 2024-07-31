@@ -1,4 +1,22 @@
 <x-nav-bar>
+    <style>
+        .deleteGroupModal {
+            width: 800px;
+            height: 250px;
+            justify-items: center;
+            align-content: space-evenly;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            tabindex="-1";
+        }
+
+        @media(max-width: 640px) {
+            .deleteGroupModal {
+                width: 400px;
+                height: auto;
+            }}
+    </style>
      <div class="container  w-full">
         <!-- Warning Message -->
         @if (session('warning'))
@@ -32,8 +50,7 @@
         @endif
 
     </div>
-    <div class="fixed font-mon bg-white grid hidden rounded-md shadow-md z-50" id="deleteGroupModal"
-        style="width: 800px; justify-items: center; align-content: space-evenly ;height: 250px; left: 50%; top:50%; transform: translate(-50%, -50%); tabindex="-1"
+    <div class="fixed font-mon bg-white grid hidden rounded-md shadow-md z-50 deleteGroupModal" id="deleteGroupModal"
         aria-labelledby="deleteGroupModalLabel" aria-hidden="true">
         <div class="grid justify-items-center">
             <form method="post" action="/admin/delete" class="p-6">
@@ -69,8 +86,7 @@
             </form>
         </div>
     </div>
-    <div class="fixed font-mon bg-white p-4 mr-3 grid hidden rounded-md shadow-md z-50" id="modifPass"
-        style="width: 800px; justify-items: center; align-content: space-evenly ;height: 300px; left: 50%; top:50%; transform: translate(-50%, -50%); tabindex="-1"
+    <div class="fixed font-mon bg-white p-4 mr-3 grid hidden rounded-md shadow-md z-50 deleteGroupModal" id="modifPass"
         aria-labelledby="deleteGroupModalLabel" aria-hidden="true">
         <div class="grid justify-items-center">
             <form method="post" action="{{ route('user.password',$user) }}" class="mt-6 space-y-6">
@@ -78,11 +94,11 @@
                 @method('put')
 
                 <h2 class="text-lg font-medium text-gray-900">
-                    {{ __('Are you sure you want to delete your account?') }}
+                    {{ __('vous êtes sure que vous voulez modifier le mot de passe?') }}
                 </h2>
 
                 <p class="mt-1 text-sm text-gray-600">
-                    {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}
+                    {{ __('entrer votre mot de passe pour confirmer.') }}
                 </p>
 
                 <div class="mt-6">

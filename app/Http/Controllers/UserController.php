@@ -126,7 +126,7 @@ class UserController extends Controller
                $activite->type='suppression';
                $activite->save();
             $user->delete();
-            return redirect()->back()->with('success','user deleted seccessfuly');
+            return redirect()->route('admin.list')->with('success','user deleted seccessfuly');
        }
        return abort(403, 'you are not a super admin');
              
