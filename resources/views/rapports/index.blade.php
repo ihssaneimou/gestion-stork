@@ -66,7 +66,7 @@
         </div>
         <div class="">
             <div class="w-full">
-                <div class=" flex justify-center  sm:justify-end sm:mr-5 mb-10">
+                <div class=" flex justify-center pt-2  sm:justify-end sm:mr-5 mb-10">
                     <p class="text-2xl w-full m-3   sm:pl-6 underline underline-offset-4">Rapport</p>
                     <div class="mr-5 mb-10">
                         <a href="{{ route('rapports.courbe') }}" title="courbe" aria-label="Modifier"
@@ -264,7 +264,7 @@
                                                 placeholder="Select date start" value={{ $start }}>
                                         </abbr>
                                     </div>
-                                    <span class="mx-4 text-gray-500">to</span>
+                                    <span class="mx-4 pt-2 text-gray-500">to</span>
                                     <div class="relative">
                                         <div
                                             class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -299,7 +299,7 @@
                                                 placeholder="Select date start">
                                         </abbr>
                                     </div>
-                                    <span class="mx-4 text-gray-500">to</span>
+                                    <span class="mx-4 pt-2 text-gray-500">to</span>
                                     <div class="relative">
                                         <div
                                             class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">

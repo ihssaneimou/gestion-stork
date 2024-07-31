@@ -10,8 +10,10 @@
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="{{ asset('img/logo.png') }}" rel="icon">
-    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/dist/main.css" rel="stylesheet">
+    <script src="//unpkg.com/alpinejs" defer></script>
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
     <style>
         .calc {
             height: 92%;
@@ -257,5 +259,5 @@
         </main>
     </div>
 </body>
-
+<script src="{{ asset('js/app.js') }}"></script>
 </html>

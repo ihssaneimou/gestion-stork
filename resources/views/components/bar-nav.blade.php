@@ -11,8 +11,8 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="{{ asset('img/logo.png') }}" rel="icon">
 
-    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.tailwindcss.com"></script>
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
     <script>
         tailwind.config = {
             theme: {
