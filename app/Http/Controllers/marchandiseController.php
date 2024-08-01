@@ -149,7 +149,7 @@ class marchandiseController extends Controller
             'barecode' => 'nullable|numeric|unique:marchandises,barecode',
             'description' => 'string|nullable',
             'quantite' => 'integer|nullable',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000',
             'categorie' => 'required',
 
         ]);
@@ -185,21 +185,23 @@ class marchandiseController extends Controller
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $image = $request->file('image');
+            
             $image_name = time() . '_' . $image->getClientOriginalName();
             $path = 'logos/' . $image_name;
-        
+            
             // Créez une instance d'image, redimensionnez et sauvegardez dans storage
-            $img = Image::make($image->getRealPath())->resize(150, 150);
-        
-            // Sauvegardez l'image dans storage/app/public/logos
-            $img->stream(); // Convertit l'image en flux
-            Storage::disk('public')->put($path, $img);
+            if ($image->getSize() > 2 * 1024 * 1024) {
+                $img = Image::make($image->getRealPath())->resize(500, 500);
+            }else {
+                $img = Image::make($image->getRealPath());
+            }
+                // Sauvegardez l'image dans storage/app/public/logos
+                $img->stream(); // Convertit l'image en flux
+                Storage::disk('public')->put($path, $img);
         
             // Enregistrez le chemin relatif pour le modèle
             $marchandise->image =  $path;
-            $marchandise->save();
-        } else {
-            return response()->json(['error' => 'Invalid file upload'], 400);
+
         }
         if ($valid['categorie'] == 0) {
             $marchandise->id_cat = null;
@@ -293,8 +295,25 @@ class marchandiseController extends Controller
 
         $marchandise->description = $valid['description'];
 
-        if ($request->file('image') != null) {
-            $marchandise->image = $request->file('image')->store('logos', 'public');
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $image = $request->file('image');
+            
+            $image_name = time() . '_' . $image->getClientOriginalName();
+            $path = 'logos/' . $image_name;
+            
+            // Créez une instance d'image, redimensionnez et sauvegardez dans storage
+            if ($image->getSize() > 2 * 1024 * 1024) {
+                $img = Image::make($image->getRealPath())->resize(500, 500);
+            }else {
+                $img = Image::make($image->getRealPath());
+            }
+                // Sauvegardez l'image dans storage/app/public/logos
+                $img->stream(); // Convertit l'image en flux
+                Storage::disk('public')->put($path, $img);
+        
+            // Enregistrez le chemin relatif pour le modèle
+            $marchandise->image =  $path;
+
         }
 
         if ($valid['categorie'] == 0) {
