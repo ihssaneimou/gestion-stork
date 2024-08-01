@@ -3,10 +3,23 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
+    function render($request, Throwable $exception)
+    {
+        if ($exception instanceof HttpException) {
+            if ($exception->getStatusCode() == 404) {
+                return response()->view('errors.404', [], 404);
+            }
+            if ($exception->getStatusCode() == 500) {
+                return response()->view('errors.500', [], 500);
+            }
+        }
+        return parent::render($request, $exception);
+    }
     /**
      * A list of exception types with their corresponding custom log levels.
      *

@@ -149,7 +149,7 @@ class marchandiseController extends Controller
             'barecode' => 'nullable|numeric|unique:marchandises,barecode',
             'description' => 'string|nullable',
             'quantite' => 'integer|nullable',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
             'categorie' => 'required',
 
         ]);
@@ -191,7 +191,7 @@ class marchandiseController extends Controller
             
             // Créez une instance d'image, redimensionnez et sauvegardez dans storage
             if ($image->getSize() > 2 * 1024 * 1024) {
-                $img = Image::make($image->getRealPath())->resize(500, 500);
+                $img = Image::make($image->getRealPath())->resize(200, 200);
             }else {
                 $img = Image::make($image->getRealPath());
             }
@@ -268,7 +268,7 @@ class marchandiseController extends Controller
             'description' => 'string|nullable',
             'barecode' => 'nullable|numeric|unique:marchandises,barecode,' . $marchandise->id,
             'quantite' => 'integer|nullable',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:3000',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
             'categorie' => 'required'
         ]);
 
@@ -303,7 +303,7 @@ class marchandiseController extends Controller
             
             // Créez une instance d'image, redimensionnez et sauvegardez dans storage
             if ($image->getSize() > 2 * 1024 * 1024) {
-                $img = Image::make($image->getRealPath())->resize(500, 500);
+                $img = Image::make($image->getRealPath())->resize(200, 200);
             }else {
                 $img = Image::make($image->getRealPath());
             }
