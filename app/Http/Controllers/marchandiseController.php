@@ -13,6 +13,9 @@ use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+
 
 
 class marchandiseController extends Controller
@@ -146,7 +149,7 @@ class marchandiseController extends Controller
             'barecode' => 'nullable|numeric|unique:marchandises,barecode',
             'description' => 'string|nullable',
             'quantite' => 'integer|nullable',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:3000',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000',
             'categorie' => 'required',
 
         ]);
@@ -180,8 +183,23 @@ class marchandiseController extends Controller
         }
         $marchandise->quantite = $valid['quantite'];
 
-        if ($request->file('image') != null) {
-            $marchandise->image = $request->file('image')->store('logos', 'public');
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $image = $request->file('image');
+            $image_name = time() . '_' . $image->getClientOriginalName();
+            $path = 'logos/' . $image_name;
+        
+            // Créez une instance d'image, redimensionnez et sauvegardez dans storage
+            $img = Image::make($image->getRealPath())->resize(150, 150);
+        
+            // Sauvegardez l'image dans storage/app/public/logos
+            $img->stream(); // Convertit l'image en flux
+            Storage::disk('public')->put($path, $img);
+        
+            // Enregistrez le chemin relatif pour le modèle
+            $marchandise->image =  $path;
+            $marchandise->save();
+        } else {
+            return response()->json(['error' => 'Invalid file upload'], 400);
         }
         if ($valid['categorie'] == 0) {
             $marchandise->id_cat = null;
