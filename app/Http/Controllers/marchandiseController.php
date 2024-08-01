@@ -13,6 +13,9 @@ use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+
 
 
 class marchandiseController extends Controller
@@ -146,7 +149,7 @@ class marchandiseController extends Controller
             'barecode' => 'nullable|numeric|unique:marchandises,barecode',
             'description' => 'string|nullable',
             'quantite' => 'integer|nullable',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000',
             'categorie' => 'required',
 
         ]);
@@ -180,52 +183,23 @@ class marchandiseController extends Controller
         }
         $marchandise->quantite = $valid['quantite'];
 
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $image = $request->file('image');
-
-            // Check if the file size is greater than 3 MB
-            if ($image->getSize() >  2 * 1024 * 1024) {
-                try {
-                // Get the original image
-                $originalImage = imagecreatefromstring(file_get_contents($image));
-
-                // Get the original width and height
-                list($originalWidth, $originalHeight) = getimagesize($image);
-
-                // Calculate new dimensions maintaining aspect ratio
-                $newWidth = $originalWidth;
-                $newHeight = $originalHeight;
-
-                // Reducing by 50% (you can adjust this factor)
-                $resizeFactor = 0.5;
-
-                while (filesize($image) > 2 * 1024 * 1024 && $resizeFactor > 0) {
-                    $newWidth *= $resizeFactor;
-                    $newHeight *= $resizeFactor;
-
-                    $resizedImage = imagecreatetruecolor($newWidth, $newHeight);
-                    imagecopyresampled($resizedImage, $originalImage, 0, 0, 0, 0, $newWidth, $newHeight, $originalWidth, $originalHeight);
-
-                    // Save the resized image to a temporary file
-                    $tempPath = sys_get_temp_dir() . '/' . uniqid() . '.' . $image->getClientOriginalExtension();
-                    imagejpeg($resizedImage, $tempPath);
-
-                    // Update the image size and continue resizing if necessary
-                    $image = new \Illuminate\Http\UploadedFile($tempPath, $image->getClientOriginalName(), null, null, true);
-                    list($originalWidth, $originalHeight) = getimagesize($tempPath);
-                }
-
-                // Store the resized image
-                $path = $image->store('logos', 'public');
-            } catch (Exception $e) {
-                // Log any errors
-                return back()->with('error', 'There was an error processing the image.');
-            }
-            } else {
-                // Store the original image if it's within the size limit
-                $path = $image->store('logos', 'public');
-            }
-            $marchandise->image = $path;
+            $image_name = time() . '_' . $image->getClientOriginalName();
+            $path = 'logos/' . $image_name;
+        
+            // Créez une instance d'image, redimensionnez et sauvegardez dans storage
+            $img = Image::make($image->getRealPath())->resize(150, 150);
+        
+            // Sauvegardez l'image dans storage/app/public/logos
+            $img->stream(); // Convertit l'image en flux
+            Storage::disk('public')->put($path, $img);
+        
+            // Enregistrez le chemin relatif pour le modèle
+            $marchandise->image =  $path;
+            $marchandise->save();
+        } else {
+            return response()->json(['error' => 'Invalid file upload'], 400);
         }
         if ($valid['categorie'] == 0) {
             $marchandise->id_cat = null;
