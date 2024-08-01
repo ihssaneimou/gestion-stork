@@ -183,21 +183,34 @@ class marchandiseController extends Controller
         }
         $marchandise->quantite = $valid['quantite'];
 
+        
+
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $image = $request->file('image');
-
+        
             $image_name = time() . '_' . $image->getClientOriginalName();
             $path = 'logos/' . $image_name;
+        
+            // Create an image instance and orientate
+            $img = Image::make($image->getRealPath())->orientate();
+        
+            // Compress the image by reducing its quality (e.g., 75 out of 100)
+            if($image->getSize() > 8 * 1000 * 1000){
+                $img->stream(null, 10); // The second parameter is the quality (0-100)
 
-            // Créez une instance d'image, redimensionnez et sauvegardez dans storage
-            $img = Image::make($image->getRealPath())->resize(200, 200);
-
-            // Sauvegardez l'image dans storage/app/public/logos
-            $img->stream(); // Convertit l'image en flux
-            Storage::disk('public')->put($path, $img);
-
-            // Enregistrez le chemin relatif pour le modèle
-            $marchandise->image =  $path;
+            }elseif ($image->getSize() > 5 * 1000 * 1000) {
+                $img->stream(null, 25); // The second parameter is the quality (0-100)
+            }elseif($image->getSize() > 2 * 1000 * 1000) {
+                $img->stream(null, 50); // The second parameter is the quality (0-100)
+            }else{
+                $img->stream(null, 75); // The second parameter is the quality (0-100)
+            }
+        
+            // Save the image in storage/app/public/logos
+            Storage::disk('public')->put($path, $img->__toString());
+        
+            // Save the relative path for the model
+            $marchandise->image = $path;
         }
         if ($valid['categorie'] == 0) {
             $marchandise->id_cat = null;
@@ -293,19 +306,30 @@ class marchandiseController extends Controller
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $image = $request->file('image');
-
+        
             $image_name = time() . '_' . $image->getClientOriginalName();
             $path = 'logos/' . $image_name;
+        
+            // Create an image instance and orientate
+            $img = Image::make($image->getRealPath())->orientate();
+        
+            // Compress the image by reducing its quality (e.g., 75 out of 100)
+            if($image->getSize() > 8 * 1000 * 1000){
+                $img->stream(null, 10); // The second parameter is the quality (0-100)
 
-            // Créez une instance d'image, redimensionnez et sauvegardez dans storage
-            $img = Image::make($image->getRealPath())->resize(200, 200);
-
-            // Sauvegardez l'image dans storage/app/public/logos
-            $img->stream(); // Convertit l'image en flux
-            Storage::disk('public')->put($path, $img);
-
-            // Enregistrez le chemin relatif pour le modèle
-            $marchandise->image =  $path;
+            }elseif ($image->getSize() > 5 * 1000 * 1000) {
+                $img->stream(null, 25); // The second parameter is the quality (0-100)
+            }elseif($image->getSize() > 2 * 1000 * 1000) {
+                $img->stream(null, 50); // The second parameter is the quality (0-100)
+            }else{
+                $img->stream(null, 75); // The second parameter is the quality (0-100)
+            }
+        
+            // Save the image in storage/app/public/logos
+            Storage::disk('public')->put($path, $img->__toString());
+        
+            // Save the relative path for the model
+            $marchandise->image = $path;
         }
 
         if ($valid['categorie'] == 0) {
