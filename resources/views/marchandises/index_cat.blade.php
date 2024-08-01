@@ -86,6 +86,19 @@
             }
         }
     </style>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    screens: {
+                        '3xl': '2000px',
+                    },
+                },
+            },
+            plugins: [],
+        }
+    </script>
     <div class="container  w-full">
         <!-- Error Message -->
         @if (session('error'))
@@ -180,8 +193,9 @@
                     class="text-blue-600 hover:text-blue-900">Ajouter categorie</a> </p>
         </div>
         <div class="py-12">
-            <div class=" mx-auto sm:px-6 lg:px-8">
-                <div class=" overflow-hidden gap-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 justify-items-center">
+            <div class="mx-5 sm:px-6 lg:px-8">
+                <div
+                    class=" overflow-hidden gap-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 justify-items-center">
 
                     @foreach ($categories as $index => $categorie)
                         @php
@@ -367,7 +381,7 @@
                                                     </g>
                                                 </svg>
                                                 <h6 class="title-font font-medium text-2xl text-gray-900">
-                                                    {{ $categorie->total_achetes }} </h6>
+                                                    {{ $entres }} </h6>
                                                 <p class="leading-relaxed text-sm"> quantité du Stock</S></p>
                                             </div>
                                         </div>
@@ -388,12 +402,12 @@
                                                         fill="#6366f1" />
                                                 </svg>
                                                 <h6 class="title-font font-medium text-2xl text-gray-900">
-                                                    {{ $categorie->total_vendus }}</h6>
+                                                    {{ $sorties }}</h6>
                                                 <p class="leading-relaxed text-sm">quantité de Sorties</p>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="relative flex items-end text-right">
+                                    <div class="relative flex items-end justify-end w-1/5 text-right">
                                         <a class="inline-flex w-11 h-11 justify-center items-center  hover:bg-indigo-500 text-pink-50 hover:text-white rounded-full transition duration-150"
                                             href="/marchandises/Autre"><abbr
                                                 title="Voir les marchandises de cette catégorie"><svg fill="#000000"

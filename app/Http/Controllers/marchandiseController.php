@@ -54,7 +54,7 @@ class marchandiseController extends Controller
             ->where('marchandises.id_cat', '=', null)->first();
         $sorties = $sorties->total_vendus;
         // Return the view with the categories data
-        return view('marchandises.index_cat', compact('categories', 'entres', 'sorties'));
+        return view('marchandises.index_cat', ['categories'=>$categories, 'entres'=>$entres, 'sorties'=>$sorties]);
     }
     public function index(categories $categories)
     {
@@ -184,7 +184,8 @@ class marchandiseController extends Controller
             $image = $request->file('image');
 
             // Check if the file size is greater than 3 MB
-            if ($image->getSize() > 3 * 1024 * 1024) {
+            if ($image->getSize() >  8 * 1024 * 1024) {
+                try {
                 // Get the original image
                 $originalImage = imagecreatefromstring(file_get_contents($image));
 
@@ -216,6 +217,10 @@ class marchandiseController extends Controller
 
                 // Store the resized image
                 $path = $image->store('logos', 'public');
+            } catch (Exception $e) {
+                // Log any errors
+                return back()->with('error', 'There was an error processing the image.');
+            }
             } else {
                 // Store the original image if it's within the size limit
                 $path = $image->store('logos', 'public');
