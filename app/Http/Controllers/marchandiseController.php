@@ -199,7 +199,7 @@ class marchandiseController extends Controller
                 // Reducing by 50% (you can adjust this factor)
                 $resizeFactor = 0.5;
 
-                while (filesize($image) > 3 * 1024 * 1024 && $resizeFactor > 0) {
+                while (filesize($image) > 8 * 1024 * 1024 && $resizeFactor > 0) {
                     $newWidth *= $resizeFactor;
                     $newHeight *= $resizeFactor;
 
