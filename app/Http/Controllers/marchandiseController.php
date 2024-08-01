@@ -184,7 +184,7 @@ class marchandiseController extends Controller
             $image = $request->file('image');
 
             // Check if the file size is greater than 3 MB
-            if ($image->getSize() >  8 * 1024 * 1024) {
+            if ($image->getSize() >  2 * 1024 * 1024) {
                 try {
                 // Get the original image
                 $originalImage = imagecreatefromstring(file_get_contents($image));
@@ -199,7 +199,7 @@ class marchandiseController extends Controller
                 // Reducing by 50% (you can adjust this factor)
                 $resizeFactor = 0.5;
 
-                while (filesize($image) > 8 * 1024 * 1024 && $resizeFactor > 0) {
+                while (filesize($image) > 2 * 1024 * 1024 && $resizeFactor > 0) {
                     $newWidth *= $resizeFactor;
                     $newHeight *= $resizeFactor;
 
