@@ -204,7 +204,7 @@ class marchandiseController extends Controller
             $img = Image::make($image->getRealPath())->orientate()->resize(200, 200);
         
             // Compress the image by reducing its quality (e.g., 75 out of 100)
-            $img->stream(null, 75); // The second parameter is the quality (0-100)
+            $img->stream(null, 25); // The second parameter is the quality (0-100)
         
             // Save the image in storage/app/public/logos
             Storage::disk('public')->put($path, $img->__toString());
