@@ -142,7 +142,7 @@
             @endif
 
         </div>
-        <div class="flex justify-between">
+        <div class="flex justify-between border-b-2  ">
         @if (isset($categories))
             <ul class="flex flex-wrap -mb-px">
 
@@ -225,7 +225,7 @@
         </div>
 
 
-        <table class="w-full text-sm text-left text-gray-500 mb-14">
+        <table class="w-full text-sm text-left text-gray-500 mb-14 mt-1">
             <tbody>
                 @foreach ($entres as $entre)
                     <tr class="bg-white hover:bg-gray-50">

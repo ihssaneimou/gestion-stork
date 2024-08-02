@@ -57,7 +57,7 @@ class marchandiseController extends Controller
             ->where('marchandises.id_cat', '=', null)->first();
         $sorties = $sorties->total_vendus;
         // Return the view with the categories data
-        return view('marchandises.index_cat', compact('categories', 'entres', 'sorties'));
+        return view('marchandises.index_cat', ['categories' => $categories, 'entres' => $entres, 'sorties' => $sorties]);
     }
     public function index(categories $categories)
     {
@@ -73,7 +73,7 @@ class marchandiseController extends Controller
                 ->where('marchandises.nom', 'LIKE', '%' . $search . '%')
                 ->select('marchandises.*')
                 ->paginate(10)->withQueryString();
-            return view('marchandises.index', ['marchandises' => $marchandise, 'categories' => $categories,'search'=>$search]);
+            return view('marchandises.index', ['marchandises' => $marchandise, 'categories' => $categories, 'search' => $search]);
         } else {
             $marchandise = marchandises::where('id_cat', '=', $categories->id)->paginate(10)->withQueryString();
             return view('marchandises.index', ['marchandises' => $marchandise, 'categories' => $categories]);
@@ -87,7 +87,7 @@ class marchandiseController extends Controller
                 ->where('marchandises.nom', 'LIKE', '%' . $search . '%')
                 ->select('marchandises.*')
                 ->paginate(10)->withQueryString();
-            return view('marchandises.index_autre', ['marchandises' => $marchandise,'search'=>$search]);
+            return view('marchandises.index_autre', ['marchandises' => $marchandise, 'search' => $search]);
         } else {
             $marchandise = marchandises::where('id_cat', '=', null)->paginate(10)->withQueryString();
             return view('marchandises.index_autre', ['marchandises' => $marchandise]);
@@ -149,7 +149,7 @@ class marchandiseController extends Controller
             'barecode' => 'nullable|numeric|unique:marchandises,barecode',
             'description' => 'string|nullable',
             'quantite' => 'integer|nullable',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
             'categorie' => 'required',
 
         ]);
@@ -183,23 +183,34 @@ class marchandiseController extends Controller
         }
         $marchandise->quantite = $valid['quantite'];
 
+        
+
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $image = $request->file('image');
+        
             $image_name = time() . '_' . $image->getClientOriginalName();
             $path = 'logos/' . $image_name;
         
-            // Créez une instance d'image, redimensionnez et sauvegardez dans storage
-            $img = Image::make($image->getRealPath())->resize(150, 150);
+            // Create an image instance and orientate
+            $img = Image::make($image->getRealPath())->orientate();
         
-            // Sauvegardez l'image dans storage/app/public/logos
-            $img->stream(); // Convertit l'image en flux
-            Storage::disk('public')->put($path, $img);
+            // Compress the image by reducing its quality (e.g., 75 out of 100)
+            if($image->getSize() > 8 * 1000 * 1000){
+                $img->stream(null, 10); // The second parameter is the quality (0-100)
+
+            }elseif ($image->getSize() > 5 * 1000 * 1000) {
+                $img->stream(null, 25); // The second parameter is the quality (0-100)
+            }elseif($image->getSize() > 2 * 1000 * 1000) {
+                $img->stream(null, 50); // The second parameter is the quality (0-100)
+            }else{
+                $img->stream(null, 75); // The second parameter is the quality (0-100)
+            }
         
-            // Enregistrez le chemin relatif pour le modèle
-            $marchandise->image =  $path;
-            $marchandise->save();
-        } else {
-            return response()->json(['error' => 'Invalid file upload'], 400);
+            // Save the image in storage/app/public/logos
+            Storage::disk('public')->put($path, $img->__toString());
+        
+            // Save the relative path for the model
+            $marchandise->image = $path;
         }
         if ($valid['categorie'] == 0) {
             $marchandise->id_cat = null;
@@ -266,7 +277,7 @@ class marchandiseController extends Controller
             'description' => 'string|nullable',
             'barecode' => 'nullable|numeric|unique:marchandises,barecode,' . $marchandise->id,
             'quantite' => 'integer|nullable',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:3000',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
             'categorie' => 'required'
         ]);
 
@@ -293,8 +304,32 @@ class marchandiseController extends Controller
 
         $marchandise->description = $valid['description'];
 
-        if ($request->file('image') != null) {
-            $marchandise->image = $request->file('image')->store('logos', 'public');
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $image = $request->file('image');
+        
+            $image_name = time() . '_' . $image->getClientOriginalName();
+            $path = 'logos/' . $image_name;
+        
+            // Create an image instance and orientate
+            $img = Image::make($image->getRealPath())->orientate();
+        
+            // Compress the image by reducing its quality (e.g., 75 out of 100)
+            if($image->getSize() > 8 * 1000 * 1000){
+                $img->stream(null, 10); // The second parameter is the quality (0-100)
+
+            }elseif ($image->getSize() > 5 * 1000 * 1000) {
+                $img->stream(null, 25); // The second parameter is the quality (0-100)
+            }elseif($image->getSize() > 2 * 1000 * 1000) {
+                $img->stream(null, 50); // The second parameter is the quality (0-100)
+            }else{
+                $img->stream(null, 75); // The second parameter is the quality (0-100)
+            }
+        
+            // Save the image in storage/app/public/logos
+            Storage::disk('public')->put($path, $img->__toString());
+        
+            // Save the relative path for the model
+            $marchandise->image = $path;
         }
 
         if ($valid['categorie'] == 0) {

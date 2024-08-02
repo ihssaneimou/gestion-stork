@@ -9,20 +9,28 @@ use Illuminate\Http\Request;
 
 class activiteController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         if (auth()->user()->role != 'S') {
             return abort(403, 'you are not a super admin');
         }
         $activites = activites::orderByDesc('created_at')->get();
         $users = User::all();
+        if (!$activites->isEmpty()) {
+            return view('historiques', [
+                'activites' => $activites,
+                'users' => $users,
+                'source' => 'index'
+            ]);
+        }
         return view('historiques', [
-            'activites' => $activites,
             'users' => $users,
             'source' => 'index'
         ]);
     }
-    
-    public function index_t(Request $request) {
+
+    public function index_t(Request $request)
+    {
         if (auth()->user()->role != 'S') {
             return abort(403, 'you are not a super admin');
         }
@@ -43,43 +51,51 @@ class activiteController extends Controller
         });
 
         $users = User::all();
-
-        return response()->json(['activites' => $activites, 'users' => $users]);
-        
+        if (!$activites->isEmpty()) {
+            return response()->json(['activites' => $activites, 'users' => $users]);
+        }
+        return response()->json(['users' => $users]);
     }
 
-    public function index_adm(User $user) {
+    public function index_adm(User $user)
+    {
         if (auth()->user()->role != 'S') {
             return abort(403, 'you are not a super admin');
         }
-        
-        $activites = Activites::where('id_adm',$user->id)->orderByDesc('created_at')->get();
-       
-     
+
+        $activites = Activites::where('id_adm', $user->id)->orderByDesc('created_at')->get();
+
+        if (!$activites->isEmpty()) {
+            return view('historiques', [
+                'activites' => $activites,
+                'users' => $user,
+                'source' => 'index_adm'
+            ]);
+        }
 
         return view('historiques', [
-            'activites' => $activites,
             'users' => $user,
             'source' => 'index_adm'
         ]);
     }
 
-    public function type_adm(User $user,Request $request) {
+    public function type_adm(User $user, Request $request)
+    {
         if (auth()->user()->role != 'S') {
             return abort(403, 'you are not a super admin');
         }
-        
+
         $validated = $request->validate([
             'type' => 'required|string',
         ]);
 
         if ($validated['type'] == 'tous') {
-            $activites = Activites::where('id_adm',$user->id)->orderByDesc('created_at')->get();
+            $activites = Activites::where('id_adm', $user->id)->orderByDesc('created_at')->get();
         } else {
             $activites = activites::where('id_adm', $user->id)
-            ->where('type', $validated['type'])
-            ->orderBy('created_at', 'desc')
-            ->get();
+                ->where('type', $validated['type'])
+                ->orderBy('created_at', 'desc')
+                ->get();
         }
 
         $activites->transform(function ($item) {
@@ -87,7 +103,9 @@ class activiteController extends Controller
             $item->updated_at = Carbon::parse($item->updated_at)->format('d-m-Y H:i:s');
             return $item;
         });
-
-        return response()->json(['activites' => $activites, 'users' => $user]);
+        if (!$activites->isEmpty()) {
+            return response()->json(['activites' => $activites, 'users' => $user]);
+        }
+        return response()->json(['users' => $user]);
     }
 }

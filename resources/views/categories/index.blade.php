@@ -28,35 +28,65 @@
             color: rgba(245, 31, 156, 0.65);
         }
     </style>
+     <style>
+        .bg-blur {
+            position: relative;
+            overflow: hidden;
+        }
+        .bg-blur::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/jztxi.jpeg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(3px);
+            z-index: 0;
+        }
+    </style>
 
     <div class=" flex">
         <p class="text-2xl w-2/3 m-3 pl-6 font-bold capitalize">les documments</p>
-        <p class="text-xl w-1/3  m-3 pl-6 text-center"><a href="{{ route('categories.create') }}"
-                class="text-blue-600 hover:text-blue-900">Ajouter categorie</a> </p>
+        <p class="text-xl w-fit  m-3 ml-6 sm:mx-1 text-center bg-blue-500 hover:bg-blue-700 rounded p-2"><a href="{{ route('categories.create') }}"
+            class="text-white hover:text-gray-50  rounded p-2">Ajouter categorie</a> </p>
     </div>
     <div class="py-12">
         <div class="max-w-7xl mx-auto  ">
+            <script>
+                tailwind.config = {
+                    theme: {
+                        extend: {
+                            screens: {
+                                '3xl': '2000px',
+                            },
+                        },
+                    },
+                    plugins: [],
+                }
+            </script>
 
 
-            <div class=" gap-3 grid grid-cols-2 sm:grid-cols-3 justify-items-center ml-1">
+<div class=" gap-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 justify-items-center ml-1">
                 @foreach ($categories as $index=>$categorie)
                 @php
                 $source = 'group_icons/' . $index % 12 . '.png';
                 $color = 'bg-' . $index % 6;
                 @endphp
                     <a href="{{ route('categories.entre_sortie', $categorie) }}"
-                        class="h-52 w-full bg-white shadow-lg  hover:bg-gray-200   hover:border-2 hover:border-gray-200  min-w-20  flex items-center flex-col   text-center justify-center">
-                        <p class=" {{$color}} text-center  text-4xl font-bold ">{{ $categorie->nom }}</p><br>
+                        class="h-52 w-full bg-white shadow-lg rounded hover:bg-gray-200  hover:border-2 hover:border-gray-200  min-w-20  flex items-center flex-col   text-center justify-center bg-blur " >
+                        <p class="text-gray-700 text-center  text-4xl font-bold z-10">{{ $categorie->nom }}</p><br>
                         {{-- <div class="justify-between gap-1 flex min-w-1/3">
                             <p>entré:{{ $categorie->total_achetes }}</p>
                             <p>sortié:{{ $categorie->total_vendus }} </p>
                         </div> --}}
                     </a>
                 @endforeach
-                <a href="{{ route('categories_Autre.entre_sortie') }}"
-                class="h-52 w-full bg-white shadow-lg  hover:bg-gray-200   hover:border-2 hover:border-gray-200  min-w-20  flex items-center flex-col   text-center justify-center">
-               
-                    <p class="text-center text-black text-4xl font-bold ">Autre</p><br>
+                <a href="{{ route('categories.entre_sortie', $categorie) }}"
+                        class="h-52 w-full bg-white shadow-lg rounded hover:bg-gray-200  hover:border-2 hover:border-gray-200  min-w-20  flex items-center flex-col   text-center justify-center bg-blur " >
+                        <p class="text-gray-700 text-center  text-4xl font-bold z-10">Autre</p><br>
                     {{-- <div class="justify-between gap-1 flex min-w-1/3">
                         <p>entré:{{ $entres }}</p>
                         <p>sortié:{{ $sorties }} </p>

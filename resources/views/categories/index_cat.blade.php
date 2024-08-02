@@ -25,8 +25,7 @@
             Êtes-vous sûr de vouloir supprimer cette categorie?
         </div>
         <div class="flex w-2/3 justify-around">
-            <button type="button" class="btn btn-secondary" onclick="hide()"
-                data-bs-dismiss="modal">Annuler</button>
+            <button type="button" class="btn btn-secondary" onclick="hide()" data-bs-dismiss="modal">Annuler</button>
             <form action="/categories/delete" method="POST">
                 @csrf
                 @method('DELETE')
@@ -38,44 +37,48 @@
     </div>
     <div class=" flex">
         <p class="text-2xl w-2/3 m-3 pl-6 underline underline-offset-4">categories</p>
-        <p class="text-xl w-1/3  m-3 pl-6"><a href="{{ route('categories.create') }}" class="text-blue-600 hover:text-blue-900">Ajouter categorie</a> </p>
+        <p class="text-xl w-1/3  m-3 pl-6"><a href="{{ route('categories.create') }}"
+                class="text-white hover:text-gray-50 bg-blue-500 hover:bg-blue-700 rounded p-2">Ajouter categorie</a>
+        </p>
     </div>
-    @if (count($categories)>0)
-    <div class="center-modal bg-white  rounded-lg shadow-lg">
-        
-        @if(session('success'))
-            <div class="p-3 mb-4 bg-green-100 text-green-800 rounded">{{ session('success') }}</div>
-        @endif
-        <table class="w-full text-sm text-left text-gray-500 mb-14">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                <tr>
-                    <th scope="col" class="py-3 px-6 w-2/3">Nom du categorie</th>
-                    <th scope="col" class="py-3 px-6 text-center">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($categories as $categorie)
-                    <tr class="bg-white border-b hover:bg-gray-50" >
-                        <td class="py-4 px-6 w-2/3">{{ $categorie->nom }}</td>
-                        <td class="py-4 px-6 justify-center flex">
-                            <p onclick="warnning({{ $categorie->id }})"
-                                class="text-red-600 hover:text-red-900 cursor-pointer">Supprimer</p>
-                            <a href="{{ route('categories.edit', $categorie) }}" class="text-blue-600 hover:text-blue-900 ml-4">Modifier</a>
-                            <a  href="{{ route('categories.index_mar', $categorie) }}"class="text-blue-600 hover:text-blue-900 ml-4">consulter</a>
-                        </td>
+    @if (count($categories) > 0)
+        <div class="center-modal bg-white  rounded-lg shadow-lg">
+
+            @if (session('success'))
+                <div class="p-3 mb-4 bg-green-100 text-green-800 rounded">{{ session('success') }}</div>
+            @endif
+            <table class="w-full text-sm text-left text-gray-500 mb-14">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                    <tr>
+                        <th scope="col" class="py-3 px-6 w-2/3">Nom du categorie</th>
+                        <th scope="col" class="py-3 px-6 text-center">Actions</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    @foreach ($categories as $categorie)
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <td class="py-4 px-6 w-2/3">{{ $categorie->nom }}</td>
+                            <td class="py-4 px-6 justify-center flex">
+                                <p onclick="warnning({{ $categorie->id }})"
+                                    class="text-red-600 hover:text-red-900 cursor-pointer">Supprimer</p>
+                                <a href="{{ route('categories.edit', $categorie) }}"
+                                    class="text-blue-600 hover:text-blue-900 ml-4">Modifier</a>
+                                <a
+                                    href="{{ route('categories.index_mar', $categorie) }}"class="text-blue-600 hover:text-blue-900 ml-4">consulter</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     @else
-    <h2 class="text-gray-300 text-8xl select-none text-center mt-32">aucune categorie</h2>
+        <h2 class="text-gray-300 text-8xl select-none text-center mt-32">aucune categorie</h2>
     @endif
     <script>
         function warnning(id) {
             document.getElementById('deleteGroupModal').classList.remove('hidden');
             const deleteGroupIdInput = document.getElementById('deleteGroupId');
-            
+
             deleteGroupIdInput.value = id;
             document.getElementById('cont').classList.add('blur-sm');
             document.getElementById('cont').classList.add('pointer-events-none');
