@@ -185,9 +185,8 @@
     <div id="cont">
         <div class=" flex">
             <p class="text-2xl w-2/3 m-3 pl-6 font-bold capitalize">categories des marchandises</p>
-            <p class="text-xl w-1/3  m-3 pl-6 text-center"><a href="{{ route('categories.create') }}"
-                    class="text-white hover:text-gray-50 bg-blue-500 hover:bg-blue-700 rounded p-2">Ajouter
-                    categorie</a> </p>
+            <p class="text-xl w-fit  m-3 ml-6 sm:mx-1 text-center bg-blue-500 hover:bg-blue-700 rounded p-2"><a href="{{ route('categories.create') }}"
+                    class="text-white hover:text-gray-50  rounded p-2">Ajouter categorie</a> </p>
         </div>
         <div class="py-12">
             <div class="px-4 sm:px-6 lg:px-8">
@@ -275,21 +274,21 @@
                                         <!-- Premier carreau -->
                                         <a href="/marchandises/Autre" class=" p-2  w-full">
                                             <div
-                                                class="border border-gray-600  rounded-lg transform transition duration-500 hover:scale-110">
+                                            class="border border-gray-600 rounded-lg transform transition duration-500 shadow-md  shadow-blue-300 hover:scale-110 h-full">
 
+                                                <p class="leading-normal text-lg"> quantité du Stock</p>
                                                 <h6 class="title-font font-medium text-2xl text-gray-900">
                                                     {{ $entres }} </h6>
-                                                <p class="leading-normal text-lg"> quantité du Stock</S></p>
                                             </div>
                                         </a>
                                         <!-- Deuxième carreau -->
                                         <a href="/categories_Autre/documents/sorties" class="p-2  w-full">
                                             <div
-                                                class="border border-gray-600 rounded-lg transform transition duration-500 hover:scale-110">
+                                            class="border border-gray-600 rounded-lg transform transition duration-500 shadow-md  shadow-blue-300 hover:scale-110 h-full">
 
+                                                <p class="leading-normal text-lg">quantité de Sorties</p>
                                                 <h6 class="title-font font-medium text-2xl text-gray-900">
                                                     {{ $sorties }}</h6>
-                                                <p class="leading-normal text-lg">quantité de Sorties</p>
                                             </div>
                                         </a>
                                     </div>

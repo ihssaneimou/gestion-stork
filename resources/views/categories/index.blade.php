@@ -50,8 +50,8 @@
 
     <div class=" flex">
         <p class="text-2xl w-2/3 m-3 pl-6 font-bold capitalize">les documments</p>
-        <p class="text-xl w-1/3  m-3 pl-6 text-center"><a href="{{ route('categories.create') }}"
-                class="text-white hover:text-gray-50 bg-blue-500 hover:bg-blue-700 rounded p-2">Ajouter categorie</a> </p>
+        <p class="text-xl w-fit  m-3 ml-6 sm:mx-1 text-center bg-blue-500 hover:bg-blue-700 rounded p-2"><a href="{{ route('categories.create') }}"
+            class="text-white hover:text-gray-50  rounded p-2">Ajouter categorie</a> </p>
     </div>
     <div class="py-12">
         <div class="max-w-7xl mx-auto  ">
@@ -77,7 +77,7 @@
                 @endphp
                     <a href="{{ route('categories.entre_sortie', $categorie) }}"
                         class="h-52 w-full bg-white shadow-lg rounded hover:bg-gray-200  hover:border-2 hover:border-gray-200  min-w-20  flex items-center flex-col   text-center justify-center bg-blur " >
-                        <p class="text-blue-800 text-center  text-4xl font-bold z-10">{{ $categorie->nom }}</p><br>
+                        <p class="text-gray-700 text-center  text-4xl font-bold z-10">{{ $categorie->nom }}</p><br>
                         {{-- <div class="justify-between gap-1 flex min-w-1/3">
                             <p>entré:{{ $categorie->total_achetes }}</p>
                             <p>sortié:{{ $categorie->total_vendus }} </p>
@@ -86,7 +86,7 @@
                 @endforeach
                 <a href="{{ route('categories.entre_sortie', $categorie) }}"
                         class="h-52 w-full bg-white shadow-lg rounded hover:bg-gray-200  hover:border-2 hover:border-gray-200  min-w-20  flex items-center flex-col   text-center justify-center bg-blur " >
-                        <p class="text-blue-800 text-center  text-4xl font-bold z-10">Autre</p><br>
+                        <p class="text-gray-700 text-center  text-4xl font-bold z-10">Autre</p><br>
                     {{-- <div class="justify-between gap-1 flex min-w-1/3">
                         <p>entré:{{ $entres }}</p>
                         <p>sortié:{{ $sorties }} </p>
