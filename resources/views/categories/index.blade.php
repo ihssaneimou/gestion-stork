@@ -50,7 +50,7 @@
     </style>
 
     <div class=" flex items-center">
-        <p class="text-lg sm:text-2xl w-1/3 m-3 pl-6 font-bold capitalize">les documments</p>
+        <p class="text-xs sm:text-2xl w-1/3 m-3 pl-6 font-bold capitalize">les documments</p>
         <form action="{{ route('categories.index') }}" method="GET" class="relative w-full lg:w-1/3">
 
             @if (isset($search))
@@ -73,7 +73,7 @@
             </abbr>
         </form>
         <div class="w-1/3 flex justify-center">
-            <p class="text-lg sm:text-xl w-fit  m-3 ml-6 sm:mx-1 text-center bg-blue-500 hover:bg-blue-700 rounded p-2"><a
+            <p class="text-xs sm:text-xl w-fit  m-3 ml-6 sm:mx-1 text-center bg-blue-500 hover:bg-blue-700 rounded p-2"><a
                     href="{{ route('categories.create') }}" class="text-white hover:text-gray-50  rounded p-2">Ajouter
                     categorie</a> </p>
 

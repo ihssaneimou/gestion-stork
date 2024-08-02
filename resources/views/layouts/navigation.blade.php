@@ -38,9 +38,12 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        @if (auth()->user()->role == 'S')
+                            
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
+                        @endif
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
@@ -170,7 +173,7 @@
                         </g>
                     </svg>
                     <p class="ml-2">
-                        Documents
+                        Mouvements du stock
                     </p>
                 </a>
                 {{-- <a class="flex text-laravel font-medium text items-center hover:border-l-4 border-indigo-400 text-gray-600 bg-slate-100  p-3 w-full"
