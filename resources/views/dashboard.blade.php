@@ -38,7 +38,7 @@ More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
             <div class=" overflow-hidden gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-3  justify-items-center">
               
                
-                <div class="relati w-full h-full  rounded-lg p-2 overflow-hidden justify-center">
+                <a href="/marchandises" class="relati w-full h-full  rounded-lg p-2 overflow-hidden justify-center">
                     <!-- Illustration -->
                     <article class="relative h-full w-full isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40  ">
                         <img loading="lazy" src="{{asset('/mar.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
@@ -48,15 +48,10 @@ More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
                                 <h3 class="mt-3 text-3xl font-bold text-white"> les marchandises</h3>
                                 
                             </div>
-                            <div class="relative">
-                                <a class="inline-flex w-11 h-11 justify-center items-center bg-blue-400 hover:bg-blue-300 text-pink-50 hover:text-white rounded-full transition duration-150"
-                                    href="/marchandises"><span class="sr-only">Read more</span> <span
-                                        class="font-bold -mt-px">-></span></a>
-                            </div>
                         </div>
                     </article>
-                </div>
-                <div class="relati    rounded-lg  w-full h-full  p-2 overflow-hidden">
+                </a>
+                <a href="/entres/create" class="relati    rounded-lg  w-full h-full  p-2 overflow-hidden">
                     <!-- Illustration -->
                     <article class="relative h-full w-full isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
                         <img loading="lazy" src="{{asset('/ajou.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
@@ -66,18 +61,13 @@ More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
                                 <h3 class="mt-3 text-3xl font-bold text-white" > ajouter une marchandise</h3>
                                 
                             </div>
-                            <div class="relative">
-                                <a class="inline-flex w-11 h-11 justify-center items-center bg-blue-400 hover:bg-blue-300 text-pink-50 hover:text-white rounded-full transition duration-150"
-                                href="/entres/create"><span class="sr-only">Read more</span> <span
-                                class="font-bold -mt-px">-></span></a>
-                            </div>
                         </div>
                        
                     </article>
                    
-                </div>
+                </a>
 
-                <div class="relati    rounded-lg w-full  p-2 overflow-hidden">
+                <a href="/documents" class="relati    rounded-lg w-full  p-2 overflow-hidden">
                     <!-- Illustration -->
                     <article class="relative h-full w-full isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
                         <img loading="lazy" src="{{asset('/doc.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
@@ -87,18 +77,13 @@ More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
                                 <h3 class="mt-3 text-3xl font-bold text-white" > Document de stock</h3>
                                 
                             </div>
-                            <div class="relative">
-                                <a class="inline-flex w-11 h-11 justify-center items-center bg-blue-400 hover:bg-blue-300 text-pink-50 hover:text-white rounded-full transition duration-150"
-                                href="/documents"><span class="sr-only">Read more</span> <span
-                                class="font-bold -mt-px">-></span></a>
-                            </div>
                         </div>
                        
                     </article>
-                </div>  
+                </a>  
 
 
-                <div class="relati    rounded-lg  w-full h-full  p-2 overflow-hidden">
+                <a  href="/rapports" class="relati    rounded-lg  w-full h-full  p-2 overflow-hidden">
                     <!-- Illustration -->
                     <article class="relative h-full w-full isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
                         <img loading="lazy" src="{{asset('/rapp.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
@@ -108,16 +93,12 @@ More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
                                 <h3 class="mt-3 text-3xl font-bold text-white" >Rapport de stock</h3>
                                 
                             </div>
-                            <div class="relative">
-                                <a class="inline-flex w-11 h-11 justify-center items-center bg-blue-400 hover:bg-blue-300 text-pink-50 hover:text-white rounded-full transition duration-150"
-                                href="/rapports"><span class="sr-only">Read more</span> <span
-                                class="font-bold -mt-px">-></span></a>
-                            </div>
+                           
                         </div>
                        
                     </article>
-                </div>
-                <div class="relati    rounded-lg  w-full h-full   p-2 overflow-hidden">
+                </a>
+                <a  href="/scanner" class="relati    rounded-lg  w-full h-full   p-2 overflow-hidden">
                     <!-- Illustration -->
                     <article class="relative h-full w-full isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
                         <img loading="lazy" src="{{asset('/scanner.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
@@ -127,18 +108,14 @@ More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
                                 <h3 class="mt-3 text-3xl font-bold text-white" > Scanner des marchandises</h3>
                                 
                             </div>
-                            <div class="relative">
-                                <a class="inline-flex w-11 h-11 justify-center items-center bg-blue-400 hover:bg-blue-300 text-pink-50 hover:text-white rounded-full transition duration-150"
-                                href="/scanner"><span class="sr-only">Read more</span> <span
-                                class="font-bold -mt-px">-></span></a>
-                            </div>
+                            
                         </div>
                        
                     </article>
-                </div>
+                </a>
 
                 @if (auth()->user()->role == 'S')
-                <div class="relati    rounded-lg  w-full h-full   p-2 overflow-hidden">
+                <a href="/historique" class="relati    rounded-lg  w-full h-full   p-2 overflow-hidden">
                     <!-- Illustration -->
                     <article class="relative h-full w-full isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
                         <img loading="lazy" src="{{asset('/image.png')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
@@ -148,16 +125,11 @@ More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
                                 <h3 class="mt-3 text-3xl font-bold text-white" >activité des administrateurs</h3>
                                 
                             </div>
-                            <div class="relative">
-                                <a class="inline-flex w-11 h-11 justify-center items-center bg-blue-400 hover:bg-blue-300 text-pink-50 hover:text-white rounded-full transition duration-150"
-                                href="/historique"><span class="sr-only">Read more</span> <span
-                                class="font-bold -mt-px">-></span></a>
-                            </div>
                         </div>
                        
                     </article>
-                </div>
-                <div class="relati    rounded-lg  w-full h-full   p-2 overflow-hidden">
+                </a>
+                <a href="/register" class="relati    rounded-lg  w-full h-full   p-2 overflow-hidden">
                                 
                            
                                 <article class="relative h-full w-full isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
@@ -168,20 +140,16 @@ More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
                                             <h3 class="mt-3 text-3xl font-bold text-white" >Ajouter admin</h3>
                                             
                                         </div>
-                                        <div class="relative">
-                                            <a class="inline-flex w-11 h-11 justify-center items-center bg-blue-400 hover:bg-blue-300 text-pink-50 hover:text-white rounded-full transition duration-150"
-                                             href="/register"><span class="sr-only">Read more</span> <span
-                                            class="font-bold -mt-px">-></span></a>
-                                        </div>
+                                        
                                     </div>
                                    
                                 </article>
                                 
                                   
                                
-                            </div>
+                            </a>
 
-                            <div class="relati    rounded-lg  w-full h-full   p-2 overflow-hidden">
+                            <a  href="/admin/list" class="relati    rounded-lg  w-full h-full   p-2 overflow-hidden">
                                 <!-- Illustration -->
                                 <article class="relative h-full w-full isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
                                     <img loading="lazy" src="{{asset('/listadmin.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
@@ -191,18 +159,13 @@ More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
                                             <h3 class="mt-3 text-3xl font-bold text-white" > gérer les admin</h3>
                                             
                                         </div>
-                                        <div class="relative">
-                                            <a class="inline-flex w-11 h-11 justify-center items-center bg-blue-400 hover:bg-blue-300 text-pink-50 hover:text-white rounded-full transition duration-150"
-                                            href="/admin/list"><span class="sr-only">Read more</span> <span
-                                            class="font-bold -mt-px">-></span></a>
-                                        </div>
                                     </div>
                                    
                                 </article>
                                
                                      
                                
-                            </div>
+                            </a>
                         @endif
             </div>
         </div>
