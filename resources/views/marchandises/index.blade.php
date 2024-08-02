@@ -139,8 +139,8 @@
         </div>
     </div>
     <div id="cont" class="">
-        <div class=" flex">
-            <p class="sm:text-2xl w-1/3 m-3 sm:pl-6 underline underline-offset-4">marchandises</p>
+        <div class=" flex items-center" >
+            <p class="text-sm  sm:text-xl md:text-2xl w-1/3 m-3 sm:pl-6 underline underline-offset-4">marchandises</p>
             <form action="{{ route('marchandises.search', $categories) }}" method="GET"
                 class="relative w-full lg:w-1/3">
 
@@ -155,7 +155,7 @@
                 @endif
                 <abbr title="filtre juste par bar de recherch">
                     <button type="submit" name="action" value="filter"
-                        class="text-white absolute end-2.5 bottom-12 sm:bottom-14 md:bottom-7 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 sm:px-4 py-2 ">
+                        class="text-white absolute end-2.5 bottom-10 sm:bottom-14 md:bottom-7 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 sm:px-4 py-2 ">
                         <svg class="w-4 h-4 text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="none" viewBox="0 0 20 20">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -163,9 +163,11 @@
                         </svg></button>
                 </abbr>
             </form>
-            <p class="sm:text-xl w-fit bg-blue-500 hover:bg-blue-700 rounded p-2 mx-2 my-3 sm:pl-6 text-center"><a
+            <div class="w-1/3 flex justify-center">
+            <p class="text-sm  sm:text-lg  md:text-xl w-fit bg-blue-500 hover:bg-blue-700 rounded p-2 mx-2 my-3 sm:pl-6 text-center"><a
                     href="/marchandises/create/{{ $categories->id }}"
                     class="text-white hover:text-gray-50 ">Ajouter Marchendise</a></p>
+                    </div>
         </div>
         <div class="container  w-full">
             <!-- Error Message -->
