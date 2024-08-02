@@ -105,7 +105,7 @@ More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
                         <div class="relative z-10 flex justify-between items-center text-sm leading-6 text-gray-300">
                             <div>
-                                <h3 class="mt-3 text-3xl font-bold text-white" >Rapport de stock</h3>
+                                <h3 class="mt-3 text-3xl font-bold text-white" >Produits de stock</h3>
                                 
                             </div>
                             <div class="relative">
@@ -145,7 +145,7 @@ More info: https://beyondco.de/blog/tailwind-jit-compiler-via-cdn
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
                         <div class="relative z-10 flex justify-between items-center text-sm leading-6 text-gray-300">
                             <div>
-                                <h3 class="mt-3 text-3xl font-bold text-white" >activité des administrateurs</h3>
+                                <h3 class="mt-3 text-3xl font-bold text-white" >historique des activités</h3>
                                 
                             </div>
                             <div class="relative">
