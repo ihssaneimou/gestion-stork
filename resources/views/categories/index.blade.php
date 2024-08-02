@@ -68,15 +68,15 @@
                 }
             </script>
 
-
 <div class=" gap-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 justify-items-center ml-1">
+   
                 @foreach ($categories as $index=>$categorie)
                 @php
                 $source = 'group_icons/' . $index % 12 . '.png';
                 $color = 'bg-' . $index % 6;
                 @endphp
                     <a href="{{ route('categories.entre_sortie', $categorie) }}"
-                        class="h-52 w-full bg-white shadow-lg rounded hover:bg-gray-200  hover:border-2 hover:border-gray-200  min-w-20  flex items-center flex-col   text-center justify-center bg-blur " >
+                        class="h-52 w-full  shadow-lg rounded hover:bg-gray-200  hover:border-2 hover:border-gray-200  min-w-20  flex items-center flex-col   text-center justify-center bg-blue-100 " >
                         <p class="text-gray-700 text-center  text-4xl font-bold z-10">{{ $categorie->nom }}</p><br>
                         {{-- <div class="justify-between gap-1 flex min-w-1/3">
                             <p>entré:{{ $categorie->total_achetes }}</p>
@@ -85,7 +85,7 @@
                     </a>
                 @endforeach
                 <a href="{{ route('categories.entre_sortie', $categorie) }}"
-                        class="h-52 w-full bg-white shadow-lg rounded hover:bg-gray-200  hover:border-2 hover:border-gray-200  min-w-20  flex items-center flex-col   text-center justify-center bg-blur " >
+                        class="h-52 w-full  shadow-lg rounded hover:bg-gray-200  hover:border-2 hover:border-gray-200  min-w-20  flex items-center flex-col   text-center justify-center bg-blue-100" >
                         <p class="text-gray-700 text-center  text-4xl font-bold z-10">Autre</p><br>
                     {{-- <div class="justify-between gap-1 flex min-w-1/3">
                         <p>entré:{{ $entres }}</p>
