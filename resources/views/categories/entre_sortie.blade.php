@@ -233,10 +233,10 @@
                         <td class="py-4 px-2 sm:px-6 sm:justify-center sm:space-x-4 sm:flex">
                             @if ($item->type == 'entre')
                                 <button onclick="warnning('{{ $item->id }}', '{{ $item->type }}')"
-                                    class="text-red-600 hover:text-red-900">retirer</button>
+                                    class="text-red-600 hover:text-red-900">supprimer</button>
                             @else
                                 <button onclick="warnning('{{ $item->id }}', '{{ $item->type }}')"
-                                    class="text-red-600 hover:text-red-900">rajouter</button>
+                                    class="text-red-600 hover:text-red-900">supprimer</button>
                             @endif
                         </td>
                     </tr>

@@ -67,7 +67,7 @@
         <div class="">
             <div class="w-full">
                 <div class=" flex justify-center pt-2  sm:justify-end sm:mr-5 mb-10">
-                    <p class="text-2xl w-full m-3   sm:pl-6 underline underline-offset-4">Rapport</p>
+                    <p class="text-2xl w-full m-3   sm:pl-6 underline underline-offset-4">Produits de stock</p>
                     <div class="mr-5 mb-10">
                         <a href="{{ route('rapports.courbe') }}" title="courbe" aria-label="Modifier"
                             class="flex items-center text-red-500 bg-red-300 hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-opacity-50 px-3 py-2 rounded shadow-md transition duration-200">

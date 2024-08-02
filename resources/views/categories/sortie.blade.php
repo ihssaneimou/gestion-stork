@@ -234,7 +234,7 @@
                         <td class="py-4 px-2 sm:px-6">{{ $item->nom }}</td>
                         <td class="py-4 px-2 sm:px-6 sm:justify-center sm:space-x-4 sm:flex">
                             <button onclick="warnning({{ $item->id }})"
-                                class="text-red-600 hover:text-red-900">rajouter</button>
+                                class="text-red-600 hover:text-red-900">supprimer</button>
                         </td>
                     </tr>
                 @endforeach
