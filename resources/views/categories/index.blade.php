@@ -50,7 +50,7 @@
     </style>
 
     <div class=" flex items-center">
-        <p class="text-xs sm:text-2xl w-1/3 m-3 pl-6 font-bold capitalize">les documments</p>
+        <p class="text-xs sm:text-2xl w-1/3 m-3 pl-6 font-bold capitalize">Mouvements du stock</p>
         <form action="{{ route('categories.index') }}" method="GET" class="relative w-full lg:w-1/3">
 
             @if (isset($search))
