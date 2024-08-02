@@ -96,7 +96,7 @@
             @if (count($categories) > 0)
             <div class="px-4 sm:px-6 lg:px-10">
                 <div
-                    class=" gap-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 justify-items-center mx-auto p-2">
+                    class=" gap-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  justify-items-center mx-auto p-2">
 
                     @foreach ($categories as $index => $categorie)
                         @php
