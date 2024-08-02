@@ -21,10 +21,14 @@ use Intervention\Image\Facades\Image;
 class marchandiseController extends Controller
 {
 
-    public function index_cat()
+    public function index_cat(Request $request)
     {
         // Retrieve all categories
-        $categories = categories::all();
+        if ($request->search) {
+            $categories = categories::where('nom', 'like', '%' . $request->search . '%')->paginate(8);
+        }else {
+            $categories = categories::paginate(8);
+        }
 
         // Fetch total 'entres' (purchases) grouped by category ID
         $entres = marchandises::select('categories.id', DB::raw('COALESCE(SUM(marchandises.quantite), 0) as total_achetes'))
@@ -57,7 +61,12 @@ class marchandiseController extends Controller
             ->where('marchandises.id_cat', '=', null)->first();
         $sorties = $sorties->total_vendus;
         // Return the view with the categories data
-        return view('marchandises.index_cat', ['categories' => $categories, 'entres' => $entres, 'sorties' => $sorties]);
+        if ($request->search) {
+            $search=$request->search;
+            return view('marchandises.index_cat', ['categories' => $categories, 'entres' => $entres, 'sorties' => $sorties,'search'=>$search]);
+        }else {
+            return view('marchandises.index_cat', ['categories' => $categories, 'entres' => $entres, 'sorties' => $sorties]);
+        }
     }
     public function index(categories $categories)
     {

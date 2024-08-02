@@ -14,10 +14,14 @@ use Illuminate\Support\Facades\DB;
 
 class CategorieController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // Retrieve all categories
-        $categories = categories::all();
+        if ($request->search) {
+            $categories = categories::where('nom', 'like', '%' . $request->search . '%')->paginate(8);
+        }else {
+            $categories = categories::paginate(8);
+        }
 
         // Fetch total 'entres' (purchases) grouped by category ID
         $entres = marchandises::select('categories.id', DB::raw('COALESCE(SUM(marchandises.quantite), 0) as total_achetes'))
@@ -52,7 +56,12 @@ class CategorieController extends Controller
         // Return the view with the categories data
 
         // Return the view with the categories data
-        return view('categories.index', compact('categories', 'entres', 'sorties'));
+        if ($request->search) {
+            $search=$request->search;
+            return view('categories.index', compact('categories', 'entres', 'sorties','search'));
+        }else {
+            return view('categories.index', compact('categories', 'entres', 'sorties'));
+        }
     }
 
     public function index_cat()
