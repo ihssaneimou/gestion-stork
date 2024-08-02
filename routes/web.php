@@ -49,22 +49,22 @@ Route::get('/marchandise-bare/{marchandises}', [marchandiseController::class, 'g
 
 
 
-Route::get('/documents', [categorieController::class, 'index'])->name('categories.index');
-Route::get('/categories', [categorieController::class, 'index_cat'])->name('categories.index_cat');
-Route::get('/categories/create', [categorieController::class, 'create'])->name('categories.create');
-Route::post('/categories', [categorieController::class, 'store'])->name('categories.store');
-Route::put('/categories/{categorie}', [categorieController::class, 'update'])->name('categories.update');
-Route::delete('/categories/delete', [categorieController::class, 'delete'])->name('categories.delete');
-Route::get('/categories/{categories}/edit', [categorieController::class, 'edit'])->name('categories.edit'); 
-Route::get('/categories/{categories}/documents', [categorieController::class, 'entre_sortie'])->name('categories.entre_sortie'); 
-Route::get('/categories/{categories}/documents/entres', [categorieController::class, 'entre'])->name('categories.entre'); 
-Route::get('/categories/{categories}/documents/sorties', [categorieController::class, 'sortie'])->name('categories.sortie'); 
-Route::get('/categories_Autre/documents', [categorieController::class, 'entre_sortie_A'])->name('categories_Autre.entre_sortie'); 
-Route::get('/categories_Autre/documents/entres', [categorieController::class, 'entre_A'])->name('categories_Autre.entre'); 
-Route::get('/categories_Autre/documents/sorties', [categorieController::class, 'sortie_A'])->name('categories_Autre.sortie'); 
-Route::get('/categories/{categories}', [categorieController::class, 'index_mar'])->name('categories.index_mar');
-Route::get('/categories/entre/{entre}', [categorieController::class, 'index_mar_acheter'])->name('categories.index_mar_a');
-Route::get('/categories/sortie/{sorties}', [categorieController::class, 'index_mar_vendre'])->name('categories.index_mar_v');
+Route::get('/documents', [CategorieController::class, 'index'])->name('categories.index');
+Route::get('/categories', [CategorieController::class, 'index_cat'])->name('categories.index_cat');
+Route::get('/categories/create', [CategorieController::class, 'create'])->name('categories.create');
+Route::post('/categories', [CategorieController::class, 'store'])->name('categories.store');
+Route::put('/categories/{categorie}', [CategorieController::class, 'update'])->name('categories.update');
+Route::delete('/categories/delete', [CategorieController::class, 'delete'])->name('categories.delete');
+Route::get('/categories/{categories}/edit', [CategorieController::class, 'edit'])->name('categories.edit'); 
+Route::get('/categories/{categories}/documents', [CategorieController::class, 'entre_sortie'])->name('categories.entre_sortie'); 
+Route::get('/categories/{categories}/documents/entres', [CategorieController::class, 'entre'])->name('categories.entre'); 
+Route::get('/categories/{categories}/documents/sorties', [CategorieController::class, 'sortie'])->name('categories.sortie'); 
+Route::get('/categories_Autre/documents', [CategorieController::class, 'entre_sortie_A'])->name('categories_Autre.entre_sortie'); 
+Route::get('/categories_Autre/documents/entres', [CategorieController::class, 'entre_A'])->name('categories_Autre.entre'); 
+Route::get('/categories_Autre/documents/sorties', [CategorieController::class, 'sortie_A'])->name('categories_Autre.sortie'); 
+Route::get('/categories/{categories}', [CategorieController::class, 'index_mar'])->name('categories.index_mar');
+Route::get('/categories/entre/{entre}', [CategorieController::class, 'index_mar_acheter'])->name('categories.index_mar_a');
+Route::get('/categories/sortie/{sorties}', [CategorieController::class, 'index_mar_vendre'])->name('categories.index_mar_v');
 
 
 

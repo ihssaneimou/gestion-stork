@@ -52,7 +52,7 @@
     <div class=" bg-gray-100">
         <main>
             <div class="mx-4">
-                <div class="bg-gray-50 border border-gray-200 shadow-md p-10 rounded max-w-lg mx-auto mt-4">
+                <div class="bg-gray-50 border border-gray-200 shadow-md p-10 rounded max-w-2xl mx-auto mt-4">
                     <header class="text-center">
                         <h2 class="text-3xl font-bold uppercase mb-1">
                             Ajouter une Marchendise
@@ -62,52 +62,56 @@
                     <form action="{{ route('marchandises.update',$marchandise) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+                        <div class="flex items-center space-x-6 mb-6 mt-6">
+                            <div class="shrink-0">
+                              <img id='preview_img' class="h-16 w-16 object-cover rounded-full" src='/logo.jpg' />
+                            </div>
+                            <label class="fileToUpload">
+                              <span class="block w-full 
+                              rounded-full border-0
+                              text-sm font-semibold
+                              bg-violet-50 text-violet-700
+                              p-4
+                              hover::bg-violet-" >choisissez une photo</span>
+                              <input type="file" onchange="loadFile(event)" class="block w-full text-sm text-slate-500
+                                file:mr-4 file:py-2 file:px-4
+                                file:rounded-full file:border-0
+                                file:text-sm file:font-semibold
+                                file:bg-violet-50 file:text-violet-700
+                                hover:file:bg-violet-100"
+                                 name="image" accept="image/png, image/gif, image/jpeg,image/jpg"  id="fileToUpload"
+                              />
+                            </label>
+                          </div>
                         <div class="mb-6">
-                            <center>
-                                <label for="fileToUpload">
-                                    {{-- @dd($site->logo) --}}
-                                    @if (isset($marchandise->image) && $marchandise->image !== null)
-
-                                    <div class="profile-pic" id="photo" style="background-image: url('{{ asset('/storage/' . $marchandise->image) }}')">
-                                        <!-- <span class="glyphicon glyphicon-camera"></span> -->
-                                        <span>Changer Image</span>
-                                    </div>
-                                    @else
-                                        <div class="profile-pic" id="photo" style="background-image: url('/logo.jpg')">
-                                            <!-- <span class="glyphicon glyphicon-camera"></span> -->
-                                            <span>Changer Image</span>
-                                        </div>
-                                    @endif
-                                </label>
-                            </center>
-                        </div>
-                        <input type="File" name="image" accept="image/png, image/gif, image/jpeg,image/jpg" value="$marchandise->image" id="fileToUpload">
-                        <div class="mb-6">
-                            <label for="title" class="inline-block text-lg mb-2">Nom du marchandise </label>
-                            <input type="text" class="border border-gray-200 rounded p-2 w-full" value="{{ $marchandise->nom }}" name="nom"
+                            <label for="title"  class="block uppercase text-blueGray-600 text-xs font-bold mb-2">Nom du marchandise </label>
+                            <input type="text"  class="border border-gray-300 px-3 py-3 placeholder-blueGray-400 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" 
+                            value="{{ $marchandise->nom }}" name="nom"
                             placeholder="title"  />
                             @error('nom')
                             <p class="text-red-500 test-xs mt-1">{{$message}}</p>
                             @enderror
                         </div>
                         <div class="mb-6">
-                            <label for="title" class="inline-block text-lg mb-2">Code barre</label>
-                            <input type="number" class="border border-gray-200 rounded p-2 w-full" value="{{ $marchandise->barecode }}" name="barecode"
+                            <label for="title"  class="block uppercase text-blueGray-600 text-xs font-bold mb-2">Code barre</label>
+                            <input type="number" class="border border-gray-300 px-3 py-3 placeholder-blueGray-400 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" 
+                            value="{{ $marchandise->barecode }}" name="barecode"
                             placeholder="Code barre"  />
                             @error('barecode')
                             <p class="text-red-500 test-xs mt-1">{{$message}}</p>
                             @enderror
                         </div>
                         <div class="mb-6">
-                            <label for="title" class="inline-block text-lg mb-2">description</label>
+                            <label for="title"  class="block uppercase text-blueGray-600 text-xs font-bold mb-2">description</label>
                             <textarea name="description" id="" class="border border-gray-200 rounded p-2 w-full h-52"  placeholder="description">{{ $marchandise->description }}</textarea>
                             @error('description')
                             <p class="text-red-500 test-xs mt-1">{{$message}}</p>
                             @enderror
                         </div>
                         <div class="mb-6">
-                            <label for="categorie" class="inline-block text-lg mb-2">Catégorie</label>
-                            <select name="categorie" class="border border-gray-200 rounded p-2 w-full"    id="selectOption">
+                            <label for="categorie"  class="block uppercase text-blueGray-600 text-xs font-bold mb-2">Catégorie</label>
+                            <select name="categorie" class="border border-gray-300 px-3 py-3 placeholder-blueGray-400 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" 
+                               id="selectOption">
                                 @foreach ($categorie as $item)
                                     @if ($marchandise->id_cat==$item->id)
                                     <option value="{{$item->id}}" selected>{{$item->nom}}</option>
@@ -119,8 +123,9 @@
                                 <option value="add">ajouter categorie</option>
                             </select>
                             <div id="inputForm" class="hidden">
-                                <label for="newCategorie" class="inline-block text-lg mb-2">Nouvelle catégorie</label>
-                                <input type="text" id="newCategorie" name="new_categorie" class="border border-gray-200 rounded p-2 w-full" placeholder="Nouvelle catégorie">
+                                <label for="newCategorie"  class="block uppercase text-blueGray-600 text-xs font-bold mb-2">Nouvelle catégorie</label>
+                                <input type="text" id="newCategorie" name="new_categorie" class="border border-gray-300 px-3 py-3 placeholder-blueGray-400 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" 
+                            placeholder="Nouvelle catégorie">
                             </div>
                             @error('categorie')
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
