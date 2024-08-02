@@ -186,7 +186,8 @@
         <div class=" flex">
             <p class="text-2xl w-2/3 m-3 pl-6 font-bold capitalize">categories des marchandises</p>
             <p class="text-xl w-1/3  m-3 pl-6 text-center"><a href="{{ route('categories.create') }}"
-                    class="text-white hover:text-gray-50 bg-blue-500 hover:bg-blue-700 rounded p-2">Ajouter categorie</a> </p>
+                    class="text-white hover:text-gray-50 bg-blue-500 hover:bg-blue-700 rounded p-2">Ajouter
+                    categorie</a> </p>
         </div>
         <div class="py-12">
             <div class="px-4 sm:px-6 lg:px-8">
@@ -200,7 +201,7 @@
                         <div
                             class="relative h-52 w-full backdrop-blur-lg   bg-150  bg-no-repeat m-3 flex flex-col  text-center justify-center ">
                             <div
-                                class=" {{$color}}  shadow-lg h-full grid items-center rounded-md  ">
+                                class=" bg-white  shadow-xl border border-gray-300 h-full grid items-center rounded-md  ">
                                 @if (auth()->user()->role == 'S')
                                     <div class="dropdown">
                                         <button class="dropdown-toggle" type="button"
@@ -233,37 +234,40 @@
                                     <div class="container flex  w-full">
                                         <div class="grid grid-cols-2 justify-items-center  w-full m-2">
                                             <!-- Premier carreau -->
-                                            <a href="/marchandises/categories/{{ $categorie->id }}" class=" p-2 h-full w-full">
+                                            <a href="/marchandises/categories/{{ $categorie->id }}"
+                                                class=" p-2 h-full w-full">
                                                 <div
-                                                    class="border border-gray-600  rounded-lg transform transition duration-500 hover:scale-110 h-full">
-                                                   
+                                                    class="border border-gray-600  rounded-lg transform transition duration-500 shadow-md  shadow-blue-300 hover:scale-110 h-full">
+
+                                                    <p class="leading-relaxed text-lg text-black">quantité du Stock</S>
+                                                    </p>
                                                     <h6 class="title-font font-medium text-2xl text-gray-900">
                                                         {{ $categorie->total_achetes }} </h6>
-                                                    <p class="leading-relaxed text-sm text-black">quantité du Stock</S></p>
                                                 </div>
                                             </a>
                                             <!-- Deuxième carreau -->
-                                            <a href="/categories/{{ $categorie->id }}/documents/sorties" class="p-2 h-full w-full">
+                                            <a href="/categories/{{ $categorie->id }}/documents/sorties"
+                                                class="p-2 h-full w-full">
                                                 <div
-                                                    class="border border-gray-600 rounded-lg transform transition duration-500 hover:scale-110 h-full">
-                                                    
+                                                    class="border border-gray-600 rounded-lg transform transition duration-500 shadow-md  shadow-blue-300 hover:scale-110 h-full">
+
+                                                    <p class="leading-relaxed text-lg text-black">quantité de Sorties
+                                                    </p>
                                                     <h6 class="title-font font-medium text-2xl text-gray-900">
                                                         {{ $categorie->total_vendus }}</h6>
-                                                    <p class="leading-relaxed text-sm text-black">quantité de Sorties</p>
                                                 </div>
                                             </a>
                                             <!-- Ajouter d'autres carreaux si nécessaire -->
                                         </div>
-                                      
+
                                     </div>
                                 </section>
                             </div>
                         </div>
                     @endforeach
                     <div
-                        class="relative h-52 w-full backdrop-blur-lg  bg-150  bg-no-repeat m-3 flex flex-col    text-center justify-center ">
-                        <div
-                            class="bg-gray-200   shadow-lg  h-full grid items-center rounded-xl   hover:border-2 hover:border-slate-100">
+                        class="relative h-52 w-full backdrop-blur-lg   bg-150  bg-no-repeat m-3 flex flex-col  text-center justify-center ">
+                        <div class=" bg-white  shadow-xl border border-gray-300 h-full grid items-center rounded-md  ">
                             <p class="text-center  text-3xl font-bold text-gray-900  mt-3">Autre</p>
                             <section class="text-gray-700 body-font w-full">
                                 <div class="container flex  w-full">
@@ -272,20 +276,20 @@
                                         <a href="/marchandises/Autre" class=" p-2  w-full">
                                             <div
                                                 class="border border-gray-600  rounded-lg transform transition duration-500 hover:scale-110">
-                                                
+
                                                 <h6 class="title-font font-medium text-2xl text-gray-900">
                                                     {{ $entres }} </h6>
-                                                <p class="leading-relaxed text-sm"> quantité du Stock</S></p>
+                                                <p class="leading-normal text-lg"> quantité du Stock</S></p>
                                             </div>
                                         </a>
                                         <!-- Deuxième carreau -->
                                         <a href="/categories_Autre/documents/sorties" class="p-2  w-full">
                                             <div
                                                 class="border border-gray-600 rounded-lg transform transition duration-500 hover:scale-110">
-                                                
+
                                                 <h6 class="title-font font-medium text-2xl text-gray-900">
                                                     {{ $sorties }}</h6>
-                                                <p class="leading-relaxed text-sm">quantité de Sorties</p>
+                                                <p class="leading-normal text-lg">quantité de Sorties</p>
                                             </div>
                                         </a>
                                     </div>

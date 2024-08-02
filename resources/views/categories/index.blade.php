@@ -28,6 +28,25 @@
             color: rgba(245, 31, 156, 0.65);
         }
     </style>
+     <style>
+        .bg-blur {
+            position: relative;
+            overflow: hidden;
+        }
+        .bg-blur::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/jztxi.jpeg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(3px);
+            z-index: 0;
+        }
+    </style>
 
     <div class=" flex">
         <p class="text-2xl w-2/3 m-3 pl-6 font-bold capitalize">les documments</p>
@@ -57,18 +76,17 @@
                 $color = 'bg-' . $index % 6;
                 @endphp
                     <a href="{{ route('categories.entre_sortie', $categorie) }}"
-                        class="h-52 w-full bg-white shadow-lg  hover:bg-gray-200   hover:border-2 hover:border-gray-200  min-w-20  flex items-center flex-col   text-center justify-center">
-                        <p class=" {{$color}} text-center  text-4xl font-bold ">{{ $categorie->nom }}</p><br>
+                        class="h-52 w-full bg-white shadow-lg rounded hover:bg-gray-200  hover:border-2 hover:border-gray-200  min-w-20  flex items-center flex-col   text-center justify-center bg-blur " >
+                        <p class="text-blue-800 text-center  text-4xl font-bold z-10">{{ $categorie->nom }}</p><br>
                         {{-- <div class="justify-between gap-1 flex min-w-1/3">
                             <p>entré:{{ $categorie->total_achetes }}</p>
                             <p>sortié:{{ $categorie->total_vendus }} </p>
                         </div> --}}
                     </a>
                 @endforeach
-                <a href="{{ route('categories_Autre.entre_sortie') }}"
-                class="h-52 w-full bg-white shadow-lg  hover:bg-gray-200   hover:border-2 hover:border-gray-200  min-w-20  flex items-center flex-col   text-center justify-center">
-               
-                    <p class="text-center text-black text-4xl font-bold ">Autre</p><br>
+                <a href="{{ route('categories.entre_sortie', $categorie) }}"
+                        class="h-52 w-full bg-white shadow-lg rounded hover:bg-gray-200  hover:border-2 hover:border-gray-200  min-w-20  flex items-center flex-col   text-center justify-center bg-blur " >
+                        <p class="text-blue-800 text-center  text-4xl font-bold z-10">Autre</p><br>
                     {{-- <div class="justify-between gap-1 flex min-w-1/3">
                         <p>entré:{{ $entres }}</p>
                         <p>sortié:{{ $sorties }} </p>
