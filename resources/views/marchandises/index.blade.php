@@ -165,7 +165,7 @@
             </form>
             <p class="sm:text-xl w-1/3 mx-2 my-3 sm:pl-6 text-center"><a
                     href="/marchandises/create/{{ $categories->id }}"
-                    class="text-black hover:text-gray-700 bg-blue-500 hover:bg-blue-700 rounded p-2">Ajouter Marchendise</a></p>
+                    class="text-white hover:text-gray-50 bg-blue-500 hover:bg-blue-700 rounded p-2">Ajouter Marchendise</a></p>
         </div>
         <div class="container  w-full">
             <!-- Error Message -->
