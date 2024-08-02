@@ -89,7 +89,7 @@
                     </g>
                 </svg>
                 <p class="ml-4">
-                    Documents
+                    Mouvements du stock
                 </p>
             </a>
             {{-- <a class="flex text-laravel font-medium text items-center hover:border-l-4 border-indigo-400 text-gray-600 bg-slate-300  p-3 w-full"

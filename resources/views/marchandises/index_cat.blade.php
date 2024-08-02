@@ -184,7 +184,7 @@
     
     <div id="cont">
         <div class=" flex items-center">
-            <p class="text-lg sm:text-2xl w-1/3 m-3 pl-6 font-bold capitalize">categories des marchandises</p>
+            <p class="text-xs sm:text-2xl w-1/3 m-3 pl-6 font-bold capitalize">categories des marchandises</p>
             <form action="{{ route('marchandises.index_cat') }}" method="GET" class="relative w-full lg:w-1/3">
 
                 @if (isset($search))
@@ -207,15 +207,15 @@
                 </abbr>
             </form>
             <div class="w-1/3 flex justify-center">
-            <p class="text-lg sm:text-xl w-fit  m-3 ml-6 sm:mx-1 text-center bg-blue-500 hover:bg-blue-700 rounded p-2"><a href="{{ route('categories.create') }}"
+            <p class="text-xs sm:text-xl w-fit  m-3 ml-6 sm:mx-1 text-center bg-blue-500 hover:bg-blue-700 rounded p-2"><a href="{{ route('categories.create') }}"
                 class="text-white hover:text-gray-50  rounded p-2">Ajouter categorie</a> </p>
                 </div>
             </div>
             @if (count($categories) > 0)
-        <div class="py-12">
+        <div class="py-6">
             <div class="px-4 sm:px-6 lg:px-8">
                 <div
-                    class=" overflow-hidden gap-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 justify-items-center p-3">
+                    class=" overflow-hidden gap-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  justify-items-center mx-auto p-3">
 
                     @foreach ($categories as $index => $categorie)
                         @php
