@@ -225,7 +225,7 @@
                     <path fill="none" d="M0 0h24v24H0z" />
                 </svg>
                 <p class="ml-4">
-                    Scanner une marchandise
+                    Scanner un produit
                 </p>
             </a>
             {{-- <a href="/sorties/create"
