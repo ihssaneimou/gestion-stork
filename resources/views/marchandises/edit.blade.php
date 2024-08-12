@@ -132,6 +132,15 @@
                             @enderror
                         </div>
                         <div class="mb-6">
+                            <label for="title"  class="block uppercase text-blueGray-600 text-xs font-bold mb-2">quantité</label>
+                            <input type="number" class="border border-gray-300 px-3 py-3 placeholder-blueGray-400 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" 
+                            value="{{ $marchandise->quantite }}" name="quantite"
+                            placeholder="quantite"  />
+                            @error('quantite')
+                            <p class="text-red-500 test-xs mt-1">{{$message}}</p>
+                            @enderror
+                        </div>
+                        <div class="mb-6">
                             <button class="bg-blue-500 text-white rounded py-2 px-4 hover:bg-gray-600 text-lg">
                                 Soumettre
                             </button>

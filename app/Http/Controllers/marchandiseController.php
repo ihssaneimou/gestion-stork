@@ -278,7 +278,8 @@ class marchandiseController extends Controller
             'barecode' => 'nullable|numeric|unique:marchandises,barecode,' . $marchandise->id,
             'quantite' => 'integer|nullable',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
-            'categorie' => 'required'
+            'categorie' => 'required',
+            
         ]);
 
 
@@ -301,7 +302,7 @@ class marchandiseController extends Controller
         }
         $marchandise->nom = $valid['nom'];
         $marchandise->barecode = $valid['barecode'];
-
+        $marchandise->quantite = $valid['quantite'];
         $marchandise->description = $valid['description'];
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
